@@ -166,20 +166,45 @@ This is not hype. This is not guaranteed. This is doable *if we execute the safe
 
 ---
 
+### Risk 6: FDA Expert Consultation (NEW - PreCheck Alignment)
+**What:** GxP Planner is designed for FDA PreCheck Pilot Program (Executive Order 14293). If built without FDA regulatory expert review, Phases 1b–2d could misalign with PreCheck requirements.
+
+**Impact if it happens:**
+- Week 10–12: FDA expert (hired late) reviews product + identifies misalignment
+- Rework required (Type V DMF generation, URS/FRS templates, risk framework)
+- Timeline slips (June 11 → June 25)
+- Product credibility damaged ("not FDA-aligned")
+- Customer PreCheck submissions delayed (reduces competitive advantage)
+
+**How to mitigate:**
+- **Engage FDA regulatory expert Week 1** (not Week 10)
+- Expert reviews: URS/FRS templates, risk framework, equipment database, layout compliance rules, Type V DMF generation
+- Expert signs off on each phase (Weeks 1b, 2a, 2b, 2c, 2d, 3)
+- Expert produces regulatory guidance document (customer asset, marketing collateral)
+
+**Test on Friday March 22 (Week 2):** Is FDA expert engaged? Have they reviewed Phase 1b URS/FRS templates? No = risk remains.
+**If no expert:** Escalate decision (hire now or accept June 25 timeline + regulatory risk).
+
+**Cost consideration:** FDA expert is likely 4–6 hrs/week × 13 weeks = ~52 hours. Not huge, but needs budget allocation.
+**Benefit:** Product credibility ("FDA-aligned from day 1"), faster customer PreCheck submissions, reduced rework risk.
+
+---
+
 ## PROBABILITY BREAKDOWN
 
 ### June 11 Delivery (All 6 modules, 847 tests passing)
-**Probability: 65–75%** ← Most likely outcome if infrastructure ready + early phases coordinated
+**Probability: 65–75%** ← Most likely outcome if infrastructure ready + FDA expert engaged + early phases coordinated
 
 **What needs to happen:**
 - ✅ Supabase credentials Friday
+- ✅ **FDA regulatory expert engaged Week 1** (NEW - critical for PreCheck alignment)
 - ✅ Agent coordination works (no major handoff gaps)
 - ✅ Tests run fast (<1 hour)
 - ✅ Regulatory audits find zero drift
 - ✅ Budget stays on pace
 - ✅ No major discovery issues Week 5–9
 
-**If all true:** June 11 is achievable.
+**If all true:** June 11 is achievable. **If FDA expert not engaged:** Probability drops to 50–60% (rework risk in Phase 2d–3).
 
 ---
 
@@ -222,22 +247,28 @@ This is not hype. This is not guaranteed. This is doable *if we execute the safe
    - Test Supabase connection Monday 9:01 AM
    - **Impact:** Eliminates single biggest risk
 
-2. **Dependency Map Week 1 (High)**
+2. **FDA Expert Engagement Week 1 (Critical - NEW)**
+   - Hire FDA regulatory expert (PreCheck/21 CFR 211 knowledge)
+   - Expert reviews URS/FRS templates, risk framework, equipment database
+   - Expert signs off on Phase 1b/2a/2b/2c/2d outputs
+   - **Impact:** Eliminates regulatory misalignment risk + builds product credibility
+
+3. **Dependency Map Week 1 (High)**
    - Document what each phase depends on
    - Identify cross-phase risks early
    - **Impact:** Prevents cascading rework
 
-3. **Regulatory Audit Every Friday (High)**
+4. **Regulatory Audit Every Friday (High)**
    - Check URS/code traceability
    - Catch drift before it compounds
    - **Impact:** Keeps compliance proof current
 
-4. **Handoff Protocol Tested Week 1 (High)**
+5. **Handoff Protocol Tested Week 1 (High)**
    - 3-agent sign-off on Phase 1a deliverables
    - Build + Validation + QA all approve before Phase 1b starts
    - **Impact:** Validates coordination early
 
-5. **Budget Transparency Daily (Medium)**
+6. **Budget Transparency Daily (Medium)**
    - Build Orchestrator emails daily spend
    - No surprises at Friday gate
    - **Impact:** Early visibility = time to adjust
