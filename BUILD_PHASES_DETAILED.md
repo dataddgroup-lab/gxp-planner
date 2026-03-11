@@ -23,6 +23,35 @@ Every week:
 
 ---
 
+## TECH STACK (LOCKED IN)
+
+**Frontend Framework:**
+- Next.js 15 (routing, SSR, static generation)
+- TypeScript (strict mode, zero implicit any)
+- **Ant Design Enterprise** (UI components - use as-is, NO custom tweaks)
+- Tailwind CSS (spacing, utilities only - NOT for complex components)
+- react-hook-form (form state management)
+
+**Backend:**
+- Supabase (PostgreSQL + RLS + auth)
+- Serverless functions (Vercel edge)
+
+**Testing:**
+- Jest (unit tests)
+- Cypress (E2E tests)
+- Playwright (API tests)
+
+**Key Rule: NO CUSTOM COMPONENT BEHAVIOR**
+- Use Ant Design components exactly as documented
+- If component doesn't behave as needed, file issue in Ant Design, work around
+- Do NOT modify Ant Design source or create custom versions
+- Theme colors, spacing, fonts - customize only at theme level
+- Do NOT build custom form, table, modal, or input components
+
+**Why?** Avoid RanchOS trap of "little fix, little break" cycle. Use battle-tested framework, trust it works.
+
+---
+
 ## PHASE 1a: Database Foundation + RLS + Audit (Weeks 1–2)
 
 **Owner:** Systems Architect, Validation Lead, QA Team  
@@ -266,6 +295,16 @@ Every week:
 ### Deliverables
 
 **Build Team:**
+
+⚠️ **CRITICAL: Use Ant Design Enterprise (battle-tested, NO custom fiddling)**
+
+- ✅ Ant Design as base framework (use components as-is, minimal customization)
+- ✅ NO custom form behaviors (use Ant Form, don't modify it)
+- ✅ NO custom table tweaks (use Ant Table, don't rebuild)
+- ✅ NO component fiddling (if it doesn't work, file issue in Ant Design repo, work around)
+- ✅ Theme customization ONLY (colors, spacing, fonts — nothing structural)
+
+**Deliverables:**
 - ✅ Executive dashboard (health score, day-ahead plan, greeter)
 - ✅ QA dashboard (phase progress, test results, risk status)
 - ✅ Operator dashboards (role-specific views)
