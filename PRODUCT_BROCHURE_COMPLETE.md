@@ -376,8 +376,8 @@ FDA ARRIVES (SITE FIRST INSPECTION)
 
 ## TIMELINE TO MARKET
 
-### MVP Launch (April 23, 2026)
-**Week 14 of build cycle**
+### MVP Launch (June 11, 2026)
+**Week 14 of build cycle (March 12 → June 11)**
 
 What's included:
 ✅ Equipment specification engine  
@@ -406,16 +406,16 @@ What's NOT in MVP (Wave 2+):
 
 ---
 
-### Customer Onboarding (April 28 – May 15)
-- Week 15–18: First customer demo + signing
+### Customer Onboarding (June 18 – July 1)
+- Week 15–18: First customer demo + signing (June 18–25)
 - Week 19–22: First customer onboarding (4 weeks, standard timeline)
-- **May 15, 2026:** First customer goes live
+- **July 1, 2026:** First customer goes live
 
 ---
 
-### Scale-Up (May – December)
-- June: 5 customers live, $20K/month ARR
-- September: 15 customers live, $60K/month ARR
+### Scale-Up (July – December)
+- August: 5 customers live, $20K/month ARR
+- October: 15 customers live, $60K/month ARR
 - December: 30–50 customers, $120K–$240K/month ARR
 
 ---

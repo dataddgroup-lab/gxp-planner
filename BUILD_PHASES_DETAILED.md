@@ -729,10 +729,25 @@ Next milestone: [Date], [Deliverable]
 
 **All phases defined. All deliverables specified. All acceptance criteria locked. MVP is STANDALONE.**
 
-**Monday, March 12, 9 AM MDT: Build launches.**
+**Timeline: March 12 — June 11, 2026 (14 weeks)**
 
-**April 23: MVP delivery (zero integrations).**
+**Monday, March 12, 9 AM MDT:** Build launches (Phase 1a)  
+**Friday, March 15:** Gate checkpoint (Phase 1a approval)  
+**Friday, March 22:** Gate checkpoint (Phase 1b approval)  
+**Friday, March 29:** Gate checkpoint (Phase 2a approval)  
+**Friday, April 5:** Gate checkpoint (Phase 2b approval)  
+**Friday, April 12:** Gate checkpoint (Phase 2c approval)  
+**Friday, April 19:** Gate checkpoint (Phase 2d approval)  
+**Friday, April 26:** Gate checkpoint (Phase 3 approval)  
+**Friday, May 3:** Gate checkpoint (Phase 3 continued)  
+**Friday, May 10:** Gate checkpoint (Phase 4 start approval)  
+**Friday, May 17:** Gate checkpoint (Phase 4 continued)  
+**Friday, May 24:** Gate checkpoint (Phase 4 continued)  
+**Friday, May 31:** Gate checkpoint (Phase 4 near-complete)  
+**Wednesday, June 11, 5 PM MDT:** MVP delivery (all 6 modules, 847 tests passing, inspection-ready)
 
-**May 15: First customer revenue.**
+**Tuesday, June 18:** First customer demo  
+**Wednesday, June 25:** First customer signed  
+**Wednesday, July 1:** First customer revenue
 
-Let's build something groundbreaking.
+**No exceptions. $2,300 budget. Real dates. Full scope.**
