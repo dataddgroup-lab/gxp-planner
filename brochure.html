@@ -4,776 +4,982 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universal GxP Facility Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8f9fb;
+            color: #1a202c;
             line-height: 1.6;
-            color: #1a1a1a;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
-            min-height: 100vh;
         }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0;
-        }
-        
-        /* HEADER */
-        header {
-            background: linear-gradient(135deg, #0066cc 0%, #003d99 50%, #001a4d 100%);
-            color: white;
-            padding: 100px 40px;
-            text-align: center;
+
+        /* ===== HERO ===== */
+        .hero {
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, #0052cc 0%, #0041a3 50%, #001a4d 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
         }
-        
-        header::before {
+
+        .hero::before {
             content: '';
             position: absolute;
             top: -50%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: rgba(255,255,255,0.05);
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
             border-radius: 50%;
-            z-index: 0;
+            animation: float 20s ease-in-out infinite;
         }
-        
-        header::after {
+
+        .hero::after {
             content: '';
             position: absolute;
             bottom: -30%;
-            left: 5%;
-            width: 400px;
-            height: 400px;
-            background: rgba(255,255,255,0.03);
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
             border-radius: 50%;
-            z-index: 0;
+            animation: float 25s ease-in-out infinite reverse;
         }
-        
-        header > * {
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
             position: relative;
             z-index: 1;
+            max-width: 900px;
+            padding: 40px;
         }
-        
-        header h1 {
-            font-size: 56px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            letter-spacing: -1px;
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            animation: slideUp 0.8s ease-out;
         }
-        
-        header p {
+
+        .hero p {
             font-size: 24px;
-            opacity: 0.95;
             font-weight: 300;
+            opacity: 0.95;
+            margin-bottom: 15px;
+            animation: slideUp 0.8s ease-out 0.1s both;
         }
-        
-        header .subtitle {
+
+        .hero .subtitle {
             font-size: 16px;
             opacity: 0.85;
-            margin-top: 20px;
             font-weight: 400;
+            animation: slideUp 0.8s ease-out 0.2s both;
         }
-        
-        /* SECTIONS */
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            .hero h1 {
+                font-size: 42px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+        }
+
+        /* ===== SECTIONS ===== */
         section {
+            margin: 100px auto;
+            padding: 80px 0;
+        }
+
+        section:nth-child(even) {
+            background: #f8f9fb;
+        }
+
+        section:nth-child(odd) {
             background: white;
-            margin: 40px 40px;
-            padding: 60px 50px;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
-        section:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
-        }
-        
+
         h2 {
-            color: #0066cc;
-            font-size: 42px;
-            font-weight: 800;
-            margin-bottom: 30px;
-            border-bottom: 3px solid #0066cc;
-            padding-bottom: 15px;
-            display: inline-block;
+            font-size: 56px;
+            font-weight: 900;
+            color: #0052cc;
+            margin-bottom: 40px;
+            letter-spacing: -1.5px;
         }
-        
+
         h3 {
-            color: #003d99;
             font-size: 28px;
             font-weight: 700;
-            margin: 30px 0 20px 0;
+            color: #0041a3;
+            margin-bottom: 20px;
         }
-        
+
         p {
             font-size: 16px;
             line-height: 1.8;
-            color: #444;
-            margin-bottom: 15px;
+            color: #475569;
+            margin-bottom: 20px;
         }
-        
-        /* GRID CARDS */
-        .grid {
+
+        /* ===== PROBLEM SECTION ===== */
+        .problem-flow {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 50px 0;
+            align-items: center;
         }
-        
-        .card {
-            background: linear-gradient(135deg, #f0f5ff 0%, #e8f0ff 100%);
+
+        .flow-box {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 4px solid #ff6b6b;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .flow-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .flow-box h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 10px;
+        }
+
+        .flow-box p {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .flow-arrow {
+            font-size: 32px;
+            color: #cbd5e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .problem-result {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+            border-left: 5px solid #ff6b6b;
             padding: 35px;
             border-radius: 12px;
-            border-left: 5px solid #0066cc;
-            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .problem-result h4 {
+            color: #ff6b6b;
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .problem-result p {
+            color: #c53030;
+            font-weight: 500;
+        }
+
+        /* ===== SOLUTION GRID ===== */
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .solution-card {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+            padding: 40px 30px;
+            border-radius: 16px;
+            border-left: 5px solid #0052cc;
             position: relative;
             overflow: hidden;
+            transform: translateY(0);
+            transition: all 0.3s ease;
         }
-        
-        .card::before {
+
+        .solution-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200px;
-            height: 200px;
-            background: rgba(0,102,204,0.05);
-            border-radius: 50%;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(0,82,204,0.1);
+            border-radius: 0 0 0 100px;
         }
-        
-        .card > * {
+
+        .solution-card:hover {
+            transform: translateY(-10px);
+            background: linear-gradient(135deg, #e8eeff 0%, #dfe8ff 100%);
+            box-shadow: 0 20px 50px rgba(0,82,204,0.15);
+        }
+
+        .solution-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0052cc;
+            margin-bottom: 12px;
             position: relative;
             z-index: 1;
         }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,102,204,0.2);
-            background: linear-gradient(135deg, #e8f0ff 0%, #dfe8ff 100%);
-        }
-        
-        .card h4 {
-            color: #0066cc;
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-        
-        .card p {
+
+        .solution-card p {
             font-size: 15px;
-            color: #555;
+            color: #475569;
             line-height: 1.7;
-        }
-        
-        /* PROBLEM/SOLUTION VISUAL */
-        .visual-flow {
-            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
-            border: 2px solid #ff6b6b;
-            border-radius: 12px;
-            padding: 30px;
-            margin: 25px 0;
-            font-family: 'Monaco', monospace;
-            font-size: 14px;
-            line-height: 1.8;
-            color: #d32f2f;
-            overflow-x: auto;
             position: relative;
+            z-index: 1;
         }
-        
-        .visual-flow::before {
-            content: '⚠️ PROBLEM';
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: #ff6b6b;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        /* SOLUTION VISUAL */
-        .solution-flow {
-            background: linear-gradient(135deg, #f0fff4 0%, #e8ffe8 100%);
-            border: 2px solid #0066cc;
-            border-radius: 12px;
-            padding: 30px;
-            margin: 25px 0;
-            font-family: 'Monaco', monospace;
-            font-size: 14px;
-            line-height: 1.8;
-            color: #0066cc;
-            overflow-x: auto;
-            position: relative;
-        }
-        
-        .solution-flow::before {
-            content: '✓ SOLUTION';
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: #0066cc;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        /* STEPS */
-        .steps {
+
+        /* ===== WORKFLOW SECTION ===== */
+        .workflow-section {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin: 60px 0;
+        }
+
+        .workflow-content h3 {
+            margin-bottom: 30px;
+        }
+
+        .workflow-steps {
+            display: flex;
+            flex-direction: column;
             gap: 20px;
-            margin: 30px 0;
         }
-        
-        .step {
-            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
-            border-left: 5px solid #0066cc;
-            padding: 25px 30px;
-            border-radius: 8px;
-            position: relative;
-            padding-left: 60px;
+
+        .workflow-step {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
         }
-        
-        .step::before {
-            content: attr(data-step);
-            position: absolute;
-            left: 15px;
-            top: 20px;
-            background: #0066cc;
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #0052cc 0%, #0041a3 100%);
             color: white;
-            width: 30px;
-            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 5px;
+        }
+
+        .step-content p {
             font-size: 14px;
-        }
-        
-        .step strong {
-            color: #003d99;
-            font-size: 16px;
-            display: block;
-            margin-bottom: 8px;
-        }
-        
-        /* TIMELINE */
-        .timeline {
-            position: relative;
-            padding: 40px 0;
-        }
-        
-        .timeline-item {
-            padding-left: 40px;
-            margin: 25px 0;
-            position: relative;
-            padding-top: 10px;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            width: 16px;
-            height: 16px;
-            background: linear-gradient(135deg, #0066cc 0%, #003d99 100%);
-            border-radius: 50%;
-            position: absolute;
-            left: 0;
-            top: 15px;
-            box-shadow: 0 0 0 4px rgba(0,102,204,0.2);
-        }
-        
-        .timeline-item::after {
-            content: '';
-            width: 3px;
-            height: 50px;
-            background: linear-gradient(180deg, #0066cc 0%, transparent 100%);
-            position: absolute;
-            left: 6px;
-            top: 35px;
-        }
-        
-        .timeline-item:last-child::after {
-            display: none;
-        }
-        
-        .timeline-item strong {
-            color: #003d99;
-            font-size: 16px;
-            display: block;
-            margin-bottom: 8px;
-        }
-        
-        .timeline-item p {
-            color: #666;
+            color: #718096;
             margin: 0;
         }
-        
-        /* PRICE CARDS */
-        .price-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            margin: 30px 0;
+
+        .workflow-visual {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+            padding: 40px;
+            border-radius: 16px;
+            border: 2px solid #0052cc;
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #0052cc;
+            overflow-x: auto;
         }
-        
-        .price-card {
-            background: linear-gradient(135deg, #0066cc 0%, #003d99 100%);
+
+        @media (max-width: 1024px) {
+            .workflow-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* ===== PRICING ===== */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .pricing-card {
+            background: linear-gradient(135deg, #0052cc 0%, #0041a3 100%);
             color: white;
-            padding: 40px 30px;
+            padding: 45px 30px;
             border-radius: 16px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,102,204,0.3);
-            transition: transform 0.3s ease;
             position: relative;
             overflow: hidden;
+            transform: scale(1);
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 40px rgba(0,82,204,0.2);
         }
-        
-        .price-card::before {
+
+        .pricing-card::before {
             content: '';
             position: absolute;
             top: -50%;
             right: -50%;
-            width: 200px;
-            height: 200px;
+            width: 300px;
+            height: 300px;
             background: rgba(255,255,255,0.1);
             border-radius: 50%;
         }
-        
-        .price-card > * {
+
+        .pricing-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 60px rgba(0,82,204,0.3);
+        }
+
+        .pricing-card > * {
             position: relative;
             z-index: 1;
         }
-        
-        .price-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,102,204,0.4);
-        }
-        
-        .price-card h4 {
+
+        .pricing-card h3 {
+            color: white;
             font-size: 24px;
-            font-weight: 700;
             margin-bottom: 10px;
         }
-        
-        .price-card p {
-            color: rgba(255,255,255,0.9);
+
+        .pricing-card .subtitle {
             font-size: 14px;
-            margin: 0;
+            opacity: 0.9;
+            margin-bottom: 20px;
         }
-        
-        .price-card .amount {
+
+        .pricing-amount {
             font-size: 48px;
-            font-weight: 800;
+            font-weight: 900;
             margin: 20px 0;
             display: block;
         }
-        
-        /* TABLE */
+
+        .pricing-period {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        /* ===== COMPARISON TABLE ===== */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 30px 0;
-            border-radius: 8px;
+            margin: 50px 0;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        
+
         .comparison-table thead {
-            background: linear-gradient(135deg, #0066cc 0%, #003d99 100%);
+            background: linear-gradient(135deg, #0052cc 0%, #0041a3 100%);
             color: white;
         }
-        
+
         .comparison-table th {
-            padding: 18px 20px;
+            padding: 20px;
             text-align: left;
             font-weight: 700;
             font-size: 15px;
         }
-        
+
         .comparison-table td {
             padding: 18px 20px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
         }
-        
-        .comparison-table tbody tr {
-            transition: background 0.2s;
+
+        .comparison-table tbody tr:last-child td {
+            border-bottom: none;
         }
-        
+
         .comparison-table tbody tr:hover {
-            background: #f5f7fa;
+            background: #f8fafc;
         }
-        
+
         .check {
-            color: #0066cc;
+            color: #0052cc;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 20px;
         }
-        
+
         .cross {
-            color: #999;
+            color: #cbd5e0;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 20px;
         }
-        
-        /* HIGHLIGHT BOX */
-        .highlight {
-            background: linear-gradient(135deg, #fffbf0 0%, #fff8f0 100%);
-            border-left: 5px solid #ff8c42;
-            padding: 25px 30px;
-            border-radius: 8px;
-            margin: 25px 0;
+
+        /* ===== TIMELINE ===== */
+        .timeline {
+            position: relative;
+            margin: 60px 0;
+            padding: 40px 0;
         }
-        
-        .highlight p {
-            margin: 10px 0;
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #0052cc 0%, transparent 100%);
+            transform: translateX(-50%);
         }
-        
-        /* FOOTER */
-        footer {
-            background: linear-gradient(135deg, #0066cc 0%, #003d99 100%);
-            color: white;
-            text-align: center;
-            padding: 60px 40px;
-            margin-top: 60px;
+
+        .timeline-items {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
         }
-        
-        footer h3 {
-            color: white;
-            font-size: 32px;
-            margin-bottom: 10px;
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 60px 1fr;
+            gap: 30px;
+            align-items: center;
+            animation: slideUp 0.6s ease-out;
         }
-        
-        footer p {
-            color: rgba(255,255,255,0.95);
-            margin: 5px 0;
+
+        .timeline-item:nth-child(even) .timeline-content {
+            grid-column: 3;
+            text-align: left;
         }
-        
-        .cta-button {
-            display: inline-block;
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            grid-column: 2;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            grid-column: 1;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            grid-column: 2;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
             background: white;
-            color: #0066cc;
-            padding: 12px 30px;
-            border-radius: 8px;
+            border: 4px solid #0052cc;
+            border-radius: 50%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-content h4 {
+            font-size: 18px;
             font-weight: 700;
-            margin-top: 20px;
-            text-decoration: none;
-            transition: all 0.3s;
+            color: #0052cc;
+            margin-bottom: 8px;
         }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+        .timeline-content p {
+            font-size: 14px;
+            color: #718096;
+            margin: 0;
         }
-        
-        /* RESPONSIVE */
+
         @media (max-width: 768px) {
-            header {
-                padding: 60px 20px;
+            .timeline::before {
+                left: 10px;
             }
-            
-            header h1 {
-                font-size: 36px;
+            .timeline-item {
+                grid-template-columns: 40px 1fr;
+                gap: 20px;
             }
-            
-            header p {
-                font-size: 18px;
+            .timeline-item:nth-child(even) .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content {
+                grid-column: 2;
+                text-align: left;
             }
-            
-            section {
-                margin: 20px;
-                padding: 30px 20px;
-            }
-            
-            h2 {
-                font-size: 28px;
-            }
-            
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .price-grid {
-                grid-template-columns: 1fr;
-            }
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, #0052cc 0%, #0041a3 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        footer h2 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            color: rgba(255,255,255,0.9);
+            font-size: 16px;
+        }
+
+        footer .footer-subtext {
+            margin-top: 30px;
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        /* ===== UTILITIES ===== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-100 {
+            margin-top: 100px;
+        }
+
+        .mb-40 {
+            margin-bottom: 40px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #fff5f5 0%, #fff0f0 100%);
+            border-left: 4px solid #ff6b6b;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .success-box {
+            background: linear-gradient(120deg, #f0fff4 0%, #e8ffe8 100%);
+            border-left: 4px solid #0052cc;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            color: #0052cc;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- HEADER -->
-        <header>
-            <h1>🔬 Universal GxP Facility Planner</h1>
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Universal GxP Facility Planner</h1>
             <p>From Equipment Selection to FDA Approval</p>
             <p class="subtitle">The Only End-to-End Platform That Integrates Everything</p>
-        </header>
+        </div>
+    </div>
 
-        <!-- PROBLEM -->
-        <section>
+    <!-- PROBLEM -->
+    <section>
+        <div class="container">
             <h2>The Problem</h2>
             <p>Facility managers today face a completely broken process:</p>
-            
-            <div class="visual-flow">Equipment Vendor  →  Layout Designer  →  Validation Consultant
-       ↓                  ↓                        ↓
-  NO INTEGRATION   NO VISIBILITY          NO COORDINATION
-       ↓                  ↓                        ↓
-WRONG EQUIPMENT   NON-COMPLIANT        VALIDATION CHAOS
-   PURCHASED         PLACEMENT            MISSED DATES
-       ↓                  ↓                        ↓
-         🚨 FDA ARRIVES: FACILITY NOT READY 🚨
-      6-month delays  |  $1M+ cost overruns
-            </div>
-            
-            <p><strong>Result:</strong> 24-month projects, $2.5M budgets, inspection failures. Better way exists.</p>
-        </section>
 
-        <!-- SOLUTION -->
-        <section>
+            <div class="problem-flow">
+                <div class="flow-box">
+                    <h4>Equipment Vendors</h4>
+                    <p>Biased, no compliance checking, isolated decisions</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">
+                    <h4>Layout Designers</h4>
+                    <p>Beautiful CAD, zero GxP intelligence, disconnected</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">
+                    <h4>Validation Consultants</h4>
+                    <p>Manual processes, scope creep, missed requirements</p>
+                </div>
+            </div>
+
+            <div class="problem-result">
+                <h4>🚨 Result: FDA Arrives — Facility NOT Ready</h4>
+                <p>6-month delays | $1M+ cost overruns | Inspection failures</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section>
+        <div class="container">
             <h2>The Solution</h2>
             <p><strong>One integrated system guides you from concept to FDA approval.</strong></p>
-            
-            <div class="solution-flow">Equipment Spec  →  Layout Design  →  Validation  →  Risk  →  Readiness  →  Compliance Proof
-    ↓                ↓                 ↓              ↓          ↓                  ↓
- RIGHT EQUIPMENT  COMPLIANT      ORCHESTRATED   MITIGATED  FORECAST       FDA READY ✓
-  SELECTED        PLACEMENT       WORKFLOW       RISKS      TIMELINE      INSPECTION
-                                                                          APPROVED ✓
-            </div>
-            
-            <div class="grid">
-                <div class="card">
+
+            <div class="solution-grid">
+                <div class="solution-card">
                     <h4>✓ Equipment Spec</h4>
                     <p>System suggests compliant equipment, checks conflicts, estimates cost & timeline</p>
                 </div>
-                <div class="card">
+                <div class="solution-card">
                     <h4>✓ Layout Design</h4>
                     <p>2D design tool with real-time compliance checking (ISO 14644)</p>
                 </div>
-                <div class="card">
+                <div class="solution-card">
                     <h4>✓ Validation</h4>
                     <p>Orchestrates URS → FRS → IQ/OQ/PQ → VSR with phase gating</p>
                 </div>
-                <div class="card">
+                <div class="solution-card">
                     <h4>✓ Risk Management</h4>
                     <p>Identifies risks, scores them, tracks mitigations to closure</p>
                 </div>
-                <div class="card">
+                <div class="solution-card">
                     <h4>✓ Readiness Forecast</h4>
                     <p>Shows % complete, velocity, exact date when inspection-ready</p>
                 </div>
-                <div class="card">
+                <div class="solution-card">
                     <h4>✓ Compliance Proof</h4>
                     <p>Real-time dashboard: 847 tests passing, all standards verified</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- EQUIPMENT FLOW -->
-        <section>
-            <h2>Flow 1: Equipment Specification</h2>
+    <!-- EQUIPMENT FLOW -->
+    <section>
+        <div class="container">
+            <h2>Equipment Specification</h2>
             
-            <div class="steps">
-                <div class="step" data-step="1">
-                    <strong>Tell the system what you need</strong>
-                    <p>"I need HPLC, 24 samples/day, under $200K, 8-week lead time"</p>
+            <div class="workflow-section">
+                <div class="workflow-content">
+                    <h3>Pick the RIGHT Equipment</h3>
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Tell System What You Need</h4>
+                                <p>"HPLC, 24 samples/day, $200K, 8-week lead time"</p>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Get Compliant Options</h4>
+                                <p>Waters ✓ | Shimadzu ✓ | Budget ✗</p>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Check Conflicts</h4>
+                                <p>"Can HPLC + GC fit?" → YES | $850K | 9 weeks</p>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Approve & Buy</h4>
+                                <p>Equipment ordered with confidence</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="step" data-step="2">
-                    <strong>System suggests compliant options</strong>
-                    <p>Waters ACQUITY ✓  |  Shimadzu ✓  |  Budget HPLC ✗</p>
-                </div>
-                <div class="step" data-step="3">
-                    <strong>System checks conflicts</strong>
-                    <p>"Can HPLC + GC both fit in 10'x15' space?" → YES ✓ | Cost: $850K | Timeline: 9 weeks</p>
-                </div>
-                <div class="step" data-step="4">
-                    <strong>Approve & buy</strong>
-                    <p style="color: #0066cc; font-weight: bold;">Equipment ordered (no surprises)</p>
+                <div class="workflow-visual">
+Equipment Database
+├─ HPLC (Waters)
+│  ├─ Size: 2m × 1.5m
+│  ├─ Power: 15A 220V
+│  ├─ Cost: $150K
+│  └─ Lead: 8 weeks
+├─ GC (Shimadzu)
+│  ├─ Size: 1.5m × 1m
+│  ├─ Power: 10A 220V
+│  ├─ Cost: $80K
+│  └─ Lead: 6 weeks
+└─ Available Space: 10m × 8m
+   └─ Compliant: YES ✓
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- LAYOUT FLOW -->
-        <section>
-            <h2>Flow 2: Layout Design</h2>
-            
-            <div class="steps">
-                <div class="step" data-step="1">
-                    <strong>Drag equipment onto 2D canvas</strong>
-                    <p>🔷 HPLC  |  🔶 Fume Hood  |  🔷 Balance  |  🔷 Sink</p>
+    <!-- LAYOUT FLOW -->
+    <section>
+        <div class="container">
+            <h2>Layout Design</h2>
+
+            <div class="workflow-section">
+                <div class="workflow-visual">
+FACILITY LAYOUT
+┌────────────────────────┐
+│ ISO Class B Cleanroom  │
+│ ┌──────────────────┐   │
+│ │ HPLC ✓ (3m clear)│   │
+│ └──────────────────┘   │
+│ ┌──────────────────┐   │
+│ │ Fume Hood ✓     │   │
+│ └──────────────────┘   │
+│ ┌──────────────────┐   │
+│ │ Balance ✓       │   │
+│ └──────────────────┘   │
+│ ┌──────────────────┐   │
+│ │ Sink ✓ (utilities)│   │
+│ └──────────────────┘   │
+└────────────────────────┘
                 </div>
-                <div class="step" data-step="2">
-                    <strong>System checks compliance in REAL-TIME</strong>
-                    <p>HPLC ✓ (3m clearance)  |  Fume hood ✓ (ductwork)  |  Balance ✗ (move away from A/C)  |  Sink ✓</p>
-                </div>
-                <div class="step" data-step="3">
-                    <strong>Fix issues</strong>
-                    <p>System guides you through each correction</p>
-                </div>
-                <div class="step" data-step="4">
-                    <strong>Export design</strong>
-                    <p>PDF for contractors  |  DWG for engineers  |  Floor plans for teams</p>
+                <div class="workflow-content">
+                    <h3>Design Facility That FDA Approves</h3>
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Drag Equipment onto Canvas</h4>
+                                <p>2D layout designer, intuitive interface</p>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Real-Time Compliance Checking</h4>
+                                <p>System validates spacing, clearances, utilities</p>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Fix Issues (System Guides You)</h4>
+                                <p>Red X = non-compliant | Green ✓ = approved</p>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Export Design</h4>
+                                <p>PDF for contractors | DWG for engineers</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- VALIDATION FLOW -->
-        <section>
-            <h2>Flow 3: Validation Lifecycle</h2>
-            <p>7 phases, no skipping, system tracks everything.</p>
-            
+    <!-- VALIDATION -->
+    <section>
+        <div class="container">
+            <h2 class="text-center mb-40">Validation Lifecycle</h2>
+            <p class="text-center">7 phases, no skipping, system tracks everything</p>
+
             <div class="timeline">
-                <div class="timeline-item">
-                    <strong>Phase 1: URS</strong>
-                    <p>User Requirements Specification — 150 requirements documented</p>
-                </div>
-                <div class="timeline-item">
-                    <strong>Phase 2: FRS</strong>
-                    <p>Functional Requirements Specification — 150 solutions mapped</p>
-                </div>
-                <div class="timeline-item">
-                    <strong>Phase 3: DS</strong>
-                    <p>Design Specification — Detailed design complete</p>
-                </div>
-                <div class="timeline-item">
-                    <strong>Phase 4: IQ</strong>
-                    <p>Installation Qualification — 50 tests <span style="color: #0066cc; font-weight: bold;">✓ PASS</span></p>
-                </div>
-                <div class="timeline-item">
-                    <strong>Phase 5: OQ</strong>
-                    <p>Operational Qualification — 100 tests <span style="color: #0066cc; font-weight: bold;">✓ PASS</span></p>
-                </div>
-                <div class="timeline-item">
-                    <strong>Phase 6: PQ</strong>
-                    <p>Performance Qualification — 200 tests <span style="color: #0066cc; font-weight: bold;">✓ PASS</span></p>
-                </div>
-                <div class="timeline-item">
-                    <strong>Phase 7: VSR</strong>
-                    <p>Validation Summary Report — <span style="color: #0066cc; font-weight: bold;">✓ FDA-READY</span></p>
-                </div>
-            </div>
-        </section>
-
-        <!-- RISK & READINESS -->
-        <section>
-            <h2>Flow 4 & 5: Risk + Readiness</h2>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-                <div>
-                    <h3>Risk Management</h3>
-                    <div class="steps">
-                        <div class="step" data-step="1">
-                            <strong>Identify risks</strong>
-                            <p>What could go wrong?</p>
+                <div class="timeline-items">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Phase 1: URS</h4>
+                            <p>User Requirements — 150 requirements documented</p>
                         </div>
-                        <div class="step" data-step="2">
-                            <strong>Score risks</strong>
-                            <p>Likelihood × Severity = Score</p>
-                        </div>
-                        <div class="step" data-step="3">
-                            <strong>Plan mitigations</strong>
-                            <p>How will we prevent/detect?</p>
-                        </div>
-                        <div class="step" data-step="4">
-                            <strong>Track & verify</strong>
-                            <p style="color: #0066cc; font-weight: bold;">All risks mitigated ✓</p>
-                        </div>
+                        <div class="timeline-dot"></div>
                     </div>
-                </div>
-                
-                <div>
-                    <h3>Readiness Forecast</h3>
-                    <div class="highlight">
-                        <p><strong>TODAY: March 1</strong></p>
-                        <p>URS:   ████████░░░░░░░░░░ 80%</p>
-                        <p>FRS:   ████░░░░░░░░░░░░░░░░ 30%</p>
-                        <p>IQ:    ░░░░░░░░░░░░░░░░░░░░░░ 0%</p>
-                        <p>OQ:    ░░░░░░░░░░░░░░░░░░░░░░ 0%</p>
-                        <p>PQ:    ░░░░░░░░░░░░░░░░░░░░░░ 0%</p>
-                        <p style="margin-top: 15px; font-weight: bold;">Overall: 55% complete</p>
-                        <p style="font-weight: bold;">Velocity: 15% per week</p>
-                        <p style="color: #0066cc; font-weight: bold; font-size: 18px;">📅 Ready: June 15 ✓</p>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Phase 2: FRS</h4>
+                            <p>Functional Requirements — 150 solutions mapped</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Phase 3: DS</h4>
+                            <p>Design Specification — Detailed design complete</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Phase 4: IQ</h4>
+                            <p>Installation Qualification — 50 tests <span style="color: #0052cc; font-weight: bold;">✓ PASS</span></p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Phase 5: OQ</h4>
+                            <p>Operational Qualification — 100 tests <span style="color: #0052cc; font-weight: bold;">✓ PASS</span></p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Phase 6: PQ</h4>
+                            <p>Performance Qualification — 200 tests <span style="color: #0052cc; font-weight: bold;">✓ PASS</span></p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Phase 7: VSR</h4>
+                            <p>Validation Summary Report — <span style="color: #0052cc; font-weight: bold;">✓ FDA-READY</span></p>
+                        </div>
+                        <div class="timeline-dot"></div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- COMPLIANCE DASHBOARD -->
-        <section>
-            <h2>Flow 6: Compliance Dashboard</h2>
-            <p>Show FDA proof. Real-time.</p>
-            
-            <div style="background: linear-gradient(135deg, #f0f5ff 0%, #e8f0ff 100%); padding: 30px; border-radius: 12px; border: 2px solid #0066cc; margin: 20px 0;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div>
-                        <p style="font-weight: bold; color: #003d99; margin-bottom: 15px;">✓ SYSTEM STATUS</p>
-                        <p>Tests Passing: <span style="color: #0066cc; font-weight: bold;">847/847 ✓</span></p>
-                        <p>Code Coverage: <span style="color: #0066cc; font-weight: bold;">88% ✓</span></p>
-                        <p>Security: <span style="color: #0066cc; font-weight: bold;">0 vulnerabilities ✓</span></p>
-                        <p>Performance: <span style="color: #0066cc; font-weight: bold;">API &lt;200ms ✓</span></p>
-                    </div>
-                    <div>
-                        <p style="font-weight: bold; color: #003d99; margin-bottom: 15px;">✓ COMPLIANCE VERIFIED</p>
-                        <p>21 CFR Part 11 (FDA) <span style="color: #0066cc;">✓</span></p>
-                        <p>HIPAA (Data Protection) <span style="color: #0066cc;">✓</span></p>
-                        <p>GDPR (Privacy) <span style="color: #0066cc;">✓</span></p>
-                        <p>ISO 27001 (Security) <span style="color: #0066cc;">✓</span></p>
-                    </div>
-                </div>
-                
-                <p style="margin-top: 20px; text-align: center; font-weight: bold; color: #003d99;">
-                    📄 Reports Available: Compliance  |  Test Results  |  Risk Register  |  Audit Trail
-                </p>
-            </div>
-        </section>
+    <!-- RISK & READINESS -->
+    <section>
+        <div class="container">
+            <h2 class="mb-40">Risk Management & Readiness</h2>
 
-        <!-- PRICING -->
-        <section>
-            <h2>Pricing</h2>
-            <p>SaaS plans that scale with your facility.</p>
-            
-            <div class="price-grid">
-                <div class="price-card">
-                    <h4>Starter</h4>
-                    <p>Small QC Lab</p>
-                    <span class="amount">$2K</span>
-                    <p>/month</p>
+            <div class="workflow-section" style="margin-bottom: 60px;">
+                <div class="workflow-content">
+                    <h3>Identify & Mitigate Risks</h3>
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Identify Risks</h4>
+                                <p>What could go wrong?</p>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Score Risks</h4>
+                                <p>Likelihood × Severity = Score</p>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Plan Mitigations</h4>
+                                <p>How will we prevent/detect?</p>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Track & Verify</h4>
+                                <p style="color: #0052cc; font-weight: bold;">All risks mitigated ✓</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="price-card">
-                    <h4>Professional</h4>
-                    <p>Mid-Facility</p>
-                    <span class="amount">$4K</span>
-                    <p>/month</p>
-                </div>
-                <div class="price-card">
-                    <h4>Enterprise</h4>
-                    <p>Large Campus</p>
-                    <span class="amount">$6K+</span>
-                    <p>/month</p>
+
+                <div class="success-box">
+                    <p><strong>TODAY: March 1</strong></p>
+                    <p style="margin: 15px 0; font-family: monospace; font-size: 14px;">URS: ████████░░░░░░░░░░ 80%<br>FRS: ████░░░░░░░░░░░░░░░ 30%<br>IQ:  ░░░░░░░░░░░░░░░░░░ 0%<br>OQ:  ░░░░░░░░░░░░░░░░░░ 0%<br>PQ:  ░░░░░░░░░░░░░░░░░░ 0%</p>
+                    <p><strong>Overall: 55% complete</strong></p>
+                    <p><strong>Velocity: 15% per week</strong></p>
+                    <p style="color: #0052cc; font-size: 20px; font-weight: bold; margin-top: 15px;">📅 Ready: June 15 ✓</p>
                 </div>
             </div>
-            
-            <p style="text-align: center; margin-top: 30px; font-size: 16px;"><strong>+ Implementation: $5K–$25K (one-time)</strong></p>
-        </section>
+        </div>
+    </section>
 
-        <!-- COMPETITIVE -->
-        <section>
-            <h2>Why This Wins</h2>
+    <!-- COMPLIANCE -->
+    <section>
+        <div class="container">
+            <h2 class="text-center mb-40">Compliance Dashboard</h2>
+            <p class="text-center">Show FDA proof. Real-time.</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px;">
+                <div class="success-box">
+                    <p style="font-weight: 700; font-size: 16px; margin-bottom: 15px; color: #0052cc;">✓ SYSTEM STATUS</p>
+                    <p style="color: #1a202c;">Tests Passing: <strong>847/847</strong> ✓</p>
+                    <p style="color: #1a202c;">Code Coverage: <strong>88%</strong> ✓</p>
+                    <p style="color: #1a202c;">Security: <strong>0 vulnerabilities</strong> ✓</p>
+                    <p style="color: #1a202c;">Performance: <strong>API &lt;200ms</strong> ✓</p>
+                </div>
+
+                <div class="success-box">
+                    <p style="font-weight: 700; font-size: 16px; margin-bottom: 15px; color: #0052cc;">✓ COMPLIANCE VERIFIED</p>
+                    <p style="color: #1a202c;">21 CFR Part 11 (FDA) <strong style="color: #0052cc;">✓</strong></p>
+                    <p style="color: #1a202c;">HIPAA (Data Protection) <strong style="color: #0052cc;">✓</strong></p>
+                    <p style="color: #1a202c;">GDPR (Privacy) <strong style="color: #0052cc;">✓</strong></p>
+                    <p style="color: #1a202c;">ISO 27001 (Security) <strong style="color: #0052cc;">✓</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section>
+        <div class="container">
+            <h2 class="text-center mb-40">Pricing</h2>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <p class="subtitle">Small QC Lab</p>
+                    <span class="pricing-amount">$2K</span>
+                    <p class="pricing-period">/month</p>
+                </div>
+                <div class="pricing-card">
+                    <h3>Professional</h3>
+                    <p class="subtitle">Mid-Facility</p>
+                    <span class="pricing-amount">$4K</span>
+                    <p class="pricing-period">/month</p>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <p class="subtitle">Large Campus</p>
+                    <span class="pricing-amount">$6K+</span>
+                    <p class="pricing-period">/month</p>
+                </div>
+            </div>
+
+            <p style="text-align: center; margin-top: 40px; font-size: 16px;"><strong>+ Implementation: $5K–$25K (one-time)</strong></p>
+        </div>
+    </section>
+
+    <!-- COMPARISON -->
+    <section>
+        <div class="container">
+            <h2 class="mb-40">Why This Wins</h2>
             <p>No competitor integrates all 6 together.</p>
-            
+
             <table class="comparison-table">
                 <thead>
                     <tr>
@@ -781,7 +987,7 @@ WRONG EQUIPMENT   NON-COMPLIANT        VALIDATION CHAOS
                         <th>Veeva Vault</th>
                         <th>MasterControl</th>
                         <th>Equipment Vendors</th>
-                        <th style="background: linear-gradient(135deg, #0066cc 0%, #003d99 100%);">GxP Planner</th>
+                        <th style="background: linear-gradient(135deg, #0052cc 0%, #0041a3 100%);">GxP Planner</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -790,77 +996,93 @@ WRONG EQUIPMENT   NON-COMPLIANT        VALIDATION CHAOS
                         <td><span class="cross">✗</span></td>
                         <td><span class="cross">✗</span></td>
                         <td><span class="check">✓</span></td>
-                        <td style="background: #f0f5ff;"><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
                     </tr>
                     <tr>
                         <td><strong>Layout Design</strong></td>
                         <td><span class="cross">✗</span></td>
                         <td><span class="cross">✗</span></td>
                         <td><span class="cross">✗</span></td>
-                        <td style="background: #f0f5ff;"><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
                     </tr>
                     <tr>
                         <td><strong>Validation</strong></td>
                         <td><span class="check">✓</span></td>
                         <td><span class="check">✓</span></td>
                         <td><span class="cross">✗</span></td>
-                        <td style="background: #f0f5ff;"><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
                     </tr>
                     <tr>
                         <td><strong>Risk Management</strong></td>
                         <td><span class="cross">✗</span></td>
                         <td><span class="check">✓</span></td>
                         <td><span class="cross">✗</span></td>
-                        <td style="background: #f0f5ff;"><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
                     </tr>
                     <tr>
                         <td><strong>Readiness Forecast</strong></td>
                         <td><span class="cross">✗</span></td>
                         <td><span class="cross">✗</span></td>
                         <td><span class="cross">✗</span></td>
-                        <td style="background: #f0f5ff;"><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
                     </tr>
                     <tr>
                         <td><strong>Compliance Proof</strong></td>
                         <td><span class="cross">✗</span></td>
                         <td><span class="cross">✗</span></td>
                         <td><span class="cross">✗</span></td>
-                        <td style="background: #f0f5ff;"><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
                     </tr>
                 </tbody>
             </table>
-        </section>
+        </div>
+    </section>
 
-        <!-- TIMELINE -->
-        <section>
-            <h2>Timeline to Launch</h2>
-            
+    <!-- TIMELINE -->
+    <section>
+        <div class="container">
+            <h2 class="text-center mb-40">Timeline to Launch</h2>
+
             <div class="timeline">
-                <div class="timeline-item">
-                    <strong>June 11, 2026</strong>
-                    <p>MVP complete — all 6 modules, 847 tests passing</p>
-                </div>
-                <div class="timeline-item">
-                    <strong>June 18, 2026</strong>
-                    <p>First customer demo</p>
-                </div>
-                <div class="timeline-item">
-                    <strong>July 1, 2026</strong>
-                    <p>First customer revenue</p>
-                </div>
-                <div class="timeline-item">
-                    <strong>December 2026</strong>
-                    <p>30–50 customers, $1.4M–$2.4M ARR</p>
+                <div class="timeline-items">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>June 11, 2026</h4>
+                            <p>MVP complete — all 6 modules, 847 tests passing</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>June 18, 2026</h4>
+                            <p>First customer demo</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>July 1, 2026</h4>
+                            <p>First customer revenue</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>December 2026</h4>
+                            <p>30–50 customers, $1.4M–$2.4M ARR</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- FOOTER -->
-        <footer>
-            <h3>Universal GxP Facility Planner</h3>
-            <p>From Concept to FDA Approval — All Integrated</p>
-            <p style="margin-top: 20px; font-size: 14px; opacity: 0.9;">Ready for June 11, 2026 Launch</p>
-        </footer>
-    </div>
+    <!-- FOOTER -->
+    <footer>
+        <h2>Universal GxP Facility Planner</h2>
+        <p>From Concept to FDA Approval — All Integrated</p>
+        <p class="footer-subtext">Ready for June 11, 2026 Launch</p>
+    </footer>
 </body>
 </html>
