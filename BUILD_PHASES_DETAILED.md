@@ -352,7 +352,7 @@ Every week:
 
 ---
 
-## PHASE 3: Integration + Hardening + Demo Tenant + MANUALS COMPLETION (Weeks 12–13)
+## PHASE 3: Integration + Hardening + Demo Tenant + MANUALS + COMPLIANCE DASHBOARD (Weeks 12–13)
 
 **Owner:** Systems Architect, QA Team, Documentation Lead  
 **Sprint:** Mon May 22 — Fri June 4
@@ -367,6 +367,17 @@ Every week:
 - ✅ Security hardening (CORS, CSRF, headers)
 - ✅ Error handling (graceful degradation, helpful messages)
 - ✅ Monitoring + alerting setup (Sentry for errors)
+- ✅ **Compliance Dashboard** (Customer-facing real-time validation proof):
+  - ✅ System Status card (real-time: tests, coverage, security, performance)
+  - ✅ Compliance Verification section (21 CFR Part 11, HIPAA, GDPR, ISO 27001)
+  - ✅ Weekly Test Results display (847 tests, all passing)
+  - ✅ Security Verification card (0 vulnerabilities, penetration test)
+  - ✅ Performance Metrics card (API response, DB query, uptime)
+  - ✅ Traceability Matrix display (requirements → tests → results)
+  - ✅ Recent Updates timeline (release history with test results)
+  - ✅ Compliance Trending chart (12-week history)
+  - ✅ Downloadable Reports section (PDF, JSON, Excel)
+  - ✅ Audit Log Summary (immutable, tamper-proof)
 
 **Validation Lead:**
 - ✅ Final FRS updates (integration points)
@@ -412,6 +423,24 @@ Every week:
 - [ ] Monitoring + alerts functional
 - [ ] 144 tests passing
 - [ ] Code coverage: 88%+
+
+**Compliance Dashboard:**
+- [ ] Dashboard UI complete (all 10 cards rendered)
+- [ ] Data integration with CI/CD pipeline (real-time)
+- [ ] Test results display accurate (847 tests, coverage %)
+- [ ] Compliance status display accurate (21 CFR, HIPAA, GDPR, ISO)
+- [ ] Security verification display accurate (0 vulnerabilities)
+- [ ] Performance metrics display accurate (actual vs. targets)
+- [ ] Download reports working (PDF, JSON, CSV, Excel)
+- [ ] Report signatures/tamper-proof verification
+- [ ] RLS enforcement (users see only their facility)
+- [ ] Access logging (all dashboard views logged)
+- [ ] Mobile responsive (dashboard usable on phone/tablet)
+- [ ] WCAG 2.1 AA accessibility
+- [ ] Dashboard tests: 24 UI tests all passing
+- [ ] Data accuracy: Verified against CI/CD results
+- [ ] Performance: Dashboard loads <2s
+
 - [ ] Friday gate: Bobby approves, proceed to Phase 4
 
 ### Spend Budget
@@ -577,18 +606,43 @@ Next milestone: [Date], [Deliverable]
 
 ## Key Decisions (Locked In)
 
-✅ **Phase 3 includes FRICTIONLESS ONBOARDING as first-class deliverable**
+✅ **Phase 2d includes FRICTIONLESS ONBOARDING as first-class deliverable**
 - Signup: 3 fields only (name, email, password)
 - Onboarding: <5 minutes to productive
 - T&Cs/Privacy: Auto-accepted in signup (not blocking)
 - DPA: Auto-generated (no negotiation)
 - Trust badges: Visible on dashboard
 
-✅ **Parallel execution:** Build + Validation + QA all happening simultaneously (not sequential)
+✅ **Phase 2d–4 includes USER + ADMIN MANUALS with screenshots, videos, glossary**
+- Created in parallel with build (not after)
+- Screenshots of every screen (100+ total)
+- Step-by-step instructions, no jargon
+- 6 video tutorials (2–5 minutes each)
+- QA tested by 8 external users
+- Delivered Week 14 with MVP
+
+✅ **Phase 3 includes CUSTOMER-FACING COMPLIANCE DASHBOARD**
+- Real-time system status (tests, coverage, security, performance)
+- Compliance verification (21 CFR Part 11, HIPAA, GDPR, ISO 27001)
+- Weekly test results (847 tests)
+- Security verification (0 vulnerabilities)
+- Performance metrics (API response, uptime)
+- Traceability matrix (requirements → tests → results)
+- Downloadable reports (PDF, JSON, Excel for FDA inspections)
+- Trending data (12-week history)
+- Audit log summary (immutable, tamper-proof)
+
+✅ **DOCUMENTATION FOLLOWS BUILD (founding principle)**
+- URS/FRS/Risk/Tests/Manuals created IN PARALLEL with code
+- Every Friday: code + docs + tests + manual all reviewed together
+- By Week 14: complete product + complete documentation + complete validation
+- Proof of compliance, not promises
+
+✅ **Parallel execution:** Build + Validation + QA + Documentation all happening simultaneously (not sequential)
 
 ✅ **Friday gates:** Bobby must approve before next phase proceeds (mandatory)
 
-✅ **Weekly validation reports:** Every Friday, full testing + compliance status
+✅ **Weekly validation reports:** Every Friday, full testing + compliance status + documentation progress
 
 ✅ **Budget hard cap:** $2,300, no exceptions
 
