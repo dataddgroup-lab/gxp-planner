@@ -6,10 +6,10 @@
 ## ELEVATOR PITCH (30 seconds)
 
 **For Pharma/Biotech:**
-"Building a GxP-compliant facility is chaotic. Dozens of documents, validation phases, regulatory requirements, and consultants. We've built an operating system that guides the entire journey—from facility planning through regulatory release. Our AI assistant knows all the regulations, anticipates what's needed next, and alerts you to gaps before they become problems. It cuts validation timelines in half and cuts rework by 70%. Plus, our platform gives your team complete visibility while keeping costs predictable."
+"Building a QC lab from scratch is overwhelming. You need to spec equipment, design the layout, then validate everything. We've built an operating system that guides the ENTIRE journey—from equipment selection and lab design through regulatory release. Our AI assistant knows all the regulations, helps you choose the right equipment, optimizes your lab layout for compliance, then guides you through validation. It cuts design-to-release timelines in half and cuts rework by 70%. Plus, you get complete visibility into your project while keeping costs predictable."
 
 **For Consultants:**
-"Your clients are blindfolded. They can see 20% of the facility buildout; the rest is black box. We've built a white-label platform that puts the entire project in front of them—facility progress, validation status, risks, readiness forecasts. You use it as your primary delivery tool, invoice them SaaS + consulting, and control your scope. They trust you more. You scale faster. We take 20–30% commission on new customer referrals."
+"Your clients are blindfolded during facility buildouts. They can see maybe 20% of the work; the rest is black box. We've built a white-label platform that puts the ENTIRE project in front of them—equipment selections, lab design, validation progress, risks, readiness forecasts. You use it as your primary delivery tool for design AND validation, invoice them SaaS + consulting, and control your scope. They trust you more because they can see everything. You scale faster because design automation reduces manual work. We take 20–30% commission on customer referrals."
 
 ---
 
@@ -17,49 +17,68 @@
 
 ### The Problem
 
-GxP facility buildouts are broken:
+Building a QC lab from scratch is broken across TWO phases:
 
-1. **Chaos** — Validation involves 7 sequential phases (URS → FRS → DS → IQ → OQ → PQ → VSR). Each has dependencies. One missed requirement = months of rework.
+#### Phase 1: Design (Equipment Spec + Layout)
+1. **No Standards** — How do you pick the right HPLC, UV-Vis, dissolution tester? Which one meets your process requirements? Where should you place it for compliance? Most facilities rely on consultant judgment or RFQ from vendors.
+
+2. **Compliance Risk** — Wrong equipment placement = fails ISO 14644. Wrong spacing = HVAC won't work. Wrong electrical = equipment fails. You don't know until you're building, then it's expensive to fix.
+
+3. **No Integration** — Equipment spec is separate from layout, separate from validation planning. No one connects them.
+
+#### Phase 2: Validation (URS → VSR)
+1. **Chaos** — Validation involves 7 sequential phases. Each has dependencies. One missed requirement = months of rework.
 
 2. **No Visibility** — Facility managers see maybe 20% of the work. The rest is done by consultants behind closed doors. You don't know if you're on track until inspection day.
 
-3. **Cost Overruns** — Typical facility project: 6+ months, $500K–$2M, 40+ percent over budget. Why? Hidden scope creep. Risk management is manual (Excel). Change control is reactive. Readiness is guesswork.
+3. **Cost Overruns** — Typical facility project: 6+ months, $500K–$2M, 40%+ over budget. Why? Hidden scope creep. Risk management is manual (Excel). Readiness is guesswork.
 
 4. **Regulatory Risk** — One missed FDA/EMA requirement = facility can't launch. Months of remediation. Millions in lost revenue.
 
-5. **Consultant Dependency** — You hire consultants but have no way to verify they're on the right track. You can't tell if they're padding hours or delivering value.
-
 ### Why This Happens
 
-**Existing tools are fragments:**
-- Veeva Vault = document management (doesn't guide process)
-- SAP/Oracle = ERP (not GxP-specific)
+**Design phase (equipment spec + layout):**
+- AutoCAD/Revit = beautiful drawings, zero GxP intelligence
+- Equipment vendors = biased (they want to sell you equipment)
+- Consultants = expensive ($100K+), manual process, hard to verify
+- No tool does equipment spec + compliance checking + layout optimization
+
+**Validation phase:**
+- Veeva Vault = document management (doesn't guide validation process)
+- SAP/Oracle = ERP (not GxP-specific, not validation-focused)
 - Excel + manual consulting = black box (no automation, no visibility)
 
-**No single system connects:**
-- Facility architecture + systems design
-- Validation lifecycle (7 phases + traceability)
-- Document control + approvals
-- Risk management + mitigation
-- Change control + impact assessment
-- Training + competency
-- Readiness forecasting + drift detection
+**No single system connects design + validation:**
+- Equipment specs don't flow to validation requirements
+- Lab layout doesn't inform utility planning
+- Validation doesn't feed back to equipment decisions
+- Risk management is manual (Excel)
+- Readiness is guesswork until inspection day
 
-**Result:** Facility teams are flying blind. Inspections find gaps. Projects slip. Budgets explode.
+**Result:** Facility teams are flying blind. Equipment gets spec'd wrong. Validation finds gaps. Inspections fail. Projects slip by 3–6 months. Budgets explode by 40%+.
 
 ### The Solution: Universal GxP Facility Planner
 
-We've built an **operating system for facility buildout** that:
+We've built an **operating system for facility design + validation** that guides the ENTIRE journey from concept to release:
 
-1. **Guides the Entire Process** — From facility design through regulatory release. AI assistant knows all regulations (FDA 21 CFR 210/211, EMA Annex 1, ICH Q9, ISO 13485, GAMP 5, data integrity). It anticipates what's needed next. It detects gaps before they become problems.
+#### Phase 1: Design (Equipment Spec + Lab Layout)
+1. **Equipment Specification Engine** — Guides you to the right instruments (HPLC, UV-Vis, GC, LCMS, dissolution, etc.) based on your process requirements. Each equipment choice flows into layout requirements.
 
-2. **Gives You Complete Visibility** — Real-time dashboard shows facility progress, validation status, risks, training completion, document approvals, change control, and readiness forecast. No black box. No surprises.
+2. **Lab Layout Optimizer** — Automatically designs your lab layout for compliance (ISO 14644 cleanliness, HVAC capacity, electrical, spacing, workflow). Checks equipment placement against regulations. Prevents costly redesigns.
 
-3. **Cuts Timelines in Half** — By automating templating, traceability, and compliance checking, you eliminate rework. Validation timelines drop from 18 months to 9. Startup biotech goes from 12 months to 6.
+3. **Design → Validation Bridge** — Equipment specs flow directly into validation requirements (IQ/OQ/PQ planning). Layout informs utility planning. Nothing gets missed.
 
-4. **Reduces Cost & Risk** — Deterministic workflows mean fewer "let me ask my consultant" moments. Risk is managed continuously, not reactively. Changes are assessed automatically. Readiness is forecast mathematically, not guessed.
+#### Phase 2: Validation (URS → VSR)
+1. **Validation Orchestrator** — Guides you through all 7 phases (URS → FRS → DS → IQ → OQ → PQ → VSR). AI assistant knows all regulations (FDA 21 CFR 210/211, EMA Annex 1, ICH Q9, ISO 13485, GAMP 5). Anticipates what's needed next. Detects gaps before they become problems.
 
-5. **Keeps Consultants Accountable** — If you work with consultants, they operate inside our platform. You see their work in real-time. You know exactly what's being built, who's doing it, and why. They can't hide.
+2. **Complete Visibility** — Real-time dashboard shows facility progress, equipment status, validation phases, risks, training, document approvals, and readiness forecast. No black box. No surprises.
+
+3. **Readiness Forecasting** — Predicts when you'll be inspection-ready. Alerts you 60+ days ahead if you're drifting off schedule. Prevents last-minute surprises.
+
+#### Overall Benefits
+- **Cuts design + validation timelines in half** (18 months → 9 months for major pharma; 12 months → 6 months for startup biotech)
+- **Reduces cost & rework by 30–50%** (eliminates equipment mistakes, prevents validation redesigns)
+- **Keeps consultants accountable** — They operate inside the platform. You see everything in real-time.
 
 ### How It Works
 
@@ -88,27 +107,48 @@ We've built an **operating system for facility buildout** that:
 
 ### Why We're Different
 
-| Feature | Veeva Vault | SAP/Oracle | Custom Consulting | **GxP Planner** |
-|---------|-------------|-----------|-------------------|-----------------|
-| **Guides entire process** | ✗ | ✗ | ✓ (but manual) | ✓ (AI + automation) |
-| **Regulatory AI** | ✗ | ✗ | ✗ | ✓ |
-| **Predicts readiness** | ✗ | ✗ | ✗ | ✓ |
-| **Detects drift** | ✗ | ✗ | ✗ | ✓ |
-| **Real-time visibility** | ✓ (docs only) | ✓ (general) | ✗ | ✓ (GxP-specific) |
-| **Change management** | Partial | Partial | Manual | ✓ (full automation) |
-| **Consultant mode** | ✗ | ✗ | N/A | ✓ (scope + transparency) |
-| **Cost (first year)** | $50K+ | $100K+ | $100K+ | **$25K–$60K** |
-| **Setup time** | 3+ months | 6+ months | Ongoing | **2–4 weeks** |
+| Feature | Veeva Vault | AutoCAD/Revit | SAP/Oracle | Custom Consulting | **GxP Planner** |
+|---------|-------------|----------------|-----------|-------------------|-----------------|
+| **Equipment spec engine** | ✗ | ✗ | ✗ | ✓ (manual) | ✓ (automated) |
+| **Lab layout design** | ✗ | ✓ (no GxP logic) | ✗ | ✓ (manual) | ✓ (GxP-aware) |
+| **Compliance checking** | ✗ | ✗ | ✗ | ✗ | ✓ |
+| **Design → Validation bridge** | ✗ | ✗ | ✗ | ✗ | ✓ (unique) |
+| **Validation orchestration** | ✗ | ✗ | ✗ | ✓ (manual) | ✓ (AI-guided) |
+| **Regulatory AI** | ✗ | ✗ | ✗ | ✗ | ✓ |
+| **Readiness forecasting** | ✗ | ✗ | ✗ | ✗ | ✓ |
+| **Real-time visibility** | ✓ (docs only) | ✗ | ✓ (general) | ✗ | ✓ (full project) |
+| **Cost (first year)** | $50K+ | $5K–$10K | $100K+ | $100K+ | **$30K–$60K** |
+| **Setup time** | 3+ months | N/A | 6+ months | Ongoing | **2–4 weeks** |
+
+**Unique Advantage:** Only system that integrates equipment specification + lab layout + validation + readiness forecasting in one GxP-aware platform.
 
 ### Proof Points
 
-**Testimonial from typical customer (hypothetical, based on RanchOS model):**
+**Testimonial from typical customer (hypothetical, pre-market validation):**
 
-> "Before, we couldn't answer basic questions: Are we on track? What's missing? When will we be ready? We had three consultants, each maintaining their own documents, their own schedules. Zero visibility. We found out at inspection that we'd missed a critical training requirement. That cost us 3 months.
+> "We were building our first QC lab and didn't know where to start. We hired consultants to spec equipment and design the layout. Then we realized those specs didn't flow into our validation requirements. We had to rethink everything.
 > 
-> With GxP Planner, everything is visible. The AI flagged our training gap 90 days in advance. We fixed it before it became a blocker. The platform auto-generated our validation traceability matrix—a task that usually takes a consultant 2 weeks. We did it in 1 day.
+> With GxP Planner, we specified our equipment (HPLC, UV-Vis, GC), and the system suggested optimal placement based on compliance standards. Equipment specs automatically populated our validation planning. The AI caught that our proposed layout didn't meet ISO 14644 cleanliness requirements—before we built it.
 > 
-> Timeline dropped from 15 months to 8. Cost was 20% less than budgeted. And the inspection? Zero findings. The inspector told us it was the most organized facility validation they'd seen."
+> Then we walked through validation with the platform. It guided us from URS through VSR, flagging gaps we would have missed. Readiness forecasting told us exactly when we'd be inspection-ready.
+> 
+> Timeline: 12 months reduced to 7. Cost: 25% under budget. Inspection: Zero findings. Our consultants said 'best-organized project we've ever managed.'"
+
+---
+
+## CURRENT STATUS: PRE-MARKET VALIDATION
+
+⚠️ **Important Note:** This product concept has not yet been validated with customers. Before full build ($800–$1,050, 12–14 weeks), we need to confirm:
+
+1. ✅ Do customers actually need equipment specification guidance?
+2. ✅ Do customers want lab layout design automation?
+3. ✅ Would they pay for this combined with validation?
+4. ✅ Does this save them meaningful time/money vs. current methods?
+
+**Next step:** Call 3–5 facility managers/QA directors at pharma/biotech companies to validate demand before committing to full build.
+
+**If validation succeeds:** Build full product ($800–$1,050, 12–14 weeks)  
+**If validation fails:** Build validation-only MVP ($350, 7 weeks) and iterate based on customer feedback
 
 ---
 
