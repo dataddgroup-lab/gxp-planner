@@ -258,9 +258,9 @@ Every week:
 
 ---
 
-## PHASE 2d: Polished UI + Frictionless Onboarding (Weeks 10–11)
+## PHASE 2d: Polished UI + Frictionless Onboarding + MANUALS START (Weeks 10–11)
 
-**Owner:** Systems Architect, QA Team  
+**Owner:** Systems Architect, QA Team, Documentation Lead (NEW)  
 **Sprint:** Mon May 8 — Fri May 21
 
 ### Deliverables
@@ -287,6 +287,13 @@ Every week:
 - ✅ Risk assessment (onboarding friction points, data entry errors)
 - ✅ Test plan for onboarding flow
 
+**Documentation Lead (NEW):**
+- ✅ Screenshot all UI screens (every major screen)
+- ✅ User Manual Chapters 1–5 (Getting Started, Facility, Layout, Equipment, Validation)
+- ✅ Admin Manual Chapters 1–3 (Overview, User Management, Facility Management)
+- ✅ Glossary foundation (define GxP terms)
+- ✅ Video tutorials scripting (2–3 minutes each)
+
 **QA Team:**
 - ✅ 78 UI tests (login, dashboard, workflows)
 - ✅ 24 onboarding-specific tests:
@@ -302,7 +309,7 @@ Every week:
 - ✅ 12 accessibility tests (WCAG 2.1 AA)
 - ✅ Mobile responsiveness tests
 
-### Acceptance Criteria (Onboarding Critical)
+### Acceptance Criteria (Onboarding + Manuals Critical)
 
 **Onboarding Flow:**
 - [ ] Signup: name, email, password only (3 fields, NOT MORE)
@@ -315,6 +322,16 @@ Every week:
 - [ ] Trust badges: visible on dashboard
 - [ ] Support chat: 24/7 available
 - [ ] **Metric:** 10 test users sign up, average time to first facility creation = **<5 minutes**
+
+**Manual Deliverables:**
+- [ ] User Manual Chapters 1–5 complete
+- [ ] Admin Manual Chapters 1–3 complete
+- [ ] Screenshots captured: All major UI screens (100+ screenshots)
+- [ ] Glossary complete (GxP terms defined)
+- [ ] Video script complete (6 tutorials, 2–5 minutes each)
+- [ ] Manual tested by 2 external users (can they complete tasks?)
+- [ ] No broken links, no outdated screenshots
+- [ ] Friday gate: Manuals reviewed, ready for Phase 3
 
 **General UI:**
 - [ ] All dashboards render without JS errors
@@ -335,9 +352,9 @@ Every week:
 
 ---
 
-## PHASE 3: Integration + Hardening + Demo Tenant (Weeks 12–13)
+## PHASE 3: Integration + Hardening + Demo Tenant + MANUALS COMPLETION (Weeks 12–13)
 
-**Owner:** Systems Architect, QA Team  
+**Owner:** Systems Architect, QA Team, Documentation Lead  
 **Sprint:** Mon May 22 — Fri June 4
 
 ### Deliverables
@@ -356,6 +373,14 @@ Every week:
 - ✅ Risk register review (remaining open risks)
 - ✅ Test plan updates (E2E workflows)
 
+**Documentation Lead:**
+- ✅ User Manual Chapters 6–11 complete (Risk, Readiness, Team, Integrations, Troubleshooting, Glossary)
+- ✅ Admin Manual Chapters 4–13 complete (Validation, Risk, Compliance, Data, Onboarding, Reporting, Integrations, Troubleshooting, Security, Glossary)
+- ✅ Screenshot verification (all current, none outdated)
+- ✅ Video recording + editing (6 tutorials complete)
+- ✅ Quick reference cards (1-page user + admin, printable)
+- ✅ PDF + HTML generation
+
 **QA Team:**
 - ✅ 45 E2E integration tests (full facility buildout workflow)
 - ✅ 45 database integrity tests
@@ -366,6 +391,18 @@ Every week:
 
 ### Acceptance Criteria
 
+**Manual Deliverables:**
+- [ ] User Manual Chapters 1–11 complete (80–100 pages)
+- [ ] Admin Manual Chapters 1–13 complete (100–150 pages)
+- [ ] Screenshots: All current (not outdated), all major screens covered
+- [ ] Videos: 6 tutorials recorded, edited, embedded
+- [ ] Quick reference cards: Printable 1-page cheat sheets
+- [ ] PDF + HTML versions ready
+- [ ] Glossary complete (no unexplained jargon)
+- [ ] Manual QA test: 3 external users tested, can complete tasks without help
+- [ ] Friday gate: Manuals approved, ready for Phase 4
+
+**Integration:**
 - [ ] All modules integrate seamlessly
 - [ ] Demo tenant loads + functions perfectly
 - [ ] Performance: API <200ms, DB <100ms, readiness calc <1s
@@ -386,9 +423,9 @@ Every week:
 
 ---
 
-## PHASE 4: Final Validation + Deployment (Week 14)
+## PHASE 4: Final Validation + Deployment + MANUAL SIGN-OFF (Week 14)
 
-**Owner:** Validation Lead, QA Team  
+**Owner:** Validation Lead, QA Team, Documentation Lead  
 **Sprint:** Mon June 5 — Fri June 11
 
 ### Deliverables
@@ -404,13 +441,33 @@ Every week:
 - ✅ Inspection-ready certification
 - ✅ Customer documentation (getting started guide, FAQ, support contacts)
 
+**Documentation Lead:**
+- ✅ Final manual proofread (no typos, no broken links)
+- ✅ Screenshot verification (all current, match production UI)
+- ✅ Video final edit + upload to documentation site
+- ✅ PDF + HTML finalization
+- ✅ Quick reference cards printed
+- ✅ Support site setup (embedded manuals, videos, search)
+
 **QA Team:**
 - ✅ Final regression testing (all 847 tests pass)
 - ✅ Production smoke tests (system functions in production)
+- ✅ Manual usability test (5 final users, confirm manuals are usable)
 - ✅ Weekly validation report (final)
 
-### Acceptance Criteria
+### Acceptance Criteria (Complete Delivery with Manuals)
 
+**Manuals (FINAL SIGN-OFF):**
+- [ ] User Manual: PDF + HTML, searchable, all screenshots current
+- [ ] Admin Manual: PDF + HTML, searchable, all screenshots current
+- [ ] Videos: 6 tutorials complete, embedded in support site
+- [ ] Quick reference cards: Printed + included with packaging
+- [ ] Support site: Manuals searchable, videos embedded, glossary linked
+- [ ] Final usability test: 5 users complete tasks using only manuals
+- [ ] No typos, no broken links, no outdated content
+- [ ] Customer receives: Manuals + videos + quick ref cards + support site access
+
+**System:**
 - [ ] All 847 tests passing
 - [ ] Code coverage: 88%+
 - [ ] Zero critical/high security vulnerabilities
