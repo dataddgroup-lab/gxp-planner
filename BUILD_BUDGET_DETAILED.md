@@ -14,7 +14,7 @@
 **Objective:** Database foundation. 15 tables, RLS policies, audit logs, security functions.
 
 **Work:**
-- Design & document schema (ranches, profiles, lessons, riders, validation, risk, change control, training, inventory, audit logs, etc.)
+- Design & document schema (facilities, profiles, validations, tests, risks, documents, change_requests, training_records, audit_logs, etc.)
 - Write RLS policies (tenant isolation, role-based access)
 - Create trigger functions (audit logging, data validation)
 - Create database views + indexes
