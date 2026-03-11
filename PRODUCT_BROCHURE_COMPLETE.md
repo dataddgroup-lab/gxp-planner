@@ -282,6 +282,25 @@ FDA ARRIVES (SITE FIRST INSPECTION)
 
 **Built into:** Phase 2d–4
 
+### 8. Data Export (CSV, JSON, PDF — for manual integration)
+
+**What it does:**
+- Export facility specification (CSV, JSON)
+- Export validation data (CSV, Excel with formatting)
+- Export compliance reports (PDF for FDA)
+- Export audit logs (CSV for compliance)
+- Export layouts (PDF floor plans)
+
+**Customer value:**
+- Move data to other tools if needed (Trackwise, LIMS, SAP)
+- Create custom reports (import into Excel)
+- Archive data (compliant retention)
+- Share with consultants (email-safe formats)
+
+**Built into:** Phase 2d–4
+
+**NOTE:** Native integrations (Trackwise, LIMS, SAP) come in Wave 2 (June+). MVP supports data export only.
+
 ---
 
 ## THE COMPETITIVE ADVANTAGE
@@ -371,13 +390,19 @@ What's included:
 ✅ 847 automated tests (all passing)  
 ✅ Inspection-ready compliance documentation  
 
-What's NOT in MVP:
-❌ Change Control Engine (Wave 2)  
-❌ Training Management System (Wave 2)  
-❌ CCS/Annex 1 Advanced (Wave 2)  
-❌ Mobile app (Wave 3)  
-❌ Third-party integrations (Wave 3)  
-❌ White-label customer portals (Wave 3)  
+What's NOT in MVP (Wave 2+):
+❌ Change Control Engine (Wave 2, June)
+❌ Training Management System (Wave 2, June)
+❌ CCS/Annex 1 Advanced (Wave 2, July)
+❌ **NO INTEGRATIONS** (Trackwise, LIMS, SAP, etc. — Wave 2/3, Sept+)
+❌ Mobile app (Wave 3, Oct+)
+❌ White-label customer portals (Wave 3, Oct+)
+
+**MVP is STANDALONE:**
+✅ Data export (CSV, JSON, PDF)
+✅ No external API dependencies
+✅ No vendor coordination needed
+✅ Customer can use immediately upon signup  
 
 ---
 
@@ -542,7 +567,13 @@ What's NOT in MVP:
 **A:** Cloud-only (SaaS). Multi-tenant, automatically updated, no installation needed. We chose cloud because: (1) Faster updates, (2) Better security, (3) No customer admin burden, (4) FedRAMP compliance built-in.
 
 ### Q: Can we integrate with Trackwise/LIMS/ERP?
-**A:** Trackwise integration coming Q3 2026 (Wave 2). LIMS/ERP integrations available via API. We also offer custom integration services.
+**A:** Not in MVP (April). Integrations come in Wave 2 (June onwards):
+- **June:** CSV/JSON export (generic data exchange)
+- **August:** Trackwise integration (change control sync)
+- **September:** LIMS integration (sample/test data)
+- **October:** SAP/Oracle integration (enterprise ERP)
+
+MVP is standalone — customers use our system without needing to integrate with other tools. Data export (CSV, JSON) allows manual integration if needed.
 
 ### Q: What if we need on-prem for security reasons?
 **A:** Not offered. Our cloud infrastructure (Vercel + Supabase) exceeds on-prem security standards. FedRAMP-eligible, SOC 2 Type II certified, 99.9% SLA, automatic backups.

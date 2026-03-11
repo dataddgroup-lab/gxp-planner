@@ -583,6 +583,8 @@ Next milestone: [Date], [Deliverable]
 | Risk Mitigation | 100% | — |
 | Onboarding Time | <5 min per user | — |
 | First Customer Demo | [Date] | — |
+| Data Export Working | CSV, JSON, PDF | — |
+| Zero External API Dependencies | N/A (standalone) | — |
 
 ---
 
@@ -648,13 +650,49 @@ Next milestone: [Date], [Deliverable]
 
 ---
 
+## Integrations: Wave 2+, NOT MVP
+
+**CRITICAL RULE: MVP is STANDALONE, ZERO external integrations.**
+
+### Why No Integrations in MVP
+1. **Timeline risk:** Adding integrations delays launch (April 23 → June/July)
+2. **Budget risk:** Integration engineering adds $300K–$500K to budget
+3. **Dependency risk:** Reliant on third-party APIs changing, vendor timelines
+4. **Quality risk:** Split team focus between product + integrations
+5. **Launch risk:** First customer can't launch without vendor coordination
+
+### MVP (April 23) — Standalone
+- ✅ Data export only (CSV, JSON, PDF)
+- ✅ No external API dependencies
+- ✅ Customer can use immediately upon signup
+- ✅ No vendor coordination needed
+
+### Wave 2 (June–September) — Manual Integration Tools
+- CSV import/export (generic data exchange)
+- Trackwise integration (change control sync)
+- LIMS integration (sample/test data)
+- Equipment vendor data feeds
+
+### Wave 3 (October+) — Enterprise Integrations
+- SAP/Oracle integration (validated records)
+- ERP connectors (production planning)
+- Custom API integrations (customer-specific needs)
+
+**This phasing ensures:**
+- ✅ MVP launches April 23 (on time)
+- ✅ First customer revenue May 15 (on schedule)
+- ✅ Integrations come later (June onwards, funded by revenue)
+- ✅ You own the product, not vendor timelines
+
+---
+
 ## Ready to Execute
 
-**All phases defined. All deliverables specified. All acceptance criteria locked.**
+**All phases defined. All deliverables specified. All acceptance criteria locked. MVP is STANDALONE.**
 
 **Monday, March 12, 9 AM MDT: Build launches.**
 
-**April 23: MVP delivery.**
+**April 23: MVP delivery (zero integrations).**
 
 **May 15: First customer revenue.**
 
