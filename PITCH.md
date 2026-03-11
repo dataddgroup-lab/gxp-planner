@@ -6,10 +6,10 @@
 ## ELEVATOR PITCH (30 seconds)
 
 **For Pharma/Biotech:**
-"Building a QC lab from scratch is overwhelming. You need to spec equipment, design the layout, then validate everything. We've built an operating system that guides the ENTIRE journey—from equipment selection and lab design through regulatory release. Our AI assistant knows all the regulations, helps you choose the right equipment, optimizes your lab layout for compliance, then guides you through validation. It cuts design-to-release timelines in half and cuts rework by 70%. Plus, you get complete visibility into your project while keeping costs predictable."
+"Cut validation timelines by 50% and reduce rework by 70% with our AI-driven GxP Facility Planner. From equipment selection through lab design to regulatory release—one integrated platform guides your entire facility buildout. Real-time visibility. Regulatory compliance built-in. Predictable timelines and costs."
 
 **For Consultants:**
-"Your clients are blindfolded during facility buildouts. They can see maybe 20% of the work; the rest is black box. We've built a white-label platform that puts the ENTIRE project in front of them—equipment selections, lab design, validation progress, risks, readiness forecasts. You use it as your primary delivery tool for design AND validation, invoice them SaaS + consulting, and control your scope. They trust you more because they can see everything. You scale faster because design automation reduces manual work. We take 20–30% commission on customer referrals."
+"Turn your consulting projects into SaaS sales. Our white-label platform reduces client surprises, increases your margins by 20–30%, and scales faster with design automation. You get the commission. Your clients get transparency. Everyone wins."
 
 ---
 
@@ -62,23 +62,50 @@ Building a QC lab from scratch is broken across TWO phases:
 We've built an **operating system for facility design + validation** that guides the ENTIRE journey from concept to release:
 
 #### Phase 1: Design (Equipment Spec + Lab Layout)
-1. **Equipment Specification Engine** — Guides you to the right instruments (HPLC, UV-Vis, GC, LCMS, dissolution, etc.) based on your process requirements. Each equipment choice flows into layout requirements.
 
-2. **Lab Layout Optimizer** — Automatically designs your lab layout for compliance (ISO 14644 cleanliness, HVAC capacity, electrical, spacing, workflow). Checks equipment placement against regulations. Prevents costly redesigns.
+**1. AI-Driven Equipment Specification**
+- Guides you to the right instruments (HPLC, UV-Vis, GC, LCMS, dissolution, etc.) based on your process requirements
+- Checks equipment specifications against regulatory standards (FDA, EMA, ISO)
+- Provides cost estimates and lead time forecasts
+- Each equipment choice automatically informs layout requirements
 
-3. **Design → Validation Bridge** — Equipment specs flow directly into validation requirements (IQ/OQ/PQ planning). Layout informs utility planning. Nothing gets missed.
+**2. Compliance-Optimized Lab Layout**
+- Auto-generates lab layouts for compliance (ISO 14644 cleanliness, HVAC capacity, electrical requirements, spacing, workflow optimization)
+- Real-time compliance checking: "Does this placement meet regulatory requirements?"
+- Prevents costly redesigns by catching issues upfront
+- Outputs equipment specifications and utility requirements for vendors
+
+**3. Design → Validation Bridge**
+- Equipment specs automatically populate IQ/OQ/PQ test requirements
+- Layout data informs validation planning (environmental monitoring, equipment qualification scope)
+- Risk assessment tied to design choices (equipment location, utility redundancy, etc.)
 
 #### Phase 2: Validation (URS → VSR)
-1. **Validation Orchestrator** — Guides you through all 7 phases (URS → FRS → DS → IQ → OQ → PQ → VSR). AI assistant knows all regulations (FDA 21 CFR 210/211, EMA Annex 1, ICH Q9, ISO 13485, GAMP 5). Anticipates what's needed next. Detects gaps before they become problems.
 
-2. **Complete Visibility** — Real-time dashboard shows facility progress, equipment status, validation phases, risks, training, document approvals, and readiness forecast. No black box. No surprises.
+**1. Regulatory AI Assistant**
+- Knows all applicable regulations: FDA 21 CFR 210/211/11/820, EMA Annex 1/11/15, ICH Q1–Q12, ISO 13485, GAMP 5, ALCOA+
+- Guides you through all 7 phases (URS → FRS → DS → IQ → OQ → PQ → VSR)
+- Automatically flags regulatory gaps and non-compliance issues
+- Suggests next steps based on industry best practices and your current progress
 
-3. **Readiness Forecasting** — Predicts when you'll be inspection-ready. Alerts you 60+ days ahead if you're drifting off schedule. Prevents last-minute surprises.
+**2. Real-Time Visibility Dashboard**
+- **Executive View:** Readiness %, timeline forecast, budget status, top blockers
+- **QA View:** Validation phases, pending approvals, regulatory compliance gaps, risk status
+- **Operations View:** Equipment qualification status, test schedules, resource utilization, training status
+- **Consultant View:** Assigned deliverables, hours logged, client-facing progress
+
+**3. Predictive Readiness Engine**
+- Calculates facility readiness % based on validation progress, risk mitigation, training completion, documentation
+- Forecasts inspection-ready date (not guesswork—mathematically based on current velocity)
+- **Drift Detection:** Alerts you 60+ days ahead if actual pace deviates from plan
+- **What-If Scenarios:** "If we add 2 FTEs to OQ, when will we be inspection-ready?"
 
 #### Overall Benefits
-- **Cuts design + validation timelines in half** (18 months → 9 months for major pharma; 12 months → 6 months for startup biotech)
-- **Reduces cost & rework by 30–50%** (eliminates equipment mistakes, prevents validation redesigns)
-- **Keeps consultants accountable** — They operate inside the platform. You see everything in real-time.
+- **Cuts design + validation timelines by 50%** (18 months → 9 months for major pharma; 12 months → 6 months for startup biotech)
+- **Reduces rework by 70%** (equipment mistakes caught early, validation gaps eliminated)
+- **Reduces cost by 20–30%** (automation reduces consulting hours, prevents expensive redesigns)
+- **Increases inspection pass rate to 95%+** (regulatory AI prevents gaps)
+- **Keeps consultants accountable** — All work visible, all hours tracked, clear ROI demonstrated
 
 ### How It Works
 
@@ -272,38 +299,146 @@ We've built an **operating system for facility design + validation** that guides
 
 ---
 
+## Technical Details & Security
+
+### Data Security & Compliance
+
+**Platform Architecture:**
+- Built on **Supabase** (enterprise PostgreSQL) with encryption at rest
+- Deployed on **Vercel** (FedRAMP-eligible, SOC 2 Type II certified)
+- All data transmitted via **TLS 1.2+** (encrypted in transit)
+
+**Regulatory Compliance:**
+- **21 CFR Part 11 Compliant** — Electronic records and signatures requirements met
+- **HIPAA-Safe** — Role-based access control, audit trails, data isolation
+- **ISO 27001 Ready** — Information security management system
+- **GDPR Compliant** — Data privacy and user consent controls
+
+**Data Security Features:**
+- Row-Level Security (RLS) — Multi-tenant isolation at database level
+- Immutable Audit Logs — All changes tracked with user attribution (cannot be modified)
+- Encryption — Customer data encrypted at rest and in transit
+- Zero Client-Side Secrets — No sensitive data stored in browser
+- Regular Security Audits — Third-party penetration testing
+
+### Integration with Existing Systems
+
+**Supported Integrations:**
+- **Veeva Vault** — Two-way sync for documents, validation data
+- **SAP/Oracle** — API integration for project data, equipment specs
+- **LIMS Systems** — Import/export test results, data alignment
+- **Email Systems** — Notifications for approvals, blockers, milestones
+- **Calendar Systems** — Sync validation milestones, training dates, inspection schedules
+
+**Custom Integration:**
+- Professional Services team can build custom connectors
+- API-first architecture allows flexible integrations
+- No data silos — Information flows between systems seamlessly
+
+### Implementation & Support
+
+**Standard Implementation Timeline:**
+1. **Week 1 — Planning & Setup** (4–6 hours)
+   - Define facility scope, equipment list, validation phases
+   - Configure user roles and access levels
+   - Import existing documents/data
+
+2. **Week 2 — Training & Customization** (8–10 hours)
+   - Train core team on platform functionality
+   - Customize workflows and templates
+   - Set baseline readiness forecast
+
+3. **Week 3+ — Ongoing Support**
+   - Monthly check-ins with customer success team
+   - Regulatory updates (new FDA guidance, etc.)
+   - Optimization based on your project progress
+
+**Professional Services Available:**
+- **Custom Template Development** — $5K–$15K (tailored to your facility type)
+- **System Integration** — $10K–$25K (connect to Veeva, SAP, LIMS, etc.)
+- **Advanced Training** — $3K–$7K (train larger teams, create custom procedures)
+- **Validation Consulting** — $300–$500/hour (expert guidance on complex issues)
+
+### Success Metrics (We Track)
+
+- **Timeline:** On-time vs. forecast (days ahead/behind schedule)
+- **Cost:** Budget variance (over/under spent)
+- **Quality:** Inspection findings (target: <1 finding)
+- **Compliance:** Regulatory gap resolution time
+- **Adoption:** User engagement, feature utilization
+- **ROI:** Hours saved vs. SaaS investment
+
+---
+
 ## Call to Action
 
 ### For Facility Builders
 
-**"Let's run a 2-week pilot."**
-- We set up a workspace with your facility parameters
-- Import 2–3 key documents (URS, validation protocol)
-- Let your team use it for 2 weeks
-- See the difference in visibility, timelines, and ease of compliance
-- Then decide if it's a fit for your full buildout
+**"Let's run a 2-week pilot to see the difference for yourself."**
 
-**Cost:** $5K (applies to first-year fees if you proceed)
+**What to expect:**
+1. **Week 1 — Setup & Training**
+   - We set up a customized workspace with your facility parameters
+   - Import 2–3 key documents (URS, validation protocol, test plan)
+   - Train your team on the platform (1–2 hours)
+   - Define your facility scope and timelines
+
+2. **Week 2 — Live Testing**
+   - Your team uses the platform for real work (equipment spec, layout planning, validation tracking)
+   - Real-time AI guidance and compliance checking
+   - Daily check-ins to answer questions and iterate
+
+3. **Week 3 — Decision**
+   - See measurable improvements: clarity, compliance confidence, timeline visibility
+   - Decide: Scale up for full buildout or iterate further
+
+**Cost:** $5K (applies to first-year SaaS fees if you proceed)  
+**Next Step:** Schedule a demo call
 
 ---
 
 ### For Consultants
 
-**"Let's talk partnership."**
-- We white-label the platform for your firm
-- You integrate it into your delivery methodology
-- We train your team on how to use it with clients
-- You get commission on every customer you bring
-- We co-market the solution to your clients
+**"Let's discuss how our platform turns your consulting projects into SaaS sales."**
+
+**What you get:**
+1. **White-Label Platform** — Branded with your firm's logo and methodology
+2. **Integrated Delivery** — Use as your primary tool for design AND validation (not just documentation)
+3. **Recurring Revenue** — Every customer becomes a monthly SaaS subscriber
+4. **Margin Increase** — Reduce delivery hours (automation) while increasing revenue (SaaS + commission)
+5. **Co-Marketing** — Case studies, webinars, lead generation to your target market
+6. **Dedicated Support** — Training, implementation, customer success support
+
+**How it works:**
+- Consulting firm licenses platform: $10K–$50K/year (based on projected volume)
+- You white-label and integrate with your consulting services
+- You get 100% of customer SaaS fees + commission on customer referrals (20–30% first year)
+- Your consultants spend less time on boilerplate work, more time on high-value advice
+- Your clients see transparency, trust you more, extend engagements
 
 **Timeline:** 4 weeks to launch  
-**Cost:** $10K–$50K depending on anticipated volume
+**Next Step:** Schedule a partnership discussion and see the demo
 
 ---
 
 ## Closing Line
 
-**"The future of facility validation is transparent, AI-guided, and predictable. You can still build the old way—with Excel, blind consultants, and hope. Or you can use a system built by people who've managed a hundred facility projects. Which would you rather bet your timeline and your budget on?"**
+**"The future of facility validation is here. With GxP Facility Planner, you achieve transparency, guidance, and predictability. Which future would you rather choose? Let's turn your facility buildout into a successful, efficient, and predictable project today."**
+
+---
+
+## Why This Works
+
+**For Facility Builders:**
+- Tangible pilot removes risk
+- See results before committing
+- Clear timeline and next steps
+
+**For Consultants:**
+- Clear business model (white-label + commission)
+- Margin improvement (not margin erosion)
+- Scalability through automation
+- Better client retention through transparency
 
 ---
 
