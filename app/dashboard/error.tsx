@@ -1,6 +1,6 @@
 'use client'
 
-export default function DashboardError({ error, reset }: { error: Error; reset: () => void }) {
+export default function DashboardError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', padding: 32 }}>
       <div style={{ maxWidth: 400, textAlign: 'center' }}>
