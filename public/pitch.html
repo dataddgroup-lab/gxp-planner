@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GxP Facility Planner — Pitch Deck</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{--bg:#07070f;--bg2:#0d0d1a;--purple:#8b5cf6;--blue:#3b82f6;--cyan:#06b6d4;--text:#e2e8f0;--muted:#64748b;--dim:#1e293b}
+html{scroll-snap-type:y mandatory;overflow-y:scroll;height:100%}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;height:100%}
+canvas#neural{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:0.6;pointer-events:none}
+.slide{min-height:100vh;display:flex;align-items:center;justify-content:center;scroll-snap-align:start;position:relative;z-index:1;padding:60px 40px}
+.inner{max-width:900px;width:100%;animation:fadeUp 0.7s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:20px;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.25);color:var(--purple)}
+h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:700;line-height:1.1;margin-bottom:20px}
+h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:600;line-height:1.2;margin-bottom:16px}
+.gradient{background:linear-gradient(135deg,#8b5cf6,#3b82f6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{font-size:clamp(1rem,2vw,1.25rem);color:var(--muted);line-height:1.6;max-width:680px}
+.glass{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:20px;backdrop-filter:blur(20px);padding:32px}
+.glow{border-color:rgba(139,92,246,0.3);box-shadow:0 0 40px rgba(139,92,246,0.08)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.card{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:24px;transition:all 0.3s}
+.card:hover{border-color:rgba(139,92,246,0.3);background:rgba(139,92,246,0.05)}
+.card h3{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;color:#fff;margin-bottom:8px}
+.card p,.card ul{font-size:0.875rem;color:var(--muted);line-height:1.6}
+.card ul{list-style:none;padding:0}
+.card ul li{padding:3px 0}
+.card ul li::before{content:'→ ';color:var(--purple)}
+ul.main{list-style:none;margin-top:20px}
+ul.main li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:1.05rem;color:#cbd5e1;display:flex;align-items:center;gap:10px}
+ul.main li::before{content:'';width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#06b6d4);flex-shrink:0;box-shadow:0 0 8px rgba(139,92,246,0.5)}
+.divider{width:60px;height:2px;background:linear-gradient(90deg,#8b5cf6,#06b6d4);border-radius:2px;margin:20px 0}
+table{width:100%;border-collapse:collapse;margin-top:20px;font-size:0.875rem}
+th{text-align:left;padding:12px 16px;color:var(--purple);font-weight:600;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;border-bottom:1px solid rgba(139,92,246,0.2)}
+td{padding:12px 16px;color:#94a3b8;border-bottom:1px solid rgba(255,255,255,0.04)}
+tr:hover td{background:rgba(139,92,246,0.04);color:#cbd5e1}
+.pill{display:inline-block;padding:4px 12px;border-radius:100px;font-size:0.75rem;font-weight:500}
+.pill-purple{background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.25);color:#a78bfa}
+.pill-blue{background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);color:#60a5fa}
+.pill-cyan{background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.25);color:#22d3ee}
+.nav{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:100;background:rgba(13,13,26,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:100px;padding:8px 16px;backdrop-filter:blur(20px)}
+.nav a{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);transition:all 0.3s;display:block}
+.nav a.active,.nav a:hover{background:var(--purple);box-shadow:0 0 8px rgba(139,92,246,0.5)}
+.slide-num{position:fixed;top:28px;right:36px;font-size:0.75rem;color:var(--muted);z-index:100;font-family:'Space Grotesk',sans-serif;letter-spacing:0.05em}
+.logo{position:fixed;top:24px;left:32px;z-index:100;display:flex;align-items:center;gap:10px}
+.logo-icon{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,rgba(139,92,246,0.3),rgba(59,130,246,0.3));border:1px solid rgba(139,92,246,0.3);display:flex;align-items:center;justify-content:center}
+.logo-text{font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:600;color:rgba(255,255,255,0.7)}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:14px;font-weight:600;font-size:0.95rem;cursor:pointer;transition:all 0.2s;text-decoration:none;border:none;margin-top:8px}
+.cta-primary{background:linear-gradient(135deg,#8b5cf6,#3b82f6);color:#fff;box-shadow:0 8px 25px rgba(139,92,246,0.3)}
+.cta-primary:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(139,92,246,0.4)}
+.cta-ghost{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1)!important;color:#94a3b8}
+.cta-ghost:hover{border-color:rgba(139,92,246,0.3)!important;color:#fff}
+.stat-big{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:700;background:linear-gradient(135deg,#8b5cf6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+@media(max-width:700px){.grid2,.grid3{grid-template-columns:1fr}h1{font-size:2rem}h2{font-size:1.5rem}}
+</style>
+</head>
+<body>
+
+<canvas id="neural"></canvas>
+
+<div class="logo">
+  <div class="logo-icon">
+    <svg width="16" height="16" viewBox="0 0 32 32" fill="none">
+      <path d="M16 3L29 10V22L16 29L3 22V10L16 3Z" stroke="url(#lg)" stroke-width="2" stroke-linejoin="round"/>
+      <defs><linearGradient id="lg" x1="3" y1="3" x2="29" y2="29"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
+    </svg>
+  </div>
+  <span class="logo-text">GxP Facility Planner</span>
+</div>
+
+<div class="slide-num" id="slideNum">01 / 13</div>
+
+<!-- SLIDE 1 -->
+<section class="slide" id="s1">
+  <div class="inner" style="text-align:center">
+    <div style="display:flex;justify-content:center;margin-bottom:32px">
+      <div style="width:80px;height:80px;border-radius:24px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(59,130,246,0.2));border:1px solid rgba(139,92,246,0.35);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(139,92,246,0.2)">
+        <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+          <path d="M16 3L29 10V22L16 29L3 22V10L16 3Z" stroke="url(#lg2)" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M16 3V29M3 10L29 22M29 10L3 22" stroke="url(#lg2)" stroke-width="1.5" stroke-opacity="0.4"/>
+          <defs><linearGradient id="lg2" x1="3" y1="3" x2="29" y2="29"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
+        </svg>
+      </div>
+    </div>
+    <div class="tag">Boulder Micro-Grant — Proof of Concept</div>
+    <h1>The <span class="gradient">Operational Intelligence System</span><br/>for Regulated Operations</h1>
+    <div class="divider" style="margin:20px auto"></div>
+    <p class="sub" style="margin:0 auto">Unifying validation, risk, deviations, and facility lifecycle into one intelligent platform — built for pharma and biologics.</p>
+    <div style="margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <span class="pill pill-purple">FDA 21 CFR Part 11</span>
+      <span class="pill pill-blue">ICH Q9 / Q10</span>
+      <span class="pill pill-cyan">GxP Compliant</span>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide" id="s2">
+  <div class="inner">
+    <div class="tag">The Problem</div>
+    <h2>Regulated operations run on <span class="gradient">disconnected systems</span></h2>
+    <div class="divider"></div>
+    <div class="grid3">
+      <div class="card"><h3>Validation</h3><p>Siloed in dedicated tools with no cross-module awareness</p></div>
+      <div class="card"><h3>Risk</h3><p>Static matrices in spreadsheets — disconnected from operations</p></div>
+      <div class="card"><h3>Deviations</h3><p>Logged in QMS with no link to validation or facility state</p></div>
+      <div class="card"><h3>Release Readiness</h3><p>Assembled manually from multiple sources before every batch</p></div>
+      <div class="card"><h3>Facility Lifecycle</h3><p>Tracked in separate tools with no regulatory intelligence</p></div>
+      <div class="card"><h3>Consultants</h3><p>Filling every gap manually — expensive, not scalable, not continuous</p></div>
+    </div>
+    <div class="glass glow" style="margin-top:20px;padding:20px 28px;display:flex;align-items:center;gap:16px">
+      <div style="font-size:2rem">⚠️</div>
+      <p style="color:#fbbf24;font-size:0.95rem;font-weight:500">Result: fragmentation, audit exposure, delayed releases, and rising compliance costs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3 -->
+<section class="slide" id="s3">
+  <div class="inner">
+    <div class="tag">The Gap</div>
+    <h2>Existing tools <span class="gradient">store data.</span><br/>None of them understand the operation.</h2>
+    <div class="divider"></div>
+    <table>
+      <thead><tr><th>Tool Category</th><th>What It Does</th><th>What It Can't Do</th></tr></thead>
+      <tbody>
+        <tr><td>QMS</td><td>Workflows, documents</td><td>No reasoning, no cross-module logic</td></tr>
+        <tr><td>Validation Tools</td><td>Templates, e-signatures</td><td>No dynamic generation, no risk logic</td></tr>
+        <tr><td>Risk Tools</td><td>Static matrices</td><td>No propagation, no operational context</td></tr>
+        <tr><td>Facility Tools</td><td>Asset tracking</td><td>No regulatory or validation tie-in</td></tr>
+        <tr><td>Consultants</td><td>Manual expertise</td><td>Not scalable, not continuous</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:20px;color:var(--muted);font-size:0.95rem">No system reasons across the whole operation. <strong style="color:#a78bfa">Until now.</strong></p>
+  </div>
+</section>
+
+<!-- SLIDE 4 -->
+<section class="slide" id="s4">
+  <div class="inner" style="text-align:center">
+    <div class="tag">The Opportunity</div>
+    <h2>Operations need <span class="gradient">intelligence,</span><br/>not more software.</h2>
+    <div class="divider" style="margin:20px auto"></div>
+    <div class="grid3" style="text-align:left">
+      <div class="card"><h3>Understand Context</h3><p>Know the facility, the stage, the risk profile, and the regulatory requirements simultaneously</p></div>
+      <div class="card"><h3>Connect Modules</h3><p>Link validations to risks, deviations to CAPAs, changes to requalification requirements</p></div>
+      <div class="card"><h3>Generate Reasoning</h3><p>Produce defensible logic, not just stored records — ready for inspection</p></div>
+      <div class="card"><h3>Maintain Traceability</h3><p>URS → FRS → IQ/OQ/PQ → release, end-to-end, immutable, Part 11-ready</p></div>
+      <div class="card"><h3>Support Decisions</h3><p>Surface the right information at the right time for every role</p></div>
+      <div class="card"><h3>Scale Expertise</h3><p>Encode 30 years of GxP knowledge into every workflow</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5 -->
+<section class="slide" id="s5">
+  <div class="inner" style="text-align:center">
+    <div class="tag">The Solution</div>
+    <h2>Introducing the <span class="gradient">Operational Intelligence System</span></h2>
+    <div class="divider" style="margin:20px auto"></div>
+    <p class="sub" style="margin:0 auto 32px">A unified intelligence layer for regulated operations — not a chatbot, not a workflow tool. A reasoning system.</p>
+    <div class="grid3" style="text-align:left">
+      <div class="card" style="border-color:rgba(139,92,246,0.2)"><h3 style="color:#a78bfa">Validation</h3><p>IQ → OQ → PQ lifecycle with full traceability</p></div>
+      <div class="card" style="border-color:rgba(59,130,246,0.2)"><h3 style="color:#60a5fa">Risk</h3><p>ICH Q9 risk register with live scoring</p></div>
+      <div class="card" style="border-color:rgba(6,182,212,0.2)"><h3 style="color:#22d3ee">Deviations</h3><p>Linked to CAPA, SOPs, and requalification</p></div>
+      <div class="card" style="border-color:rgba(139,92,246,0.2)"><h3 style="color:#a78bfa">Release Readiness</h3><p>Real-time dashboard — always inspection-ready</p></div>
+      <div class="card" style="border-color:rgba(59,130,246,0.2)"><h3 style="color:#60a5fa">Facility Lifecycle</h3><p>15-stage lifecycle from design to commercial ops</p></div>
+      <div class="card" style="border-color:rgba(6,182,212,0.2)"><h3 style="color:#22d3ee">Regulatory Logic</h3><p>FDA 21 CFR, EMA, ICH embedded throughout</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6 -->
+<section class="slide" id="s6">
+  <div class="inner">
+    <div class="tag">What It Does</div>
+    <h2>One system that <span class="gradient">thinks across</span><br/>the entire operation</h2>
+    <div class="divider"></div>
+    <div class="grid2">
+      <ul class="main">
+        <li>Generates validation logic end-to-end</li>
+        <li>Performs dynamic risk assessments</li>
+        <li>Analyzes and routes deviations</li>
+        <li>Predicts release readiness state</li>
+      </ul>
+      <ul class="main">
+        <li>Simulates regulatory expectations</li>
+        <li>Maintains cross-module traceability</li>
+        <li>Supports QA teams and consultants</li>
+        <li>Immutable Part 11 audit trail</li>
+      </ul>
+    </div>
+    <div class="glass glow" style="margin-top:24px">
+      <p style="font-size:1.1rem;font-weight:500;color:#e2e8f0;line-height:1.7">"When FDA shows up for a Pre-Approval Inspection, the customer opens their laptop and has complete, audit-ready proof of everything. <span style="color:#a78bfa">No gaps. No scrambling.</span>"</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7 -->
+<section class="slide" id="s7">
+  <div class="inner">
+    <div class="tag">The Interface</div>
+    <h2>A minimal, modern workspace built around <span class="gradient">a single prompt</span></h2>
+    <div class="divider"></div>
+    <div class="grid2">
+      <div>
+        <ul class="main">
+          <li>Type-first interaction (voice optional)</li>
+          <li>Smooth, cinematic transitions</li>
+          <li>Glassmorphism design — feels like an OS</li>
+          <li>Neural network ambient background</li>
+          <li>Real-time updates across all modules</li>
+          <li>Zero clutter. Maximum clarity.</li>
+        </ul>
+      </div>
+      <div class="glass" style="border-color:rgba(139,92,246,0.2);padding:20px">
+        <p style="font-size:0.75rem;color:var(--purple);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.1em">Live prompt bar</p>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:10px">
+          <div style="width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,rgba(139,92,246,0.3),rgba(59,130,246,0.3));flex-shrink:0"></div>
+          <p style="color:#475569;font-size:0.85rem">Ask anything about your facility, validations, risks...</p>
+        </div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+          <div style="background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:10px;padding:10px 14px;font-size:0.8rem;color:#94a3b8">"What's our PAI readiness score for Site 1?"</div>
+          <div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15);border-radius:10px;padding:10px 14px;font-size:0.8rem;color:#94a3b8">"Log a deviation for the HVAC excursion in Room 204"</div>
+          <div style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15);border-radius:10px;padding:10px 14px;font-size:0.8rem;color:#94a3b8">"Draft risk assessment for new buffer prep room"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8 -->
+<section class="slide" id="s8">
+  <div class="inner">
+    <div class="tag">Ambient Intelligence</div>
+    <h2>A <span class="gradient">role-aware assistant</span><br/>woven into every workflow</h2>
+    <div class="divider"></div>
+    <div class="grid3">
+      <div class="card">
+        <h3>QA Lead</h3>
+        <ul><li>Deviation summaries</li><li>CAPA status alerts</li><li>Release readiness score</li><li>Audit trail queries</li></ul>
+      </div>
+      <div class="card">
+        <h3>Validation Engineer</h3>
+        <ul><li>Protocol generation</li><li>Test case traceability</li><li>IQ/OQ/PQ status</li><li>Regulatory alignment</li></ul>
+      </div>
+      <div class="card">
+        <h3>Facility Engineer</h3>
+        <ul><li>Lifecycle stage tracking</li><li>Equipment qualification</li><li>Change impact analysis</li><li>Commissioning checklist</li></ul>
+      </div>
+      <div class="card">
+        <h3>Regulatory Affairs</h3>
+        <ul><li>Framework alignment</li><li>Submission readiness</li><li>PAI gap analysis</li><li>Change notifications</li></ul>
+      </div>
+      <div class="card">
+        <h3>Executive</h3>
+        <ul><li>Program dashboard</li><li>Risk exposure summary</li><li>Timeline forecast</li><li>Budget vs. readiness</li></ul>
+      </div>
+      <div class="card">
+        <h3>Consultant</h3>
+        <ul><li>Client workspace view</li><li>White-label mode</li><li>Deliverable tracking</li><li>Knowledge capture</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9 -->
+<section class="slide" id="s9">
+  <div class="inner">
+    <div class="tag">Why This Is New</div>
+    <h2>No existing system <span class="gradient">unifies these domains</span><br/>with intelligence</h2>
+    <div class="divider"></div>
+    <table>
+      <thead><tr><th>Existing Tools</th><th>What They Do</th><th>What They Can't Do</th></tr></thead>
+      <tbody>
+        <tr><td>QMS</td><td>Workflows, documents</td><td>No reasoning, no cross-module logic</td></tr>
+        <tr><td>Validation tools</td><td>Templates, signatures</td><td>No dynamic generation, no risk logic</td></tr>
+        <tr><td>Risk tools</td><td>Static matrices</td><td>No propagation, no operational context</td></tr>
+        <tr><td>Facility tools</td><td>Asset tracking</td><td>No regulatory or validation tie-in</td></tr>
+        <tr><td>Consultants</td><td>Manual expertise</td><td>Not scalable, not continuous</td></tr>
+        <tr><td style="color:#a78bfa;font-weight:600">GxP Facility Planner</td><td style="color:#a78bfa">Unified intelligence</td><td style="color:#22d3ee">Reasons across all domains</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SLIDE 10 -->
+<section class="slide" id="s10">
+  <div class="inner">
+    <div class="tag">The Architecture</div>
+    <h2>Built for <span class="gradient">scale, security,</span><br/>and regulatory defensibility</h2>
+    <div class="divider"></div>
+    <div class="grid2">
+      <div>
+        <div class="glass" style="padding:24px;margin-bottom:16px">
+          <p style="color:var(--purple);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px">Infrastructure</p>
+          <ul class="main">
+            <li>Multi-tenant, schema-per-tenant isolation</li>
+            <li>Supabase PostgreSQL + Row Level Security</li>
+            <li>Next.js 15 + Vercel edge deployment</li>
+            <li>21 CFR Part 11 audit triggers on all data</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="glass" style="padding:24px;margin-bottom:16px">
+          <p style="color:#06b6d4;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px">Intelligence Engines</p>
+          <ul class="main">
+            <li>Validation logic engine</li>
+            <li>Risk assessment engine (ICH Q9)</li>
+            <li>Deviation & CAPA engine</li>
+            <li>Release readiness engine</li>
+            <li>Facility lifecycle engine</li>
+            <li>Regulatory reasoning core</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <span class="pill pill-purple">ALCOA+ Data Integrity</span>
+      <span class="pill pill-blue">SOC 2 Ready</span>
+      <span class="pill pill-cyan">GDPR Compliant</span>
+      <span class="pill pill-purple">FedRAMP-eligible</span>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11 -->
+<section class="slide" id="s11">
+  <div class="inner" style="text-align:center">
+    <div class="tag">The Value</div>
+    <h2>Faster operations. Fewer errors.<br/><span class="gradient">Audit-ready reasoning.</span></h2>
+    <div class="divider" style="margin:20px auto"></div>
+    <div class="grid3" style="text-align:left">
+      <div class="card">
+        <div class="stat-big" style="margin-bottom:8px">40%</div>
+        <h3>Faster Validation</h3>
+        <p>Reduce validation cycle time through automated traceability and intelligent protocol generation</p>
+      </div>
+      <div class="card">
+        <div class="stat-big" style="margin-bottom:8px">0</div>
+        <h3>Audit Surprises</h3>
+        <p>Every action logged, every decision traceable, every document version-controlled and defensible</p>
+      </div>
+      <div class="card">
+        <div class="stat-big" style="margin-bottom:8px">100%</div>
+        <h3>Inspection Ready</h3>
+        <p>Real-time readiness dashboard — know your PAI status at any moment, not just before FDA arrives</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 12 -->
+<section class="slide" id="s12">
+  <div class="inner" style="text-align:center">
+    <div class="tag">The Vision</div>
+    <h2>The first <span class="gradient">operational intelligence system</span><br/>for regulated industries</h2>
+    <div class="divider" style="margin:20px auto"></div>
+    <p class="sub" style="margin:0 auto 32px">A platform that understands the work, supports decisions, maintains traceability, reduces risk, accelerates operations, and feels effortless to use.</p>
+    <div class="glass glow" style="max-width:680px;margin:0 auto;padding:28px">
+      <p style="font-size:1.15rem;font-weight:500;line-height:1.7;color:#e2e8f0">"We're not building another QMS. We're building the intelligence layer that makes every regulated operation faster, safer, and inspection-ready — from day one."</p>
+      <p style="margin-top:12px;color:var(--purple);font-size:0.875rem;font-weight:600">— Bobby BIG, Founder & CEO, Data Driven Design Group</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 13 -->
+<section class="slide" id="s13">
+  <div class="inner" style="text-align:center">
+    <div class="tag">Call to Action</div>
+    <h2>Join the next generation of <span class="gradient">operational excellence</span></h2>
+    <div class="divider" style="margin:20px auto"></div>
+    <div class="grid2" style="max-width:600px;margin:0 auto 32px;text-align:left">
+      <div class="card" style="border-color:rgba(139,92,246,0.25)">
+        <h3>Micro-Grant Ask</h3>
+        <ul><li>Proof of concept validation</li><li>First pilot customer acquisition</li><li>Regulatory expert review</li><li>Boulder biotech community</li></ul>
+      </div>
+      <div class="card" style="border-color:rgba(6,182,212,0.25)">
+        <h3>What You Fund</h3>
+        <ul><li>Platform MVP completion</li><li>First 3 pilot customers</li><li>GxP compliance review</li><li>Go-to-market launch</li></ul>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="mailto:dataddgroup@gmail.com" class="cta-btn cta-primary"><span>Request Early Access</span></a>
+      <a href="https://gxpplanner.com" class="cta-btn cta-ghost" style="border:1px solid rgba(255,255,255,0.1)"><span>Visit gxpplanner.com</span></a>
+    </div>
+    <p style="margin-top:32px;color:var(--muted);font-size:0.8rem">Data Driven Design Group, LLC · Boulder, CO · dataddgroup@gmail.com</p>
+  </div>
+</section>
+
+<!-- Nav dots -->
+<nav class="nav" id="navDots"></nav>
+
+<script>
+// Nav dots
+const slides = document.querySelectorAll('.slide');
+const nav = document.getElementById('navDots');
+const numEl = document.getElementById('slideNum');
+slides.forEach((s,i)=>{
+  const a = document.createElement('a');
+  a.href = '#'+s.id;
+  if(i===0) a.classList.add('active');
+  nav.appendChild(a);
+});
+const dots = nav.querySelectorAll('a');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const i = Array.from(slides).indexOf(e.target);
+      dots.forEach(d=>d.classList.remove('active'));
+      if(dots[i]) dots[i].classList.add('active');
+      numEl.textContent = String(i+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+    }
+  });
+},{threshold:0.5});
+slides.forEach(s=>obs.observe(s));
+
+// Neural canvas
+const canvas = document.getElementById('neural');
+const ctx = canvas.getContext('2d');
+let nodes=[], animId, scanY=0;
+const N=50, MAX=150;
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();
+window.addEventListener('resize',resize);
+for(let i=0;i<N;i++) nodes.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*2+1,p:Math.random()*Math.PI*2,ps:.02+Math.random()*.02});
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(const n of nodes){n.x+=n.vx;n.y+=n.vy;n.p+=n.ps;if(n.x<0||n.x>canvas.width)n.vx*=-1;if(n.y<0||n.y>canvas.height)n.vy*=-1;}
+  for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+    const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<MAX){const a=(1-d/MAX)*.2,g=ctx.createLinearGradient(nodes[i].x,nodes[i].y,nodes[j].x,nodes[j].y);g.addColorStop(0,`rgba(139,92,246,${a})`);g.addColorStop(1,`rgba(6,182,212,${a})`);ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.strokeStyle=g;ctx.lineWidth=.7;ctx.stroke();}
+  }
+  for(const n of nodes){const g2=Math.sin(n.p)*.4+.6,r=n.r*(0.8+Math.sin(n.p)*.3);ctx.beginPath();ctx.arc(n.x,n.y,r,0,Math.PI*2);ctx.fillStyle=`rgba(139,92,246,${g2*.8})`;ctx.fill();}
+  scanY=(scanY+.5)%canvas.height;
+  const sg=ctx.createLinearGradient(0,scanY-30,0,scanY+30);
+  sg.addColorStop(0,'transparent');sg.addColorStop(.5,'rgba(139,92,246,0.06)');sg.addColorStop(1,'transparent');
+  ctx.fillStyle=sg;ctx.fillRect(0,scanY-30,canvas.width,60);
+  ctx.beginPath();ctx.moveTo(0,scanY);ctx.lineTo(canvas.width,scanY);ctx.strokeStyle='rgba(139,92,246,0.1)';ctx.lineWidth=1;ctx.stroke();
+  animId=requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
