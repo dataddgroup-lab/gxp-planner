@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import NeuralBackground from '@/components/NeuralBackground'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -24,17 +25,8 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-bg flex items-center justify-center relative overflow-hidden px-4">
 
-      {/* Background orbs */}
-      <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full animate-pulse-glow"
-        style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)' }} />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full animate-pulse-glow"
-        style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%)', animationDelay: '1.5s' }} />
-      <div className="absolute top-[40%] right-[20%] w-[300px] h-[300px] rounded-full animate-float"
-        style={{ background: 'radial-gradient(circle, rgba(6,182,212,0.07) 0%, transparent 70%)', animationDelay: '3s' }} />
-
-      {/* Grid overlay */}
-      <div className="absolute inset-0 opacity-[0.03]"
-        style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+      {/* Neural network animation */}
+      <NeuralBackground />
 
       {/* Card */}
       <div className="relative w-full max-w-md animate-fade-in">
