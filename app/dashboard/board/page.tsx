@@ -11,13 +11,8 @@ export default async function BoardPage() {
     return <BoardClient initialItems={[]} tenantId={null} userId="" />
   }
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('tenant_id')
-    .eq('id', user.id)
-    .single()
-
-  const tenantId = profile?.tenant_id ?? null
+  // Read tenant_id from JWT app_metadata — no DB query, no RLS issues
+  const tenantId = (user.app_metadata?.tenant_id as string) ?? null
 
   const { data: items } = tenantId
     ? await supabase
