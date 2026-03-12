@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/lib/supabase/client'
 
 type Priority = 'critical' | 'high' | 'medium' | 'low'
 type Tag = 'Validation' | 'Risk' | 'Facility' | 'Compliance' | 'Training' | 'Change'
