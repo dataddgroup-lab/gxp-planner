@@ -123,6 +123,8 @@ Every feature we build must serve this journey. If it doesn't, we don't build it
 
 ## ROLE-BASED TAG-ALONG ASSISTANT (Planned)
 
+Rendered as a beautiful, minimal floating entity — ghostly, ethereal, calm. Think ambient intelligence, not intrusive assistant. Show/hide on demand. Never cheesy. Think less Microsoft Clippy, more a softly glowing presence that feels like it belongs in the interface. Fully custom React component with subtle animation.
+
 Every role gets a context-aware in-app AI assistant that:
 - Knows the user's role, current page, and open tasks
 - Proactively surfaces relevant alerts and actions
