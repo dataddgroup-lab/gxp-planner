@@ -16,7 +16,7 @@ export default function LoginPage() {
     setError('')
     const err = await loginAction(email, password)
     if (err) { setError(err); setLoading(false) }
-    // on success loginAction calls redirect() server-side — no client nav needed
+    else { window.location.href = '/dashboard' } // hard nav after cookies are set
   }
 
   return (

@@ -2,7 +2,6 @@
 
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 
 export async function loginAction(email: string, password: string): Promise<string | null> {
   const cookieStore = await cookies()
@@ -25,5 +24,5 @@ export async function loginAction(email: string, password: string): Promise<stri
   const { error } = await supabase.auth.signInWithPassword({ email, password })
   if (error) return error.message
 
-  redirect('/dashboard')
+  return null // success — client handles navigation after cookies are set
 }
