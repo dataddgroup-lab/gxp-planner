@@ -27,9 +27,8 @@ export async function middleware(request: NextRequest) {
   if (pathname.startsWith('/dashboard') || pathname.startsWith('/auth')) {
     const { data: { user }, error: authError } = await supabase.auth.getUser()
 
-    // Redirect to login when no user — allow pass-through only for network/transient errors
-    const isSessionMissing = authError?.message?.includes('session') || authError?.message?.includes('token')
-    if (pathname.startsWith('/dashboard') && !user && (!authError || isSessionMissing)) {
+    // Only redirect when user is definitively null with no error
+    if (pathname.startsWith('/dashboard') && !user && !authError) {
       return NextResponse.redirect(new URL('/auth/login', request.url))
     }
 
