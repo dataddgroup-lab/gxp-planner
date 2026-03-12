@@ -13,39 +13,51 @@
 **The legal stack (federal → state → local):**
 
 ```
-21 CFR 210/211 (CGMP) ← Highest Authority
-├─ Facility Design & Construction
-├─ Equipment & Utilities
-├─ Manufacturing Process Validation
-├─ Quality Assurance & Testing
-├─ Personnel & Training
-├─ Records & Documentation
-└─ Inspection Readiness
+Product Type Decision Tree
+├─ DRUGS (21 CFR 210/211 CGMP)
+│  ├─ Commercial manufacturing (full CGMP)
+│  ├─ IND manufacturing (21 CFR 312 + CGMP)
+│  └─ Clinical trial materials (investigational controls)
+├─ BIOLOGICS (21 CFR 600 series)
+│  ├─ Plasmapheresis (CBER requirements)
+│  ├─ Cell/Gene Therapy (CBER-specific)
+│  ├─ Vaccines (CBER requirements)
+│  └─ Monoclonal Antibodies (CBER requirements)
+├─ DEVICES (21 CFR 807 + 820)
+│  ├─ Class I (general controls)
+│  ├─ Class II (general + special controls)
+│  └─ Class III (PMA pathway)
+└─ COMBINATION PRODUCTS (Drug + Device)
+   ├─ Primary mode determines primary regulation
+   ├─ Both CFR 210/211 + 820 apply
+   └─ Special CMC requirements
 
-FDA Guidance Documents ← Interpretation & Implementation
-├─ Equipment Identification & Qualification
-├─ Process Validation
-├─ Environmental Monitoring
-├─ Analytical Method Validation
-├─ Sterile & Non-Sterile Manufacturing
-├─ Computer Systems Validation
-└─ Post-Market Surveillance
-
-CBER-Specific Requirements ← If Manufacturing Biologics
-├─ Plasmapheresis Facility Requirements
-├─ Cell Processing Facility Requirements
-├─ Biological Product License Applications
-└─ Investigational Product Controls
-
-State & Local Laws ← Foundation
-├─ Building Codes
-├─ Environmental Permits
-├─ Water & Waste Systems
-├─ Electrical & Plumbing Codes
-└─ Occupational Safety
+FOUNDATIONAL (All Products)
+├─ 21 CFR 210/211 (CGMP) ← Highest Authority
+│  ├─ Facility Design & Construction
+│  ├─ Equipment & Utilities
+│  ├─ Manufacturing Process Validation
+│  ├─ Quality Assurance & Testing
+│  ├─ Personnel & Training
+│  ├─ Records & Documentation
+│  └─ Inspection Readiness
+├─ FDA Guidance Documents ← Interpretation & Implementation
+│  ├─ Equipment Identification & Qualification
+│  ├─ Process Validation
+│  ├─ Environmental Monitoring
+│  ├─ Analytical Method Validation
+│  ├─ Sterile & Non-Sterile Manufacturing
+│  ├─ Computer Systems Validation
+│  └─ Post-Market Surveillance
+└─ State & Local Laws ← Foundation
+   ├─ Building Codes
+   ├─ Environmental Permits
+   ├─ Water & Waste Systems
+   ├─ Electrical & Plumbing Codes
+   └─ Occupational Safety
 ```
 
-**In GxP Planner: Every level is enforced.**
+**In GxP Planner: Every level is enforced by product type.**
 
 ---
 
@@ -409,19 +421,25 @@ Evidence: Batch records, audit trail, lot release logs
 
 **Federal Law:** 21 CFR Parts 210 & 211 (Current Good Manufacturing Practice)
 
-**CGMP Core Requirements (mapped to GxP Planner modules):**
+**Comprehensive Federal Requirements (mapped to GxP Planner modules):**
 
-| CGMP Area | Federal Requirement | GxP Planner Module | Checkpoint |
-|-----------|-------------------|-------------------|-----------|
-| **Organization** | Quality assurance authority | QMS | Phase 5 |
-| **Personnel** | Training, supervision, hygiene | Training tracker | Phase 5 |
-| **Buildings** | Design, contamination control, maintenance | Layout + Commissioning | Phases 1–3 |
-| **Equipment** | Suitability, qualification, maintenance | Equipment database | Phases 2–3 |
-| **Utilities** | Water, power, compressed air validation | HVAC + commissioning | Phase 3 |
-| **Production** | Process validation, batch controls | Validation lifecycle | Phase 4 |
-| **Testing** | Method validation, QC testing | Analytical validation | Phase 6 |
-| **Warehousing** | Environmental monitoring, lot tracking | EM trending + batch mgmt | Phase 6 |
-| **Records** | Batch records, QA review, retention | Batch record system | Phase 6 |
+| Federal Requirement | Area | GxP Planner Module | Checkpoint | Applies To |
+|-------------------|------|-------------------|-----------|-----------|
+| **21 CFR 210/211** | CGMP Organization | QMS | Phase 5 | All drugs |
+| **21 CFR 211.42** | Facility design, contamination | Layout + Commissioning | Phases 1–3 | All drugs |
+| **21 CFR 211.50** | HVAC, utilities, utilities | HVAC + commissioning | Phase 3 | All drugs |
+| **21 CFR 211.63** | Equipment suitability | Equipment database | Phases 2–3 | All drugs |
+| **21 CFR 211.110** | Process validation (IQ/OQ/PQ) | Validation lifecycle | Phase 4 | All drugs |
+| **21 CFR 211.188** | Batch records & lot release | Batch record system | Phase 6 | All drugs |
+| **21 CFR 600** | Biologics | QMS + CBER specific | Phase 5 | Biologics only |
+| **21 CFR 807.85** | Device registration/listing | Device registration | Phase 0 | Devices + Combos |
+| **21 CFR 820** | Device quality system | Device QMS | Phases 2–6 | Devices + Combos |
+| **21 CFR 4.4** | Combination products | Dual pathway tracking | Phase 0 | Combos only |
+| **21 CFR 312.20** | IND CMC submission | IND CMC templates | Phase 0 | INDs only |
+| **21 CFR 312.23** | IND manufacturing controls | IND validation tracks | Phases 4–6 | INDs only |
+| **ICH Q2(R2)** | Analytical method validation | Method validation | Phase 6 | All drugs |
+| **ICH Q9** | Risk management | Risk assessment | Phase 2a | All products |
+| **ICH Q13** | Continuous manufacturing | Advanced mfg (Wave 2) | Post-launch | Advanced only |
 
 **What GxP Planner does:**
 - CGMP compliance checklist (100+ items, linked to regulations)
@@ -549,6 +567,250 @@ Status: [ ] Mock audit complete: [X] findings
 Timeline: Final week before anticipated FDA visit
 Evidence: Mock audit report, readiness checklist (100% pass)
 Confidence: Inspection-ready
+```
+
+---
+
+## 21 CFR PART 807: DEVICE ESTABLISHMENT REGISTRATION & LISTING
+
+**Applies if:** Manufacturing medical devices or combination products (drug + device)
+
+### Requirement 13: Device Establishment Registration (21 CFR 807.85)
+
+**Federal Law:** 21 CFR Part 807 (Establishment registration and device listing)
+
+**What it requires:**
+- Every device manufacturing facility must register with FDA
+- Registration includes:
+  - Company name, address, manufacturing site
+  - Contact person for regulatory communications
+  - Device types manufactured (product list, FDA classification)
+  - Responsible person (must be present on-site or available)
+- Annual re-registration required
+- Updates within 30 days of changes
+
+**What GxP Planner does (if product type = device or combo):**
+- Product type selector triggers device pathway
+- Device registration form generator (FDA Form 2891)
+- Classification lookup (Class I/II/III per device type)
+- Annual renewal tracking (sends reminder 60 days before expiration)
+- Responsible person validation (role + authority)
+
+**Checkpoint in App:**
+```
+Phase 0, Step 1b: Device Registration (if applicable)
+Status: [ ] Device type identified + classified (Class I/II/III)
+        [ ] FDA Form 2891 generated
+        [ ] Registered with FDA
+        [ ] Responsible person designated
+        [ ] Annual re-registration: [date]
+Timeline: Must complete BEFORE manufacturing
+Standards: 21 CFR 807.85
+Evidence: Device registration confirmation letter
+```
+
+---
+
+### Requirement 14: Quality System for Devices (21 CFR 820)
+
+**Federal Law:** 21 CFR Part 820 (Quality System Regulation)
+
+**What it requires:**
+- Device manufacturers must have documented quality system
+- Elements include:
+  - Management responsibility + authority
+  - Design control (if applicable)
+  - Document controls
+  - Production + process controls (equivalent to CGMP)
+  - Equipment, utilities, facilities (same as drug CGMP)
+  - Personnel training
+  - Identification + traceability
+  - Production + process validation
+  - Acceptance criteria & testing
+  - Nonconforming product procedures
+  - Corrective/preventive actions (CAPA)
+  - Labeling & packaging controls
+  - Handling, storage, distribution
+  - Records management
+  - Complaint files + medical device reporting (MDR)
+
+**What GxP Planner does (if device manufacturing):**
+- QMS generator for device-specific SOPs
+- Design control templates (if new device)
+- Production process validation (similar to drug validation)
+- Device-specific testing protocols
+- Complaint tracking + MDR reporting procedures
+- Traceability system (device serial numbers, batch linkage)
+
+**Checkpoint in App:**
+```
+Phase 5, Step 16: Device Quality System (if applicable)
+Status: [ ] QMS established per 21 CFR 820
+        [ ] Design control: [complete / not applicable]
+        [ ] Production & process controls: validated
+        [ ] Acceptance criteria: defined & met
+        [ ] Complaint file: system established
+        [ ] MDR reporting: procedure in place
+Timeline: Weeks 25–40 (parallel with validation)
+Standards: 21 CFR 820 (complete quality system)
+Evidence: Device QMS documentation
+```
+
+---
+
+### Requirement 15: Combination Products (Drug + Device)
+
+**Federal Law:** 21 CFR 4.4 (Determination by primary mode of action)
+
+**What it requires (if both drug + device components):**
+- FDA determines primary mode of action (drug or device?)
+- Both 21 CFR 210/211 (CGMP) AND 21 CFR 820 (Device QS) apply
+- All requirements for both pathways must be met
+- Special CMC section required (Chemistry, Manufacturing & Controls)
+- Labeling must address both components
+- Post-market surveillance for both components
+
+**What GxP Planner does (if combination product detected):**
+- Product type: "Combination (Drug + Device)" triggers dual pathway
+- Dual compliance roadmap (both 210/211 + 820)
+- CMC section templates (manufacturing for both components)
+- Labeling review checklist (both drug + device aspects)
+- Dual audit readiness (both pathways)
+
+**Checkpoint in App:**
+```
+Phase 0, Step 2: Combination Product Classification
+Status: [ ] Product type: Combination (Drug + Device)
+        [ ] Primary mode of action: [Drug / Device]
+        [ ] Both CGMP (210/211) + Device QS (820) required
+        [ ] Dual pathway compliance roadmap: created
+        [ ] CMC section: covers both components
+        [ ] Labeling: addresses both drug + device claims
+Timeline: Week 1 (determines entire pathway)
+Standards: 21 CFR 4.4 (primary mode), 210/211 + 820
+Evidence: Combination product determination letter (if obtained from FDA)
+```
+
+---
+
+## 21 CFR PART 312: INVESTIGATIONAL NEW DRUG (IND) MANUFACTURING
+
+**Applies if:** Manufacturing investigational products for clinical trials
+
+### Requirement 16: IND Application & CMC (21 CFR 312.20)
+
+**Federal Law:** 21 CFR Part 312 (Investigational New Drug Application)
+
+**What it requires:**
+- Before clinical trials begin, company must submit IND application to FDA
+- IND includes chemistry, manufacturing & controls (CMC) section
+- CMC for IND is less detailed than NDA but must show drug can be made reliably
+- Includes:
+  - Drug substance (synthesis, characterization, controls, stability)
+  - Drug product (formulation, manufacturing process, controls, stability)
+  - Analytical methods (must be validated)
+  - Environmental assessment (if applicable)
+  - Previous human experience (if available)
+
+**What GxP Planner does (if product type = IND):**
+- Product type selector triggers IND pathway
+- IND CMC templates (drug substance + drug product sections)
+- Analytical method validation plan (ICH Q2 for early development)
+- Stability protocol (ICH Q1A, abbreviated for IND)
+- Manufacturing process summary (simplified for early phase)
+- Chemistry & controls submission checklist (FDA requirements)
+
+**Checkpoint in App:**
+```
+Phase 0, Step 3: Investigational Product (IND) Pathway
+Status: [ ] Product type: Investigational (IND)
+        [ ] IND CMC section: development plan created
+        [ ] Drug substance: characterization plan
+        [ ] Drug product: formulation documented
+        [ ] Analytical methods: validation plan
+        [ ] Stability: protocol (abbreviated for IND)
+        [ ] IND submission target: [date]
+Timeline: Week 1
+Standards: 21 CFR 312.20 (CMC content), ICH Q2/Q1A
+Evidence: IND CMC draft sections
+```
+
+---
+
+### Requirement 17: IND Manufacturing Controls (21 CFR 312.23)
+
+**Federal Law:** 21 CFR 312.23 (CMC in IND for early-phase manufacturing)
+
+**What it requires:**
+- IND manufacturing has relaxed controls vs. commercial CGMP
+- BUT must ensure safety, identity, strength, quality, purity
+- Typical controls for early IND:
+  - Process description (may be less detailed than NDA)
+  - In-process controls (simplified, not full process validation)
+  - Finished product specifications (simplified test panel)
+  - Stability data (may be ongoing during clinical trials)
+  - Batch records (CGMP compliant, ALCOA+)
+  - Changes to CMC require notification to FDA (if significant)
+- As trials progress (Phase II → Phase III), controls become stricter
+- By NDA submission, full CGMP required
+
+**What GxP Planner does (if IND manufacturing):**
+- IND-specific CGMP templates (lighter than commercial but compliant)
+- Phase-based escalation (Phase I → Phase II → Phase III controls increase)
+- In-process control templates (simplified for early phase)
+- Finished product test panels (Phase I minimal, Phase III comprehensive)
+- Manufacturing change notification checklist (when to notify FDA)
+- Transition plan to full CGMP (when moving to commercial)
+
+**Checkpoint in App:**
+```
+Phase 4, Step 12–15: IND-Phase Manufacturing Validation
+Status: [ ] Manufacturing process: documented (IND-appropriate)
+        [ ] In-process controls: Phase [I/II/III] level
+        [ ] Finished product specs: Phase [I/II/III] appropriate
+        [ ] Batch records: ALCOA+ compliant
+        [ ] Stability: ongoing per IND protocol
+        [ ] CMC changes: FDA notification plan
+        [ ] Phase escalation: timeline & control increases
+Timeline: Varies by clinical phase
+Standards: 21 CFR 312.23 (IND CMC controls)
+Evidence: IND manufacturing documentation, batch records, FDA correspondence
+Escalation: Full CGMP (210/211) required for NDA/BLA submission
+```
+
+---
+
+### Requirement 18: IND Compliance vs. NDA Compliance (Escalation Path)
+
+**Federal Law:** 21 CFR 312 (IND) vs. 21 CFR 314/601 (NDA/BLA)
+
+**Key difference:**
+- **IND phase:** Relaxed controls, ongoing development
+- **NDA/BLA phase:** Full CGMP, locked controls, commercial standards
+- **Transition point:** When moving from clinical trials to commercial launch
+
+**What GxP Planner does (if transitioning from IND → NDA/BLA):**
+- Escalation tracker (automatic Phase III → NDA transition)
+- Control tightening checklist (Phase III CGMP gaps → Phase IV full CGMP)
+- Process validation upgrade (Phase III validation → Phase IV commercial)
+- Stability upgrade (Phase III ongoing → Phase IV long-term data)
+- CMC update template (for NDA/BLA submission)
+- Full CGMP readiness checkpoint
+
+**Checkpoint in App:**
+```
+Transition: IND → NDA/BLA (When Clinical Efficacy Proven)
+Status: [ ] Phase III CGMP controls: complete
+        [ ] Full CGMP gaps identified: [X items]
+        [ ] Equipment validation: Phase III adequate? (may need PQ upgrade)
+        [ ] Process validation: Phase III adequate? (may need scale-up validation)
+        [ ] Stability data: Phase III sufficient? (may need long-term data)
+        [ ] CMC update: drafted for NDA/BLA
+        [ ] Regulatory pathway: IND → NDA/BLA decided
+Timeline: ~6-12 months before NDA/BLA submission
+Standards: 21 CFR 312 (IND) → 21 CFR 314/601 (NDA/BLA)
+Evidence: Comparative CMC documentation, validation reports
+Critical: No surprises at FDA review (escalation done properly)
 ```
 
 ---
