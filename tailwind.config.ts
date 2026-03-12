@@ -9,22 +9,34 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50:  '#f0f7ff',
-          100: '#e0efff',
-          500: '#2563eb',
-          600: '#1d4ed8',
-          900: '#0f1f4a',
-        },
-        surface: {
-          DEFAULT: '#0f1117',
-          card:    '#161b27',
-          border:  '#1e2635',
-        }
+        bg:      '#07070f',
+        bg2:     '#0d0d1a',
+        purple:  { DEFAULT: '#8b5cf6', dark: '#7c3aed', glow: 'rgba(139,92,246,0.15)' },
+        blue:    { DEFAULT: '#3b82f6', dark: '#2563eb' },
+        cyan:    { DEFAULT: '#06b6d4' },
+        glass:   'rgba(255,255,255,0.04)',
+        border:  'rgba(255,255,255,0.08)',
+        muted:   '#64748b',
+        dim:     '#334155',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        sans:    ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-brand':  'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%)',
+      },
+      boxShadow: {
+        'glow-purple': '0 0 30px rgba(139,92,246,0.2)',
+        'glow-blue':   '0 0 30px rgba(59,130,246,0.2)',
+        'glow-sm':     '0 0 15px rgba(139,92,246,0.15)',
+      },
+      animation: {
+        'fade-in':    'fade-in 0.5s ease forwards',
+        'slide-in':   'slide-in 0.4s ease forwards',
+        'float':      'float 6s ease-in-out infinite',
+        'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
       },
     },
   },
