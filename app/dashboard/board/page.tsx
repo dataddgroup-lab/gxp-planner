@@ -1,11 +1,15 @@
 import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
 import BoardClient from './BoardClient'
 
+// Layout already handles auth — this page just fetches data
 export default async function BoardPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/auth/login')
+
+  if (!user) {
+    // Layout will redirect; render empty shell to avoid error
+    return <BoardClient initialItems={[]} tenantId={null} userId="" />
+  }
 
   const { data: profile } = await supabase
     .from('profiles')
