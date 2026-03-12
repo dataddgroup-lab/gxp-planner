@@ -112,5 +112,27 @@ Every feature we build must serve this journey. If it doesn't, we don't build it
 
 ---
 
+## GROUNDBREAKING ANALYTICS (Planned)
+
+- Temporal flow maps — risk/validation/readiness as living timelines
+- Compliance topology — facility heat map (rooms colored by validation state)
+- Readiness radar — PAI readiness spider chart across all 6 domains
+- Causal chain graphs — deviation → CAPA → SOP → training → revalidation
+- Predictive timeline — AI-projected lifecycle completion with confidence intervals
+- Live ICH Q9 risk matrix — updates in real time
+
+## ROLE-BASED TAG-ALONG ASSISTANT (Planned)
+
+Every role gets a context-aware in-app AI assistant that:
+- Knows the user's role, current page, and open tasks
+- Proactively surfaces relevant alerts and actions
+- Answers in role-specific language (QA vs engineer vs executive)
+- Executes tasks by voice or text ("log a deviation for line 3")
+- Watches and helps without interrupting workflow
+
+This is the core AGI layer — what makes this an intelligence system, not a SaaS tool.
+
+---
+
 _Last updated: 2026-03-12_
 _Owner: Bobby BIG (CEO) + AI Product Manager_
