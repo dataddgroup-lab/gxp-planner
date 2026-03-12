@@ -63,6 +63,8 @@ export default function BoardPage() {
   const [tenantId, setTenantId] = useState<string | null>(null)
   const [userId, setUserId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [debugMsg, setDebugMsg] = useState('')
+  const [insertError, setInsertError] = useState('')
   const [dragging, setDragging] = useState<{ card: Card; fromCol: ColId } | null>(null)
   const [overCol, setOverCol] = useState<ColId | null>(null)
   const [selected, setSelected] = useState<Card | null>(null)
@@ -75,14 +77,15 @@ export default function BoardPage() {
   // Load user + board items
   const loadBoard = useCallback(async () => {
     setLoading(true)
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) { setLoading(false); return }
+    const { data: { user }, error: userErr } = await supabase.auth.getUser()
+    if (!user) { setDebugMsg(`No user: ${userErr?.message}`); setLoading(false); return }
     setUserId(user.id)
 
-    const { data: profile } = await supabase
+    const { data: profile, error: profileErr } = await supabase
       .from('profiles').select('tenant_id').eq('id', user.id).single()
-    if (!profile) { setLoading(false); return }
+    if (!profile) { setDebugMsg(`No profile: ${profileErr?.message ?? 'not found'}`); setLoading(false); return }
     setTenantId(profile.tenant_id)
+    setDebugMsg(`tenant: ${profile.tenant_id}`)
 
     const { data: items } = await supabase
       .from('board_items')
@@ -139,9 +142,15 @@ export default function BoardPage() {
       .select()
       .single()
 
-    if (data && !error) {
+    if (error) {
+      setInsertError(`Insert failed: ${error.message}`)
+      setSaving(false)
+      return
+    }
+    if (data) {
       setCols(prev => ({ ...prev, backlog: [data as Card, ...prev.backlog] }))
     }
+    setInsertError('')
     setNewTitle('')
     setShowAdd(false)
     setSaving(false)
@@ -163,6 +172,13 @@ export default function BoardPage() {
 
   return (
     <div style={{ padding: '28px 32px', minHeight: '100vh' }}>
+      {/* Debug banner */}
+      {debugMsg && (
+        <div style={{ marginBottom: 12, padding: '8px 14px', borderRadius: 10, background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.3)', color: '#fbbf24', fontSize: '0.75rem', fontFamily: 'monospace' }}>
+          🔍 {debugMsg}
+        </div>
+      )}
+
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 28 }}>
         <div>
@@ -303,6 +319,8 @@ export default function BoardPage() {
                 {(['critical','high','medium','low'] as Priority[]).map(p => <option key={p} value={p}>{p}</option>)}
               </select>
             </div>
+            {insertError && <p style={{ color: '#f87171', fontSize: '0.75rem', marginBottom: 8 }}>{insertError}</p>}
+            {!tenantId && <p style={{ color: '#fbbf24', fontSize: '0.75rem', marginBottom: 8 }}>⚠️ No tenant found — profile not linked</p>}
             <div style={{ display: 'flex', gap: 10 }}>
               <button onClick={() => setShowAdd(false)} style={{ flex: 1, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: '11px', color: '#475569', fontSize: '0.875rem', cursor: 'pointer' }}>Cancel</button>
               <button onClick={addCard} disabled={saving} style={{ flex: 1, background: 'linear-gradient(135deg,#8b5cf6,#3b82f6)', border: 'none', borderRadius: 12, padding: '11px', color: '#fff', fontSize: '0.875rem', fontWeight: 600, cursor: saving ? 'wait' : 'pointer', opacity: saving ? 0.7 : 1 }}>
