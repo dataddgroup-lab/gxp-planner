@@ -5,9 +5,22 @@ _The product vision guardian. Read this before building anything._
 
 ## THE PRODUCT VISION
 
-**GxP Facility Planner** is an AI-powered operating system for pharmaceutical and biologics facility buildouts.
+**GxP Facility Planner** is an operational intelligence system for regulated industries.
 
-It guides customers through the ENTIRE lifecycle — from strategic definition to commercial operations — generating inspection-ready documentation at every step.
+It is a domain-aware platform that reasons across validation, risk, deviations, release readiness, and facility lifecycle. Users interact through a clean, minimal interface — type or speak — and the system handles the reasoning, traceability, and regulatory logic behind the scenes.
+
+**One-liner:** "We're building an operational intelligence system — a platform that understands validation, risk, deviations, and facility operations, and helps teams run their work through a clean, voice-first interface."
+
+**For investors/partners:** "A domain-aware platform that can reason across validation, risk, deviations, release readiness, and facility lifecycle. Not a chatbot — a continuous operational intelligence layer woven throughout the entire platform."
+
+**The architecture:** A builder-agent constructs the product, but the intelligence customers interact with lives entirely inside the SaaS. The system maintains tenant-specific context, understands regulatory frameworks, and can execute multi-step operational tasks by voice or text.
+
+**Why this positioning works:**
+- Avoids AGI hype
+- Avoids underselling the intelligence
+- Credible with enterprise buyers
+- Exciting to investors
+- Aligned with the actual architecture
 
 **The core promise:** A pharma company building a new facility uses GxP Planner from day one. When FDA shows up for a Pre-Approval Inspection, the customer opens their laptop and has complete, audit-ready proof of everything. No gaps. No scrambling.
 
