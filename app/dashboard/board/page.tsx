@@ -11,8 +11,12 @@ export default async function BoardPage() {
     return <BoardClient initialItems={[]} tenantId={null} userId="" />
   }
 
-  // Read tenant_id from JWT app_metadata — no DB query, no RLS issues
-  const tenantId = (user.app_metadata?.tenant_id as string) ?? null
+  // Try app_metadata first (fastest), fall back to RPC function (bypasses RLS)
+  let tenantId = (user.app_metadata?.tenant_id as string) ?? null
+  if (!tenantId) {
+    const { data: rpcTenantId } = await supabase.rpc('get_tenant_id_for_user', { p_user_id: user.id })
+    tenantId = (rpcTenantId as string) ?? null
+  }
 
   const { data: items } = tenantId
     ? await supabase
