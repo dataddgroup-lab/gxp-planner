@@ -21,17 +21,27 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  const { data: { user } } = await supabase.auth.getUser()
   const { pathname } = request.nextUrl
 
-  // Protect all /dashboard routes
-  if (pathname.startsWith('/dashboard') && !user) {
-    return NextResponse.redirect(new URL('/auth/login', request.url))
+  // Bypass: public assets, auth routes
+  const isAuthRoute = pathname.startsWith('/auth')
+  const isDashboard = pathname.startsWith('/dashboard')
+
+  if (isDashboard) {
+    // Use getSession() — reads JWT locally, no network call, never times out
+    // Server components do the secure getUser() verification
+    const { data: { session } } = await supabase.auth.getSession()
+    if (!session) {
+      return NextResponse.redirect(new URL('/auth/login', request.url))
+    }
   }
 
   // Redirect logged-in users away from auth pages (except logout + callback)
-  if (pathname.startsWith('/auth') && user && pathname !== '/auth/logout' && pathname !== '/auth/callback') {
-    return NextResponse.redirect(new URL('/dashboard', request.url))
+  if (isAuthRoute && pathname !== '/auth/logout' && pathname !== '/auth/callback') {
+    const { data: { session } } = await supabase.auth.getSession()
+    if (session) {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
   }
 
   return supabaseResponse
