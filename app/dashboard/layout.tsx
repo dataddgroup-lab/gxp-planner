@@ -6,8 +6,10 @@ import GhostAssistant from '@/components/GhostAssistant'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/auth/login')
+  const { data: { user }, error } = await supabase.auth.getUser()
+  // Only redirect on definitive "no session" — not on transient network errors
+  if (!user && !error) redirect('/auth/login')
+  if (!user && error) redirect('/auth/login')
 
   return (
     <div className="flex h-screen overflow-hidden relative" style={{ background: '#07070f' }}>
