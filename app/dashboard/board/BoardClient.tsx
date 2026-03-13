@@ -40,8 +40,22 @@ const PRIORITY_COLOR: Record<Priority, string> = {
 const PRIORITY_GLOW: Record<Priority, string> = {
   critical: 'rgba(239,68,68,0.5)', high: 'rgba(249,115,22,0.4)', medium: 'rgba(234,179,8,0.3)', low: 'rgba(34,211,238,0.3)',
 }
+const GXP_ROLES = [
+  'QA Lead',
+  'Validation Engineer',
+  'Facility Engineer',
+  'Regulatory Affairs',
+  'QC Analyst',
+  'Operations Lead',
+  'Change Control',
+  'Training Coordinator',
+  'Unassigned',
+]
+
 const AVATARS: Record<string, string> = {
-  'QA Lead': 'QL', 'Val Eng': 'VE', 'Fac Eng': 'FE', 'Reg Aff': 'RA', 'QC Analyst': 'QC',
+  'QA Lead': 'QL', 'Validation Engineer': 'VE', 'Facility Engineer': 'FE',
+  'Regulatory Affairs': 'RA', 'QC Analyst': 'QC', 'Operations Lead': 'OL',
+  'Change Control': 'CC', 'Training Coordinator': 'TC', 'Unassigned': '--',
 }
 const COL_META: Record<ColId, { label: string; accent: string }> = {
   backlog:    { label: 'Backlog',     accent: '#475569' },
@@ -76,6 +90,7 @@ export default function BoardClient({ initialItems }: Props) {
   const [newTitle, setNewTitle] = useState('')
   const [newTag, setNewTag] = useState<Tag>('Validation')
   const [newPriority, setNewPriority] = useState<Priority>('medium')
+  const [newAssignee, setNewAssignee] = useState('QA Lead')
   const [saving, setSaving] = useState(false)
   const [insertError, setInsertError] = useState('')
 
@@ -187,7 +202,7 @@ export default function BoardClient({ initialItems }: Props) {
         title: newTitle.trim(),
         tag: newTag,
         priority: newPriority,
-        assignee: 'QA Lead',
+        assignee: newAssignee,
         phase: 'Active',
         description: 'Newly created task.',
         column_id: 'backlog',
@@ -354,7 +369,9 @@ export default function BoardClient({ initialItems }: Props) {
                   <select value={editFields.priority ?? 'medium'} onChange={e => setEditFields(p => ({ ...p, priority: e.target.value as Priority }))} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 10, padding: '9px 10px', color: '#94a3b8', fontSize: '0.8rem', outline: 'none' }}>
                     {(['critical','high','medium','low'] as Priority[]).map(p => <option key={p} value={p}>{p}</option>)}
                   </select>
-                  <input value={editFields.assignee ?? ''} onChange={e => setEditFields(p => ({ ...p, assignee: e.target.value }))} placeholder="Assignee" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 10, padding: '9px 10px', color: '#e2e8f0', fontSize: '0.8rem', outline: 'none' }} />
+                  <select value={editFields.assignee ?? 'Unassigned'} onChange={e => setEditFields(p => ({ ...p, assignee: e.target.value }))} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 10, padding: '9px 10px', color: '#94a3b8', fontSize: '0.8rem', outline: 'none' }}>
+                    {GXP_ROLES.map(r => <option key={r} value={r}>{r}</option>)}
+                  </select>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: 10, marginTop: 16 }}>
@@ -398,6 +415,9 @@ export default function BoardClient({ initialItems }: Props) {
               </select>
               <select value={newPriority} onChange={e => setNewPriority(e.target.value as Priority)} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 12, padding: '10px 12px', color: '#94a3b8', fontSize: '0.8rem', outline: 'none' }}>
                 {(['critical','high','medium','low'] as Priority[]).map(p => <option key={p} value={p}>{p}</option>)}
+              </select>
+              <select value={newAssignee} onChange={e => setNewAssignee(e.target.value)} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 12, padding: '10px 12px', color: '#94a3b8', fontSize: '0.8rem', outline: 'none' }}>
+                {GXP_ROLES.map(r => <option key={r} value={r}>{r}</option>)}
               </select>
             </div>
             {insertError && <p style={{ color: '#f87171', fontSize: '0.8rem', marginBottom: 12 }}>{insertError}</p>}
