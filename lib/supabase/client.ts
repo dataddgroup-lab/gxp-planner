@@ -1,28 +1,24 @@
-import { createClient as createSupabaseClient, SupabaseClient } from '@supabase/supabase-js'
+import { createClient as _create } from '@supabase/supabase-js'
 
-// Singleton — one instance, session stored in localStorage (not cookies)
-// @supabase/ssr browser client uses document.cookie which Safari blocks.
-// @supabase/supabase-js uses localStorage which always works.
-let client: SupabaseClient | null = null
+type Client = ReturnType<typeof _create>
+let client: Client | null = null
 
-export function createClient(): SupabaseClient {
+export function createClient(): Client {
   if (client) return client
-
-  client = createSupabaseClient(
+  client = _create(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       auth: {
         persistSession: true,
         storageKey: 'gxp-auth',
-        storage: {
-          getItem: (key) => (typeof window !== 'undefined' ? localStorage.getItem(key) : null),
-          setItem: (key, value) => { if (typeof window !== 'undefined') localStorage.setItem(key, value) },
-          removeItem: (key) => { if (typeof window !== 'undefined') localStorage.removeItem(key) },
-        },
+        storage: typeof window !== 'undefined' ? {
+          getItem: (key) => localStorage.getItem(key),
+          setItem: (key, value) => localStorage.setItem(key, value),
+          removeItem: (key) => localStorage.removeItem(key),
+        } : undefined,
       },
     }
   )
-
   return client
 }
