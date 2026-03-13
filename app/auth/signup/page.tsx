@@ -23,7 +23,7 @@ export default function SignupPage() {
       return
     }
     // Trigger fired — tenant + profile created — go to dashboard
-    router.push('/dashboard/board')
+    window.location.href = '/dashboard/board'
   }
 
   return (

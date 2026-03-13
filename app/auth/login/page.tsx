@@ -19,7 +19,8 @@ export default function LoginPage() {
     const supabase = createClient()
     const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
     if (authError) { setError(authError.message); setLoading(false); return }
-    router.push('/dashboard/board')
+    // Hard navigation — ensures session cookie is committed before next page loads (same as RanchOS)
+    window.location.href = '/dashboard/board'
   }
 
   return (
