@@ -81,6 +81,14 @@ export default function FacilitiesPage() {
     if (authTenantId) setTenantId(authTenantId)
   }, [authTenantId])
 
+  if (!authReady) return <div style={{ padding: 40, color: '#475569' }}>Loading...</div>
+  if (authReady && !authTenantId) return (
+    <div style={{ padding: 40, textAlign: 'center' }}>
+      <p style={{ color: '#94a3b8', marginBottom: 16 }}>Session expired. Please sign in.</p>
+      <a href="/auth/login" style={{ color: '#8b5cf6', fontWeight: 600 }}>Sign In</a>
+    </div>
+  )
+
   async function load() {
     setLoading(true)
     const { data } = await supabase

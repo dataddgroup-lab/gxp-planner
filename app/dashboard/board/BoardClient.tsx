@@ -224,10 +224,12 @@ export default function BoardClient({ initialItems }: Props) {
     )
   }
 
-  if (!userId) {
-    window.location.href = '/auth/login'
-    return null
-  }
+  if (!userId) return (
+    <div style={{ padding: 40, textAlign: 'center' }}>
+      <p style={{ color: '#94a3b8', marginBottom: 16 }}>Session expired. Please sign in.</p>
+      <a href="/auth/login" style={{ color: '#8b5cf6', fontWeight: 600 }}>Sign In</a>
+    </div>
+  )
 
   return (
     <div style={{ padding: '28px 32px', minHeight: '100vh' }}>
