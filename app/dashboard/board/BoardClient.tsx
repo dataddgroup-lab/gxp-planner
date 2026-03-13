@@ -75,7 +75,6 @@ function groupByCol(cards: Card[]): Columns {
 }
 
 export default function BoardClient({ initialItems }: Props) {
-  const supabase = createClient()
   const [cols, setCols] = useState<Columns>(() => groupByCol(initialItems))
   const [tenantId, setTenantId] = useState<string | null>(null)
   const [userId, setUserId] = useState<string>('')
@@ -95,6 +94,7 @@ export default function BoardClient({ initialItems }: Props) {
   const [insertError, setInsertError] = useState('')
 
   useEffect(() => {
+    const supabase = createClient()
     async function loadBoard(userId: string) {
       // Try app_metadata first (fastest), fall back to profiles table
       const { data: { user } } = await supabase.auth.getUser()
@@ -142,6 +142,7 @@ export default function BoardClient({ initialItems }: Props) {
 
   async function onDrop(toCol: ColId) {
     if (!dragging || dragging.fromCol === toCol) { setDragging(null); setOverCol(null); return }
+    const supabase = createClient()
     const card = dragging.card
     const fromCol = dragging.fromCol
     setDragging(null); setOverCol(null)
@@ -163,6 +164,7 @@ export default function BoardClient({ initialItems }: Props) {
   async function saveEdit() {
     if (!selected) return
     setSaving(true)
+    const supabase = createClient()
     const updates = { title: editFields.title, tag: editFields.tag, priority: editFields.priority, description: editFields.description, assignee: editFields.assignee }
     await supabase.from('board_items').update(updates).eq('id', selected.id)
     const updated = { ...selected, ...updates } as Card
@@ -179,6 +181,7 @@ export default function BoardClient({ initialItems }: Props) {
   async function deleteCard() {
     if (!selected) return
     setSaving(true)
+    const supabase = createClient()
     await supabase.from('board_items').delete().eq('id', selected.id)
     setCols(prev => {
       const next = { ...prev }
@@ -195,6 +198,7 @@ export default function BoardClient({ initialItems }: Props) {
     if (!tenantId) { setInsertError('No tenant linked to your account. Contact support.'); return }
     setSaving(true)
     setInsertError('')
+    const supabase = createClient()
     const { data, error } = await supabase
       .from('board_items')
       .insert({
