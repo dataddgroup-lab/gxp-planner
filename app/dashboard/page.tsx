@@ -1,11 +1,8 @@
-import { createClient } from '@/lib/supabase/server'
+'use client'
 
-const stats = [
-  { label: 'Active Facilities',  value: '0', change: 'No facilities yet',  color: '#8b5cf6' },
-  { label: 'Open Validations',   value: '0', change: 'No validations yet', color: '#3b82f6' },
-  { label: 'Open Risks',         value: '0', change: 'No risks logged',    color: '#f59e0b' },
-  { label: 'Pending Changes',    value: '0', change: 'No change requests', color: '#06b6d4' },
-]
+import { useAuth } from '@/hooks/useAuth'
+import { createClient } from '@/lib/supabase/client'
+import { useEffect, useState } from 'react'
 
 const lifecycle = [
   'Strategic Definition','Site Selection','Permitting','Basis of Design',
@@ -14,28 +11,70 @@ const lifecycle = [
   'PAI Readiness','Commercial Operations','Lifecycle Management'
 ]
 
-export default async function DashboardPage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  const name = user?.email?.split('@')[0] ?? 'there'
+function getGreeting() {
+  const h = new Date().getHours()
+  if (h < 12) return 'Good morning'
+  if (h < 17) return 'Good afternoon'
+  return 'Good evening'
+}
+
+export default function DashboardPage() {
+  const { userId, tenantId, ready } = useAuth()
+  const [email, setEmail] = useState<string | null>(null)
+  const [counts, setCounts] = useState({ facilities: 0, validations: 0, risks: 0, changes: 0 })
+
+  useEffect(() => {
+    if (!userId) return
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data }) => {
+      setEmail(data.user?.email ?? null)
+    })
+  }, [userId])
+
+  useEffect(() => {
+    if (!tenantId) return
+    const supabase = createClient()
+    Promise.all([
+      supabase.from('facilities').select('id', { count: 'exact', head: true }).eq('tenant_id', tenantId),
+    ]).then(([fac]) => {
+      setCounts(c => ({ ...c, facilities: fac.count ?? 0 }))
+    })
+  }, [tenantId])
+
+  const name = email?.split('@')[0] ?? '—'
+
+  const stats = [
+    { label: 'Active Facilities',  value: String(counts.facilities), change: counts.facilities === 0 ? 'No facilities yet' : `${counts.facilities} registered`,  color: '#8b5cf6' },
+    { label: 'Open Validations',   value: '0', change: 'No validations yet', color: '#3b82f6' },
+    { label: 'Open Risks',         value: '0', change: 'No risks logged',    color: '#f59e0b' },
+    { label: 'Pending Changes',    value: '0', change: 'No change requests', color: '#06b6d4' },
+  ]
+
+  if (!ready) return (
+    <div className="p-8 min-h-screen flex items-center justify-center">
+      <div className="w-6 h-6 rounded-full border-2 border-purple-500 border-t-transparent animate-spin" />
+    </div>
+  )
+
+  if (!userId) return (
+    <div className="p-8 min-h-screen flex items-center justify-center">
+      <p className="text-slate-400 text-sm">Session expired — <a href="/auth/login" className="text-purple-400 underline">Sign In</a></p>
+    </div>
+  )
 
   return (
     <div className="p-8 min-h-screen relative">
-
-      {/* Background orb */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%)' }} />
 
-      {/* Header */}
       <div className="mb-8 animate-fade-in">
-        <p className="text-sm mb-1" style={{ color: '#8b5cf6' }}>Good morning</p>
+        <p className="text-sm mb-1" style={{ color: '#8b5cf6' }}>{getGreeting()}</p>
         <h1 className="font-display text-3xl font-semibold text-white">
           Welcome back, <span className="gradient-text">{name}</span>
         </h1>
         <p className="text-muted text-sm mt-1.5">Your operational intelligence platform is ready.</p>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {stats.map((s, i) => (
           <div key={s.label} className="glass glass-hover rounded-2xl p-5 animate-fade-in"
@@ -50,7 +89,6 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      {/* Lifecycle tracker */}
       <div className="glass rounded-2xl p-6 mb-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-display text-sm font-semibold text-white uppercase tracking-wider">Facility Lifecycle</h2>
@@ -77,7 +115,6 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* AI Prompt bar */}
       <div className="glass rounded-2xl p-4 animate-fade-in" style={{ animationDelay: '0.4s', border: '1px solid rgba(139,92,246,0.15)' }}>
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -91,12 +128,9 @@ export default async function DashboardPage() {
             placeholder="Ask anything — validations, risks, compliance, facility status..."
             className="flex-1 bg-transparent text-sm outline-none placeholder-dim text-white"
           />
-          <button className="btn-primary px-4 py-2 text-sm rounded-xl">
-            <span>Ask</span>
-          </button>
+          <button className="btn-primary px-4 py-2 text-sm rounded-xl">Ask</button>
         </div>
       </div>
-
     </div>
   )
 }
