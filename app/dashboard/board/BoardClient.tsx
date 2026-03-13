@@ -281,7 +281,7 @@ export default function BoardClient({ initialItems }: Props) {
             <div style={{ background: 'rgba(139,92,246,0.07)', border: '1px solid rgba(139,92,246,0.2)', borderRadius: 14, padding: '14px 16px', display: 'flex', gap: 12, alignItems: 'flex-start', marginBottom: 20 }}>
               <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'radial-gradient(circle at 40% 35%, rgba(220,200,255,0.9), rgba(139,92,246,0.4))', flexShrink: 0, marginTop: 2, boxShadow: '0 0 12px rgba(139,92,246,0.5)' }} />
               <div>
-                <p style={{ fontSize: '0.7rem', color: '#8b5cf6', fontWeight: 600, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Ghost Intelligence</p>
+                <p style={{ fontSize: '0.7rem', color: '#8b5cf6', fontWeight: 600, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Advisor</p>
                 <p style={{ fontSize: '0.8rem', color: '#a78bfa', lineHeight: 1.5 }}>
                   {selected.priority === 'critical' ? 'Critical item — delay may cascade to dependent validation phases. Consider escalating today.'
                     : selected.tag === 'Validation' ? 'Ensure IQ→OQ→PQ traceability is linked before moving to Review.'
