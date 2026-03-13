@@ -224,6 +224,11 @@ export default function BoardClient({ initialItems }: Props) {
     )
   }
 
+  if (!userId) {
+    window.location.href = '/auth/login'
+    return null
+  }
+
   return (
     <div style={{ padding: '28px 32px', minHeight: '100vh' }}>
       {/* No-tenant warning */}
