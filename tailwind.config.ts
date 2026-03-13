@@ -18,6 +18,16 @@ const config: Config = {
         border:  'rgba(255,255,255,0.08)',
         muted:   '#64748b',
         dim:     '#334155',
+        accent:  '#8b5cf6',
+        surface: {
+          DEFAULT: '#0d0d1a',
+          card:    '#111120',
+          border:  'rgba(255,255,255,0.08)',
+        },
+        brand: {
+          500: '#8b5cf6',
+          600: '#7c3aed',
+        },
       },
       fontFamily: {
         sans:    ['Inter', 'system-ui', 'sans-serif'],
