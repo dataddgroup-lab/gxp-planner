@@ -1,49 +1,12 @@
 'use client'
-
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { useAuth } from '@/hooks/useAuth'
-
-const FACILITY_TYPES = [
-  { value: 'drug_manufacturing',   label: 'Drug Manufacturing' },
-  { value: 'biologics',            label: 'Biologics' },
-  { value: 'sterile_fill_finish',  label: 'Sterile Fill/Finish' },
-  { value: 'api_manufacturing',    label: 'API Manufacturing' },
-  { value: 'qc_laboratory',        label: 'QC Laboratory' },
-  { value: 'multi_product',        label: 'Multi-Product' },
-  { value: 'other',                label: 'Other' },
-]
-
-const LIFECYCLE_STAGES = [
-  { value: 'strategic_definition',   label: 'Strategic Definition' },
-  { value: 'site_selection',         label: 'Site Selection' },
-  { value: 'permitting',             label: 'Permitting' },
-  { value: 'basis_of_design',        label: 'Basis of Design' },
-  { value: 'detailed_design',        label: 'Detailed Design' },
-  { value: 'construction',           label: 'Construction' },
-  { value: 'commissioning',          label: 'Commissioning' },
-  { value: 'qualification',          label: 'Qualification' },
-  { value: 'validation',             label: 'Validation' },
-  { value: 'quality_system_buildout',label: 'Quality System Buildout' },
-  { value: 'operational_readiness',  label: 'Operational Readiness' },
-  { value: 'ppq',                    label: 'PPQ' },
-  { value: 'pai_readiness',          label: 'PAI Readiness' },
-  { value: 'commercial_operations',  label: 'Commercial Operations' },
-  { value: 'lifecycle_management',   label: 'Lifecycle Management' },
-]
-
-const JURISDICTIONS = ['FDA', 'EMA', 'WHO', 'MHRA', 'TGA', 'HC', 'ANVISA', 'PMDA']
-
-const STATUS_COLORS: Record<string, string> = {
-  active:    'bg-green-500/15 text-green-400 border-green-500/20',
-  on_hold:   'bg-yellow-500/15 text-yellow-400 border-yellow-500/20',
-  archived:  'bg-slate-500/15 text-slate-400 border-slate-500/20',
-}
 
 type Facility = {
   id: string
-  company_name: string | null
   name: string
+  company_name: string | null
   facility_type: string
   lifecycle_stage: string
   country: string | null
@@ -52,99 +15,61 @@ type Facility = {
   notes: string | null
 }
 
-const empty: Omit<Facility, 'id'> = {
-  company_name: '',
-  name: '',
-  facility_type: 'drug_manufacturing',
-  lifecycle_stage: 'strategic_definition',
-  country: '',
-  regulatory_jurisdictions: [],
-  status: 'active',
-  notes: '',
-}
+const empty = { name: '', company_name: '', facility_type: 'drug_manufacturing', lifecycle_stage: 'strategic_definition', country: '', regulatory_jurisdictions: [] as string[], status: 'active', notes: '' }
+
+const TYPES = ['drug_manufacturing','biologics','sterile_fill_finish','api_manufacturing','qc_laboratory','multi_product','other']
+const TYPE_LABELS: Record<string,string> = { drug_manufacturing:'Drug Manufacturing', biologics:'Biologics', sterile_fill_finish:'Sterile Fill/Finish', api_manufacturing:'API Manufacturing', qc_laboratory:'QC Laboratory', multi_product:'Multi-Product', other:'Other' }
+
+const STAGES = ['strategic_definition','site_selection','permitting','basis_of_design','detailed_design','construction','commissioning','qualification','validation','quality_system_buildout','operational_readiness','ppq','pai_readiness','commercial_operations','lifecycle_management']
+const STAGE_LABELS: Record<string,string> = { strategic_definition:'Strategic Definition', site_selection:'Site Selection', permitting:'Permitting', basis_of_design:'Basis of Design', detailed_design:'Detailed Design', construction:'Construction', commissioning:'Commissioning', qualification:'Qualification', validation:'Validation', quality_system_buildout:'Quality System Buildout', operational_readiness:'Operational Readiness', ppq:'PPQ', pai_readiness:'PAI Readiness', commercial_operations:'Commercial Operations', lifecycle_management:'Lifecycle Management' }
+
+const JURISDICTIONS = ['FDA','EMA','WHO','MHRA','TGA','HC','ANVISA','PMDA']
 
 export default function FacilitiesPage() {
+  const router = useRouter()
   const [tenantId, setTenantId] = useState<string | null>(null)
   const [facilities, setFacilities] = useState<Facility[]>([])
   const [loading, setLoading] = useState(true)
-  const [modalOpen, setModalOpen] = useState(false)
-  const [deleteId, setDeleteId] = useState<string | null>(null)
-  const [form, setForm] = useState<Omit<Facility, 'id'>>(empty)
+  const [modal, setModal] = useState(false)
   const [editId, setEditId] = useState<string | null>(null)
+  const [form, setForm] = useState({ ...empty })
   const [saving, setSaving] = useState(false)
+  const [deleteId, setDeleteId] = useState<string | null>(null)
   const [error, setError] = useState('')
 
-  const { tenantId: authTenantId, ready: authReady } = useAuth()
-
   useEffect(() => {
-    if (authTenantId) setTenantId(authTenantId)
-  }, [authTenantId])
-
-  if (!authReady) return <div style={{ padding: 40, color: '#475569' }}>Loading...</div>
-  if (authReady && !authTenantId) return (
-    <div style={{ padding: 40, textAlign: 'center' }}>
-      <p style={{ color: '#94a3b8', marginBottom: 16 }}>Session expired. Please sign in.</p>
-      <a href="/auth/login" style={{ color: '#8b5cf6', fontWeight: 600 }}>Sign In</a>
-    </div>
-  )
-
-  async function load() {
     const supabase = createClient()
-    setLoading(true)
-    const { data } = await supabase
-      .from('facilities')
-      .select('id,company_name,name,facility_type,lifecycle_stage,country,regulatory_jurisdictions,status,notes')
-      .order('created_at', { ascending: false })
-    setFacilities(data ?? [])
-    setLoading(false)
-  }
-
-  useEffect(() => { load() }, [])
-
-  function openAdd() {
-    setForm(empty)
-    setEditId(null)
-    setError('')
-    setModalOpen(true)
-  }
-
-  function openEdit(f: Facility) {
-    setForm({
-      company_name: f.company_name ?? '',
-      name: f.name,
-      facility_type: f.facility_type,
-      lifecycle_stage: f.lifecycle_stage,
-      country: f.country ?? '',
-      regulatory_jurisdictions: f.regulatory_jurisdictions ?? [],
-      status: f.status,
-      notes: f.notes ?? '',
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
+      if (!user) { router.push('/auth/login'); return }
+      let tid = (user.app_metadata?.tenant_id as string) ?? null
+      if (!tid) {
+        const { data: p } = await supabase.from('profiles').select('tenant_id').eq('id', user.id).single()
+        tid = (p as { tenant_id: string } | null)?.tenant_id ?? null
+      }
+      setTenantId(tid)
     })
-    setEditId(f.id)
-    setError('')
-    setModalOpen(true)
-  }
+  }, [router])
 
-  function toggleJurisdiction(j: string) {
-    setForm(prev => ({
-      ...prev,
-      regulatory_jurisdictions: prev.regulatory_jurisdictions?.includes(j)
-        ? prev.regulatory_jurisdictions.filter(x => x !== j)
-        : [...(prev.regulatory_jurisdictions ?? []), j]
-    }))
-  }
+  const load = useCallback(async () => {
+    if (!tenantId) return
+    setLoading(true)
+    const supabase = createClient()
+    const { data } = await supabase.from('facilities').select('*').eq('tenant_id', tenantId).order('created_at', { ascending: false })
+    setFacilities((data ?? []) as Facility[])
+    setLoading(false)
+  }, [tenantId])
+
+  useEffect(() => { load() }, [load])
+
+  function openAdd() { setForm({ ...empty }); setEditId(null); setError(''); setModal(true) }
+  function openEdit(f: Facility) { setForm({ name: f.name, company_name: f.company_name ?? '', facility_type: f.facility_type, lifecycle_stage: f.lifecycle_stage, country: f.country ?? '', regulatory_jurisdictions: f.regulatory_jurisdictions ?? [], status: f.status, notes: f.notes ?? '' }); setEditId(f.id); setError(''); setModal(true) }
 
   async function save() {
-    const supabase = createClient()
     if (!form.name.trim()) { setError('Facility name is required'); return }
-    setSaving(true)
-    setError('')
-    const payload = {
-      ...form,
-      tenant_id: tenantId,
-      company_name: form.company_name || null,
-      country: form.country || null,
-      notes: form.notes || null,
-    }
+    if (!tenantId) { setError('No tenant found — please sign out and sign in again'); return }
+    setSaving(true); setError('')
+    const supabase = createClient()
+    const payload = { ...form, tenant_id: tenantId }
     if (editId) {
       const { error: e } = await supabase.from('facilities').update(payload).eq('id', editId)
       if (e) { setError(e.message); setSaving(false); return }
@@ -152,96 +77,77 @@ export default function FacilitiesPage() {
       const { error: e } = await supabase.from('facilities').insert(payload)
       if (e) { setError(e.message); setSaving(false); return }
     }
-    setSaving(false)
-    setModalOpen(false)
-    load()
+    setSaving(false); setModal(false); load()
   }
 
   async function confirmDelete() {
-    const supabase = createClient()
     if (!deleteId) return
+    const supabase = createClient()
     await supabase.from('facilities').delete().eq('id', deleteId)
-    setDeleteId(null)
-    load()
+    setDeleteId(null); load()
   }
 
-  return (
-    <div className="p-8">
+  function toggle(j: string) {
+    setForm(p => ({ ...p, regulatory_jurisdictions: p.regulatory_jurisdictions?.includes(j) ? p.regulatory_jurisdictions.filter(x => x !== j) : [...(p.regulatory_jurisdictions ?? []), j] }))
+  }
 
+  const inp: React.CSSProperties = { background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '10px 14px', color: '#fff', fontSize: 14, width: '100%', outline: 'none', boxSizing: 'border-box' }
+
+  return (
+    <div style={{ padding: 32, minHeight: '100vh' }}>
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
         <div>
-          <h1 className="text-2xl font-semibold text-white">Facilities</h1>
-          <p className="text-slate-400 text-sm mt-1">{facilities.length} facility{facilities.length !== 1 ? 'ies' : 'y'} registered</p>
+          <h1 style={{ color: '#fff', fontSize: 22, fontWeight: 700, margin: 0 }}>Facilities</h1>
+          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13, marginTop: 4 }}>{facilities.length} registered</p>
         </div>
-        <button onClick={openAdd} className="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors flex items-center gap-2">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-          </svg>
-          Add Facility
+        <button onClick={openAdd} style={{ background: 'linear-gradient(135deg,#8b5cf6,#3b82f6)', border: 'none', borderRadius: 10, padding: '10px 18px', color: '#fff', fontWeight: 600, fontSize: 14, cursor: 'pointer' }}>
+          + Add Facility
         </button>
       </div>
 
       {/* Table */}
-      <div className="bg-surface-card border border-surface-border rounded-2xl overflow-hidden">
+      <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, overflow: 'hidden' }}>
         {loading ? (
-          <div className="p-12 text-center text-slate-500 text-sm">Loading...</div>
+          <div style={{ padding: 48, textAlign: 'center', color: 'rgba(255,255,255,0.3)', fontSize: 14 }}>Loading…</div>
         ) : facilities.length === 0 ? (
-          <div className="p-12 text-center">
-            <p className="text-slate-400 text-sm">No facilities yet</p>
-            <p className="text-slate-600 text-xs mt-1">Add your first facility to get started</p>
+          <div style={{ padding: 48, textAlign: 'center' }}>
+            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 14 }}>No facilities yet</p>
+            <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: 12, marginTop: 4 }}>Add your first facility to get started</p>
           </div>
         ) : (
-          <table className="w-full">
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
-              <tr className="border-b border-surface-border">
-                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider px-6 py-4">Company / Facility</th>
-                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider px-6 py-4">Type</th>
-                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider px-6 py-4">Lifecycle Stage</th>
-                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider px-6 py-4">Jurisdictions</th>
-                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider px-6 py-4">Status</th>
-                <th className="px-6 py-4"></th>
+              <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                {['Facility','Type','Stage','Jurisdictions','Status',''].map(h => (
+                  <th key={h} style={{ textAlign: 'left', padding: '14px 20px', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'rgba(255,255,255,0.3)' }}>{h}</th>
+                ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-surface-border">
+            <tbody>
               {facilities.map(f => (
-                <tr key={f.id} className="hover:bg-surface/50 transition-colors">
-                  <td className="px-6 py-4">
-                    <p className="text-white text-sm font-medium">{f.name}</p>
-                    {f.company_name && <p className="text-slate-500 text-xs mt-0.5">{f.company_name}</p>}
-                    {f.country && <p className="text-slate-600 text-xs">{f.country}</p>}
+                <tr key={f.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                  <td style={{ padding: '14px 20px' }}>
+                    <p style={{ color: '#fff', fontSize: 14, fontWeight: 500, margin: 0 }}>{f.name}</p>
+                    {f.company_name && <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 12, marginTop: 2 }}>{f.company_name}</p>}
                   </td>
-                  <td className="px-6 py-4 text-slate-300 text-sm">
-                    {FACILITY_TYPES.find(t => t.value === f.facility_type)?.label ?? f.facility_type}
-                  </td>
-                  <td className="px-6 py-4 text-slate-300 text-sm">
-                    {LIFECYCLE_STAGES.find(s => s.value === f.lifecycle_stage)?.label ?? f.lifecycle_stage}
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex flex-wrap gap-1">
+                  <td style={{ padding: '14px 20px', color: 'rgba(255,255,255,0.6)', fontSize: 13 }}>{TYPE_LABELS[f.facility_type] ?? f.facility_type}</td>
+                  <td style={{ padding: '14px 20px', color: 'rgba(255,255,255,0.6)', fontSize: 13 }}>{STAGE_LABELS[f.lifecycle_stage] ?? f.lifecycle_stage}</td>
+                  <td style={{ padding: '14px 20px' }}>
+                    <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
                       {(f.regulatory_jurisdictions ?? []).map(j => (
-                        <span key={j} className="px-2 py-0.5 rounded-md bg-brand-500/10 text-brand-500 text-xs border border-brand-500/20">{j}</span>
+                        <span key={j} style={{ padding: '2px 8px', borderRadius: 6, background: 'rgba(139,92,246,0.12)', border: '1px solid rgba(139,92,246,0.25)', color: '#a78bfa', fontSize: 11 }}>{j}</span>
                       ))}
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${STATUS_COLORS[f.status] ?? ''}`}>
+                  <td style={{ padding: '14px 20px' }}>
+                    <span style={{ padding: '4px 10px', borderRadius: 20, fontSize: 12, fontWeight: 500, background: f.status === 'active' ? 'rgba(34,197,94,0.1)' : 'rgba(255,255,255,0.06)', color: f.status === 'active' ? '#4ade80' : 'rgba(255,255,255,0.4)', border: `1px solid ${f.status === 'active' ? 'rgba(34,197,94,0.2)' : 'rgba(255,255,255,0.1)'}` }}>
                       {f.status.replace('_', ' ')}
                     </span>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2 justify-end">
-                      <button onClick={() => openEdit(f)} className="text-slate-400 hover:text-white transition-colors p-1">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                        </svg>
-                      </button>
-                      <button onClick={() => setDeleteId(f.id)} className="text-slate-400 hover:text-red-400 transition-colors p-1">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                      </button>
-                    </div>
+                  <td style={{ padding: '14px 20px', textAlign: 'right' }}>
+                    <button onClick={() => openEdit(f)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer', marginRight: 8, fontSize: 13 }}>Edit</button>
+                    <button onClick={() => setDeleteId(f.id)} style={{ background: 'none', border: 'none', color: 'rgba(248,113,113,0.5)', cursor: 'pointer', fontSize: 13 }}>Delete</button>
                   </td>
                 </tr>
               ))}
@@ -251,171 +157,81 @@ export default function FacilitiesPage() {
       </div>
 
       {/* Add/Edit Modal */}
-      {modalOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-surface-card border border-surface-border rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between px-6 py-5 border-b border-surface-border">
-              <h2 className="text-lg font-medium text-white">{editId ? 'Edit Facility' : 'Add Facility'}</h2>
-              <button onClick={() => setModalOpen(false)} className="text-slate-400 hover:text-white transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+      {modal && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: 16 }}>
+          <div style={{ background: '#111120', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 20, width: '100%', maxWidth: 520, maxHeight: '90vh', overflowY: 'auto', padding: 28 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+              <h2 style={{ color: '#fff', fontSize: 18, fontWeight: 700, margin: 0 }}>{editId ? 'Edit Facility' : 'Add Facility'}</h2>
+              <button onClick={() => setModal(false)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer', fontSize: 20 }}>×</button>
             </div>
 
-            <div className="px-6 py-5 space-y-4">
-              {/* Company Name */}
-              <div>
-                <label className="block text-sm text-slate-400 mb-1.5">Company Name</label>
-                <input
-                  type="text"
-                  value={form.company_name ?? ''}
-                  onChange={e => setForm(p => ({ ...p, company_name: e.target.value }))}
-                  placeholder="Acme Pharma Inc."
-                  className="w-full bg-surface border border-surface-border rounded-xl px-4 py-2.5 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-brand-500 transition-colors"
-                />
+            {error && <div style={{ marginBottom: 16, padding: '12px 14px', borderRadius: 10, background: 'rgba(248,113,113,0.08)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171', fontSize: 13 }}>{error}</div>}
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div><label style={{ display: 'block', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)', marginBottom: 6 }}>Company Name</label>
+                <input value={form.company_name ?? ''} onChange={e => setForm(p => ({ ...p, company_name: e.target.value }))} placeholder="Acme Pharma Inc." style={inp} /></div>
+
+              <div><label style={{ display: 'block', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)', marginBottom: 6 }}>Facility Name *</label>
+                <input value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} placeholder="Site 1 — Manufacturing" style={inp} /></div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                <div><label style={{ display: 'block', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)', marginBottom: 6 }}>Type</label>
+                  <select value={form.facility_type} onChange={e => setForm(p => ({ ...p, facility_type: e.target.value }))} style={{ ...inp, appearance: 'none' as const }}>
+                    {TYPES.map(t => <option key={t} value={t} style={{ background: '#111120' }}>{TYPE_LABELS[t]}</option>)}
+                  </select></div>
+                <div><label style={{ display: 'block', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)', marginBottom: 6 }}>Stage</label>
+                  <select value={form.lifecycle_stage} onChange={e => setForm(p => ({ ...p, lifecycle_stage: e.target.value }))} style={{ ...inp, appearance: 'none' as const }}>
+                    {STAGES.map(s => <option key={s} value={s} style={{ background: '#111120' }}>{STAGE_LABELS[s]}</option>)}
+                  </select></div>
               </div>
 
-              {/* Facility Name */}
-              <div>
-                <label className="block text-sm text-slate-400 mb-1.5">Facility Name <span className="text-red-400">*</span></label>
-                <input
-                  type="text"
-                  value={form.name}
-                  onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
-                  placeholder="Site 1 — Manufacturing"
-                  className="w-full bg-surface border border-surface-border rounded-xl px-4 py-2.5 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-brand-500 transition-colors"
-                />
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                <div><label style={{ display: 'block', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)', marginBottom: 6 }}>Country</label>
+                  <input value={form.country ?? ''} onChange={e => setForm(p => ({ ...p, country: e.target.value }))} placeholder="United States" style={inp} /></div>
+                <div><label style={{ display: 'block', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)', marginBottom: 6 }}>Status</label>
+                  <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))} style={{ ...inp, appearance: 'none' as const }}>
+                    <option value="active" style={{ background: '#111120' }}>Active</option>
+                    <option value="on_hold" style={{ background: '#111120' }}>On Hold</option>
+                    <option value="archived" style={{ background: '#111120' }}>Archived</option>
+                  </select></div>
               </div>
 
-              {/* Type + Stage */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-sm text-slate-400 mb-1.5">Facility Type</label>
-                  <select
-                    value={form.facility_type}
-                    onChange={e => setForm(p => ({ ...p, facility_type: e.target.value }))}
-                    className="w-full bg-surface border border-surface-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors"
-                  >
-                    {FACILITY_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm text-slate-400 mb-1.5">Lifecycle Stage</label>
-                  <select
-                    value={form.lifecycle_stage}
-                    onChange={e => setForm(p => ({ ...p, lifecycle_stage: e.target.value }))}
-                    className="w-full bg-surface border border-surface-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors"
-                  >
-                    {LIFECYCLE_STAGES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
-                  </select>
-                </div>
-              </div>
-
-              {/* Country + Status */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-sm text-slate-400 mb-1.5">Country</label>
-                  <input
-                    type="text"
-                    value={form.country ?? ''}
-                    onChange={e => setForm(p => ({ ...p, country: e.target.value }))}
-                    placeholder="United States"
-                    className="w-full bg-surface border border-surface-border rounded-xl px-4 py-2.5 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-brand-500 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm text-slate-400 mb-1.5">Status</label>
-                  <select
-                    value={form.status}
-                    onChange={e => setForm(p => ({ ...p, status: e.target.value }))}
-                    className="w-full bg-surface border border-surface-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-500 transition-colors"
-                  >
-                    <option value="active">Active</option>
-                    <option value="on_hold">On Hold</option>
-                    <option value="archived">Archived</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Regulatory Jurisdictions */}
-              <div>
-                <label className="block text-sm text-slate-400 mb-2">Regulatory Jurisdictions</label>
-                <div className="flex flex-wrap gap-2">
+              <div><label style={{ display: 'block', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)', marginBottom: 8 }}>Regulatory Jurisdictions</label>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                   {JURISDICTIONS.map(j => {
-                    const selected = form.regulatory_jurisdictions?.includes(j)
-                    return (
-                      <button
-                        key={j}
-                        type="button"
-                        onClick={() => toggleJurisdiction(j)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
-                          selected
-                            ? 'bg-brand-500/20 border-brand-500/40 text-brand-500'
-                            : 'bg-surface border-surface-border text-slate-400 hover:text-white'
-                        }`}
-                      >
-                        {j}
-                      </button>
-                    )
+                    const sel = form.regulatory_jurisdictions?.includes(j)
+                    return <button key={j} type="button" onClick={() => toggle(j)} style={{ padding: '6px 14px', borderRadius: 8, fontSize: 12, fontWeight: 500, cursor: 'pointer', background: sel ? 'rgba(139,92,246,0.2)' : 'rgba(255,255,255,0.04)', border: `1px solid ${sel ? 'rgba(139,92,246,0.4)' : 'rgba(255,255,255,0.1)'}`, color: sel ? '#a78bfa' : 'rgba(255,255,255,0.5)' }}>{j}</button>
                   })}
                 </div>
               </div>
 
-              {/* Notes */}
-              <div>
-                <label className="block text-sm text-slate-400 mb-1.5">Notes</label>
-                <textarea
-                  value={form.notes ?? ''}
-                  onChange={e => setForm(p => ({ ...p, notes: e.target.value }))}
-                  placeholder="Additional context..."
-                  rows={3}
-                  className="w-full bg-surface border border-surface-border rounded-xl px-4 py-2.5 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-brand-500 transition-colors resize-none"
-                />
-              </div>
-
-              {error && (
-                <div className="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 text-red-400 text-sm">{error}</div>
-              )}
+              <div><label style={{ display: 'block', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)', marginBottom: 6 }}>Notes</label>
+                <textarea value={form.notes ?? ''} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} rows={3} placeholder="Optional notes…" style={{ ...inp, resize: 'vertical' as const }} /></div>
             </div>
 
-            <div className="px-6 py-4 border-t border-surface-border flex gap-3 justify-end">
-              <button
-                onClick={() => setModalOpen(false)}
-                className="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-white transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={save}
-                disabled={saving}
-                className="bg-brand-500 hover:bg-brand-600 disabled:opacity-50 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors"
-              >
-                {saving ? 'Saving...' : editId ? 'Save Changes' : 'Add Facility'}
+            <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
+              <button onClick={() => setModal(false)} style={{ flex: 1, padding: '12px', borderRadius: 10, background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)', fontSize: 14, cursor: 'pointer' }}>Cancel</button>
+              <button onClick={save} disabled={saving} style={{ flex: 2, padding: '12px', borderRadius: 10, background: 'linear-gradient(135deg,#8b5cf6,#3b82f6)', border: 'none', color: '#fff', fontSize: 14, fontWeight: 700, cursor: 'pointer', opacity: saving ? 0.6 : 1 }}>
+                {saving ? 'Saving…' : editId ? 'Save Changes' : 'Add Facility'}
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Delete Confirmation */}
+      {/* Delete confirm */}
       {deleteId && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-surface-card border border-surface-border rounded-2xl w-full max-w-sm p-6">
-            <h2 className="text-lg font-medium text-white mb-2">Delete Facility?</h2>
-            <p className="text-slate-400 text-sm mb-6">This action cannot be undone. All associated data will be removed.</p>
-            <div className="flex gap-3 justify-end">
-              <button onClick={() => setDeleteId(null)} className="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-white transition-colors">
-                Cancel
-              </button>
-              <button onClick={confirmDelete} className="bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-colors">
-                Delete
-              </button>
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 }}>
+          <div style={{ background: '#111120', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: 28, maxWidth: 400, width: '100%' }}>
+            <h3 style={{ color: '#fff', fontSize: 16, fontWeight: 700, marginBottom: 8 }}>Delete facility?</h3>
+            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 14, marginBottom: 24 }}>This cannot be undone.</p>
+            <div style={{ display: 'flex', gap: 10 }}>
+              <button onClick={() => setDeleteId(null)} style={{ flex: 1, padding: '10px', borderRadius: 10, background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)', cursor: 'pointer' }}>Cancel</button>
+              <button onClick={confirmDelete} style={{ flex: 1, padding: '10px', borderRadius: 10, background: 'rgba(248,113,113,0.15)', border: '1px solid rgba(248,113,113,0.3)', color: '#f87171', fontWeight: 600, cursor: 'pointer' }}>Delete</button>
             </div>
           </div>
         </div>
       )}
-
     </div>
   )
 }
