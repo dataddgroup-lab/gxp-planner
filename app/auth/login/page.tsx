@@ -1,69 +1,92 @@
 'use client'
-
 import { useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import NeuralBackground from '@/components/NeuralBackground'
 
 export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  async function handleLogin(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
     setError('')
-    const supabase = createClient()
-    const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
-    if (authError) { setError(authError.message); setLoading(false); return }
-    // Hard navigation — ensures session cookie is committed before next page loads (same as RanchOS)
-    window.location.href = '/dashboard/board'
+    try {
+      const supabase = createClient()
+      const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
+      if (authError) throw authError
+      window.location.href = '/dashboard'
+    } catch (err: unknown) {
+      setError((err as { message?: string })?.message ?? 'Invalid email or password')
+    } finally {
+      setLoading(false)
+    }
   }
 
+  const inputStyle = {
+    background: 'rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    width: '100%',
+    padding: '0 16px',
+    height: '48px',
+    borderRadius: '12px',
+    color: '#fff',
+    fontSize: '14px',
+    outline: 'none',
+  } as React.CSSProperties
+
   return (
-    <div className="min-h-screen bg-bg flex items-center justify-center relative overflow-hidden px-4">
-      <NeuralBackground />
-      <div className="relative w-full max-w-md animate-fade-in">
-        <div className="glass rounded-3xl p-8 glow-border">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-5 relative"
-              style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.2))', border: '1px solid rgba(139,92,246,0.3)' }}>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <path d="M16 3L29 10V22L16 29L3 22V10L16 3Z" stroke="url(#grad)" strokeWidth="2" strokeLinejoin="round"/>
-                <path d="M16 3V29M3 10L29 22M29 10L3 22" stroke="url(#grad)" strokeWidth="1.5" strokeOpacity="0.4"/>
-                <defs><linearGradient id="grad" x1="3" y1="3" x2="29" y2="29"><stop stopColor="#8b5cf6"/><stop offset="1" stopColor="#06b6d4"/></linearGradient></defs>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '32px', background: '#07070f', fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ width: '100%', maxWidth: '440px' }}>
+
+        {/* Logo */}
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
               </svg>
-              <div className="absolute inset-0 rounded-2xl" style={{ boxShadow: '0 0 20px rgba(139,92,246,0.3)' }} />
             </div>
-            <h1 className="font-display text-2xl font-semibold text-white tracking-tight">GxP Facility Planner</h1>
-            <p className="text-muted text-sm mt-1.5">Operational intelligence for regulated facilities</p>
+            <span style={{ color: '#fff', fontWeight: 700, fontSize: '18px', letterSpacing: '-0.3px' }}>GxP Planner</span>
           </div>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-sm text-muted mb-2">Email address</label>
-              <input type="email" required value={email} onChange={e => setEmail(e.target.value)}
-                placeholder="you@company.com" className="input-glass w-full px-4 py-3 text-sm" />
-            </div>
-            <div>
-              <label className="block text-sm text-muted mb-2">Password</label>
-              <input type="password" required value={password} onChange={e => setPassword(e.target.value)}
-                placeholder="••••••••" className="input-glass w-full px-4 py-3 text-sm" />
-            </div>
-            {error && <p className="text-red-400 text-sm">{error}</p>}
-            <button type="submit" disabled={loading}
-              className="w-full py-3 rounded-xl text-sm font-semibold text-white transition-all"
-              style={{ background: 'linear-gradient(135deg,#8b5cf6,#3b82f6)', opacity: loading ? 0.7 : 1, cursor: loading ? 'wait' : 'pointer' }}>
-              {loading ? 'Signing in...' : 'Sign In'}
-            </button>
-            <p className="text-center text-muted text-sm pt-1">
-              No account?{' '}
-              <a href="/auth/signup" className="text-accent hover:text-white transition-colors">Create one</a>
-            </p>
-          </form>
         </div>
+
+        <div style={{ marginBottom: '28px' }}>
+          <h1 style={{ color: '#fff', fontSize: '26px', fontWeight: 700, marginBottom: '6px' }}>Welcome back</h1>
+          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '14px' }}>Sign in to your facility dashboard</p>
+        </div>
+
+        {error && (
+          <div style={{ marginBottom: '20px', padding: '14px 16px', borderRadius: '12px', background: 'rgba(248,81,73,0.08)', border: '1px solid rgba(248,81,73,0.2)', color: '#f87171', fontSize: '14px' }}>
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div>
+            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)', marginBottom: '8px' }}>Email</label>
+            <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="you@company.com" style={inputStyle} />
+          </div>
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <label style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)' }}>Password</label>
+              <Link href="/auth/forgot" style={{ fontSize: '12px', color: '#8b5cf6' }}>Forgot password?</Link>
+            </div>
+            <input type="password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="Your password" style={inputStyle} />
+          </div>
+          <button type="submit" disabled={loading} style={{ marginTop: '8px', height: '48px', borderRadius: '12px', fontWeight: 700, fontSize: '14px', color: '#fff', background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)', border: 'none', cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.6 : 1 }}>
+            {loading ? 'Signing in…' : 'Sign In →'}
+          </button>
+        </form>
+
+        <p style={{ textAlign: 'center', fontSize: '14px', color: 'rgba(255,255,255,0.3)', marginTop: '24px' }}>
+          No account?{' '}
+          <Link href="/auth/signup" style={{ color: '#8b5cf6', fontWeight: 600 }}>Create one →</Link>
+        </p>
       </div>
     </div>
   )
