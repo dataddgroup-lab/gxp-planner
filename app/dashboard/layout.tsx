@@ -1,6 +1,8 @@
+import dynamic from 'next/dynamic'
 import Sidebar from '@/components/Sidebar'
-import NeuralBackground from '@/components/NeuralBackground'
-import GhostAssistant from '@/components/GhostAssistant'
+
+const NeuralBackground = dynamic(() => import('@/components/NeuralBackground'), { ssr: false })
+const GhostAssistant = dynamic(() => import('@/components/GhostAssistant'), { ssr: false })
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
