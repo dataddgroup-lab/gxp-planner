@@ -77,12 +77,23 @@ export default function BoardClient({ initialItems }: Props) {
   const [insertError, setInsertError] = useState('')
 
   useEffect(() => {
-    async function loadAuth() {
+    async function loadBoard(userId: string) {
+      // Try app_metadata first (fastest), fall back to profiles table
       const { data: { user } } = await supabase.auth.getUser()
-      if (!user) { setAuthLoading(false); return }
-      setUserId(user.id)
-      const tid = (user.app_metadata?.tenant_id as string) ?? null
+      let tid = (user?.app_metadata?.tenant_id as string) ?? null
+
+      if (!tid) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('tenant_id')
+          .eq('id', userId)
+          .single()
+        tid = profile?.tenant_id ?? null
+      }
+
       setTenantId(tid)
+      setUserId(userId)
+
       if (tid) {
         const { data: items } = await supabase
           .from('board_items')
@@ -93,7 +104,17 @@ export default function BoardClient({ initialItems }: Props) {
       }
       setAuthLoading(false)
     }
-    loadAuth()
+
+    // onAuthStateChange fires on page load if session exists — more reliable than getUser()
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        loadBoard(session.user.id)
+      } else {
+        setAuthLoading(false)
+      }
+    })
+
+    return () => subscription.unsubscribe()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
