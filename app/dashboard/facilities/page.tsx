@@ -64,6 +64,7 @@ const empty: Omit<Facility, 'id'> = {
 
 export default function FacilitiesPage() {
   const supabase = createClient()
+  const [tenantId, setTenantId] = useState<string | null>(null)
   const [facilities, setFacilities] = useState<Facility[]>([])
   const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
@@ -72,6 +73,19 @@ export default function FacilitiesPage() {
   const [editId, setEditId] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      if (!session?.user) { window.location.href = '/auth/login'; return }
+      const tid = (session.user.app_metadata?.tenant_id as string) ?? null
+      if (tid) { setTenantId(tid); return }
+      // fallback: query profiles
+      supabase.from('profiles').select('tenant_id').eq('id', session.user.id).single()
+        .then(({ data }) => setTenantId(data?.tenant_id ?? null))
+    })
+    return () => subscription.unsubscribe()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   async function load() {
     setLoading(true)
@@ -123,6 +137,7 @@ export default function FacilitiesPage() {
     setError('')
     const payload = {
       ...form,
+      tenant_id: tenantId,
       company_name: form.company_name || null,
       country: form.country || null,
       notes: form.notes || null,
