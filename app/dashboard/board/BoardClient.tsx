@@ -69,6 +69,9 @@ export default function BoardClient({ initialItems }: Props) {
   const [dragging, setDragging] = useState<{ card: Card; fromCol: ColId } | null>(null)
   const [overCol, setOverCol] = useState<ColId | null>(null)
   const [selected, setSelected] = useState<Card | null>(null)
+  const [editMode, setEditMode] = useState(false)
+  const [editFields, setEditFields] = useState<Partial<Card>>({})
+  const [confirmDelete, setConfirmDelete] = useState(false)
   const [showAdd, setShowAdd] = useState(false)
   const [newTitle, setNewTitle] = useState('')
   const [newTag, setNewTag] = useState<Tag>('Validation')
@@ -134,6 +137,42 @@ export default function BoardClient({ initialItems }: Props) {
       return next
     })
     await supabase.from('board_items').update({ column_id: toCol, position: 0 }).eq('id', card.id)
+  }
+
+  function openEdit(card: Card) {
+    setEditFields({ title: card.title, tag: card.tag, priority: card.priority, description: card.description, assignee: card.assignee })
+    setEditMode(true)
+    setConfirmDelete(false)
+  }
+
+  async function saveEdit() {
+    if (!selected) return
+    setSaving(true)
+    const updates = { title: editFields.title, tag: editFields.tag, priority: editFields.priority, description: editFields.description, assignee: editFields.assignee }
+    await supabase.from('board_items').update(updates).eq('id', selected.id)
+    const updated = { ...selected, ...updates } as Card
+    setCols(prev => {
+      const next = { ...prev }
+      next[selected.column_id] = prev[selected.column_id].map(c => c.id === selected.id ? updated : c)
+      return next
+    })
+    setSelected(updated)
+    setEditMode(false)
+    setSaving(false)
+  }
+
+  async function deleteCard() {
+    if (!selected) return
+    setSaving(true)
+    await supabase.from('board_items').delete().eq('id', selected.id)
+    setCols(prev => {
+      const next = { ...prev }
+      next[selected.column_id] = prev[selected.column_id].filter(c => c.id !== selected.id)
+      return next
+    })
+    setSelected(null)
+    setConfirmDelete(false)
+    setSaving(false)
   }
 
   async function addCard() {
@@ -262,35 +301,87 @@ export default function BoardClient({ initialItems }: Props) {
 
       {/* Card Detail Modal */}
       {selected && (
-        <div onClick={() => setSelected(null)} style={{ position: 'fixed', inset: 0, zIndex: 200, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+        <div onClick={() => { setSelected(null); setEditMode(false); setConfirmDelete(false) }} style={{ position: 'fixed', inset: 0, zIndex: 200, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
           <div onClick={e => e.stopPropagation()} style={{ width: '100%', maxWidth: 520, background: 'rgba(10,10,20,0.95)', border: `1px solid ${PRIORITY_COLOR[selected.priority]}40`, borderLeft: `4px solid ${PRIORITY_COLOR[selected.priority]}`, borderRadius: 24, padding: 32, boxShadow: `0 0 60px ${PRIORITY_GLOW[selected.priority]}, 0 40px 80px rgba(0,0,0,0.6)`, animation: 'modalIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-              <span style={{ fontSize: '0.7rem', fontWeight: 600, padding: '3px 12px', borderRadius: 100, background: TAG_COLOR[selected.tag].bg, color: TAG_COLOR[selected.tag].text, border: `1px solid ${TAG_COLOR[selected.tag].border}` }}>{selected.tag}</span>
-              <span style={{ fontSize: '0.7rem', fontWeight: 700, color: PRIORITY_COLOR[selected.priority], textTransform: 'uppercase', letterSpacing: '0.08em' }}>{selected.priority}</span>
-            </div>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '1.2rem', fontWeight: 700, color: '#f1f5f9', lineHeight: 1.3, marginBottom: 12 }}>{selected.title}</h2>
-            <p style={{ fontSize: '0.875rem', color: '#64748b', lineHeight: 1.6, marginBottom: 24 }}>{selected.description}</p>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 24 }}>
-              {[{ label: 'Assignee', value: selected.assignee }, { label: 'Phase', value: selected.phase }].map(f => (
-                <div key={f.label} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, padding: '10px 14px' }}>
-                  <p style={{ fontSize: '0.65rem', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>{f.label}</p>
-                  <p style={{ fontSize: '0.875rem', color: '#e2e8f0', fontWeight: 500 }}>{f.value}</p>
+
+            {/* View Mode */}
+            {!editMode && !confirmDelete && <>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ fontSize: '0.7rem', fontWeight: 600, padding: '3px 12px', borderRadius: 100, background: TAG_COLOR[selected.tag].bg, color: TAG_COLOR[selected.tag].text, border: `1px solid ${TAG_COLOR[selected.tag].border}` }}>{selected.tag}</span>
+                  <span style={{ fontSize: '0.7rem', fontWeight: 700, color: PRIORITY_COLOR[selected.priority], textTransform: 'uppercase', letterSpacing: '0.08em' }}>{selected.priority}</span>
                 </div>
-              ))}
-            </div>
-            <div style={{ background: 'rgba(139,92,246,0.07)', border: '1px solid rgba(139,92,246,0.2)', borderRadius: 14, padding: '14px 16px', display: 'flex', gap: 12, alignItems: 'flex-start', marginBottom: 20 }}>
-              <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'radial-gradient(circle at 40% 35%, rgba(220,200,255,0.9), rgba(139,92,246,0.4))', flexShrink: 0, marginTop: 2, boxShadow: '0 0 12px rgba(139,92,246,0.5)' }} />
-              <div>
-                <p style={{ fontSize: '0.7rem', color: '#8b5cf6', fontWeight: 600, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Advisor</p>
-                <p style={{ fontSize: '0.8rem', color: '#a78bfa', lineHeight: 1.5 }}>
-                  {selected.priority === 'critical' ? 'Critical item — delay may cascade to dependent validation phases. Consider escalating today.'
-                    : selected.tag === 'Validation' ? 'Ensure IQ→OQ→PQ traceability is linked before moving to Review.'
-                    : selected.tag === 'Risk' ? 'ICH Q9 requires documented risk acceptance rationale in the audit trail.'
-                    : 'Progressing normally. No regulatory impact flags detected.'}
-                </p>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <button onClick={() => openEdit(selected)} style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.25)', borderRadius: 8, padding: '5px 12px', color: '#60a5fa', fontSize: '0.75rem', cursor: 'pointer' }}>Edit</button>
+                  <button onClick={() => setConfirmDelete(true)} style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: 8, padding: '5px 12px', color: '#f87171', fontSize: '0.75rem', cursor: 'pointer' }}>Delete</button>
+                </div>
               </div>
-            </div>
-            <button onClick={() => setSelected(null)} style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 12, padding: '10px', color: '#64748b', fontSize: '0.875rem', cursor: 'pointer' }}>Close</button>
+              <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '1.2rem', fontWeight: 700, color: '#f1f5f9', lineHeight: 1.3, marginBottom: 12 }}>{selected.title}</h2>
+              <p style={{ fontSize: '0.875rem', color: '#64748b', lineHeight: 1.6, marginBottom: 24 }}>{selected.description}</p>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 24 }}>
+                {[{ label: 'Assignee', value: selected.assignee }, { label: 'Phase', value: selected.phase }].map(f => (
+                  <div key={f.label} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, padding: '10px 14px' }}>
+                    <p style={{ fontSize: '0.65rem', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>{f.label}</p>
+                    <p style={{ fontSize: '0.875rem', color: '#e2e8f0', fontWeight: 500 }}>{f.value}</p>
+                  </div>
+                ))}
+              </div>
+              <div style={{ background: 'rgba(139,92,246,0.07)', border: '1px solid rgba(139,92,246,0.2)', borderRadius: 14, padding: '14px 16px', display: 'flex', gap: 12, alignItems: 'flex-start', marginBottom: 20 }}>
+                <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'radial-gradient(circle at 40% 35%, rgba(220,200,255,0.9), rgba(139,92,246,0.4))', flexShrink: 0, marginTop: 2, boxShadow: '0 0 12px rgba(139,92,246,0.5)' }} />
+                <div>
+                  <p style={{ fontSize: '0.7rem', color: '#8b5cf6', fontWeight: 600, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Advisor</p>
+                  <p style={{ fontSize: '0.8rem', color: '#a78bfa', lineHeight: 1.5 }}>
+                    {selected.priority === 'critical' ? 'Critical item — delay may cascade to dependent validation phases. Consider escalating today.'
+                      : selected.tag === 'Validation' ? 'Ensure IQ→OQ→PQ traceability is linked before moving to Review.'
+                      : selected.tag === 'Risk' ? 'ICH Q9 requires documented risk acceptance rationale in the audit trail.'
+                      : 'Progressing normally. No regulatory impact flags detected.'}
+                  </p>
+                </div>
+              </div>
+              <button onClick={() => { setSelected(null); setEditMode(false) }} style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 12, padding: '10px', color: '#64748b', fontSize: '0.875rem', cursor: 'pointer' }}>Close</button>
+            </>}
+
+            {/* Edit Mode */}
+            {editMode && <>
+              <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", color: '#f1f5f9', fontSize: '1rem', fontWeight: 700, marginBottom: 16 }}>Edit Task</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <input value={editFields.title ?? ''} onChange={e => setEditFields(p => ({ ...p, title: e.target.value }))} placeholder="Title" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 10, padding: '10px 12px', color: '#e2e8f0', fontSize: '0.875rem', outline: 'none' }} />
+                <textarea value={editFields.description ?? ''} onChange={e => setEditFields(p => ({ ...p, description: e.target.value }))} placeholder="Description" rows={3} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 10, padding: '10px 12px', color: '#e2e8f0', fontSize: '0.875rem', outline: 'none', resize: 'vertical' }} />
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+                  <select value={editFields.tag ?? 'Validation'} onChange={e => setEditFields(p => ({ ...p, tag: e.target.value as Tag }))} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 10, padding: '9px 10px', color: '#94a3b8', fontSize: '0.8rem', outline: 'none' }}>
+                    {(Object.keys(TAG_COLOR) as Tag[]).map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                  <select value={editFields.priority ?? 'medium'} onChange={e => setEditFields(p => ({ ...p, priority: e.target.value as Priority }))} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 10, padding: '9px 10px', color: '#94a3b8', fontSize: '0.8rem', outline: 'none' }}>
+                    {(['critical','high','medium','low'] as Priority[]).map(p => <option key={p} value={p}>{p}</option>)}
+                  </select>
+                  <input value={editFields.assignee ?? ''} onChange={e => setEditFields(p => ({ ...p, assignee: e.target.value }))} placeholder="Assignee" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 10, padding: '9px 10px', color: '#e2e8f0', fontSize: '0.8rem', outline: 'none' }} />
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 10, marginTop: 16 }}>
+                <button onClick={() => setEditMode(false)} style={{ flex: 1, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '10px', color: '#475569', fontSize: '0.875rem', cursor: 'pointer' }}>Cancel</button>
+                <button onClick={saveEdit} disabled={saving} style={{ flex: 2, background: 'linear-gradient(135deg,#3b82f6,#8b5cf6)', border: 'none', borderRadius: 10, padding: '10px', color: '#fff', fontSize: '0.875rem', fontWeight: 600, cursor: saving ? 'wait' : 'pointer', opacity: saving ? 0.7 : 1 }}>
+                  {saving ? 'Saving...' : 'Save Changes'}
+                </button>
+              </div>
+            </>}
+
+            {/* Delete Confirmation */}
+            {confirmDelete && <>
+              <div style={{ textAlign: 'center', padding: '8px 0 24px' }}>
+                <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', fontSize: '1.25rem' }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f87171" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                </div>
+                <h3 style={{ color: '#f1f5f9', fontSize: '1rem', fontWeight: 700, marginBottom: 8 }}>Delete this task?</h3>
+                <p style={{ color: '#475569', fontSize: '0.825rem' }}>&quot;{selected.title}&quot; will be permanently removed.</p>
+              </div>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <button onClick={() => setConfirmDelete(false)} style={{ flex: 1, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '10px', color: '#475569', fontSize: '0.875rem', cursor: 'pointer' }}>Cancel</button>
+                <button onClick={deleteCard} disabled={saving} style={{ flex: 1, background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.35)', borderRadius: 10, padding: '10px', color: '#f87171', fontSize: '0.875rem', fontWeight: 600, cursor: saving ? 'wait' : 'pointer' }}>
+                  {saving ? 'Deleting...' : 'Delete'}
+                </button>
+              </div>
+            </>}
+
           </div>
         </div>
       )}
