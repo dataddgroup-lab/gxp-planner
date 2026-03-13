@@ -473,9 +473,77 @@ Rationale: [if provided]
 
 ---
 
+---
+
+## SECTION 43 — FDA CSA + AI CREDIBILITY FRAMEWORK (Mandatory)
+_Added: 2026-03-13. Bobby BIG directive. Cannot be overlooked or forgotten._
+
+### 43A. Computer Software Assurance (CSA) — Current FDA Position
+
+**FDA replaced CSV with CSA in 2022. All GxP software decisions must reflect this.**
+
+**Core CSA principle:** Risk drives validation depth. Critical thinking over documentation volume.
+
+**Agent rules under CSA:**
+- Every validation artifact generated must match risk tier: high-risk = full IQ/OQ/PQ; low-risk = targeted testing only
+- Never generate boilerplate CSV documentation. Always ask: "What is the intended use? What is the risk to the patient?"
+- Validation protocols must be configurable by risk level — not one-size-fits-all
+- When reviewing customer validation plans, flag over-documentation as a CSA violation (wastes resources, obscures real risk)
+- Reference: FDA "Computer Software Assurance for Production and Quality System Software" (Sept 2022), 21 CFR 211.68, 21 CFR 820.70(i)
+
+### 43B. FDA AI Draft Guidance — January 2025: Credibility Assessment Framework
+
+**Every AI feature in GxP Planner requires a documented Credibility Assessment before shipping.**
+
+**Mandatory elements per AI feature:**
+
+| Element | Agent Requirement |
+|---------|------------------|
+| Context of Use (COU) | Define exactly what the AI does, doesn't do, and where it applies |
+| Risk tier | Classify influence on patient safety / regulatory decision (High / Moderate / Low) |
+| Performance evaluation | Document how model accuracy was validated within its COU |
+| Uncertainty quantification | All AI outputs must include confidence indicators — no black-box answers |
+| Bias assessment | Check for training data bias; document findings |
+| Human review gate | All High/Moderate AI outputs require: "This requires human review before regulatory action" |
+
+**Risk tiers and required effort:**
+- **High** (AI drives a regulatory decision, e.g., auto-generated validation protocol, batch release logic) → Full credibility assessment. Do not ship without Bobby BIG review.
+- **Moderate** (AI informs human decision, e.g., readiness forecast, deviation analysis) → Targeted assessment. Uncertainty must be quantified.
+- **Low** (AI assists workflow, human always decides, e.g., smart form suggestions) → Lightweight assessment. COU documentation minimum.
+
+**GxP Planner AI features — pre-classified:**
+| Feature | Risk Tier | Requirement |
+|---------|-----------|-------------|
+| AI-generated validation protocols | High | Full credibility assessment + Bobby BIG sign-off |
+| Readiness forecasting engine | High | Confidence intervals required on all predictions |
+| Role-Based Tag-Along Assistant | Moderate | COU documented, performance evaluated per role |
+| Deviation root cause suggestions | Moderate | Must display uncertainty; human must confirm |
+| Smart form auto-complete | Low | COU documented; lightweight assessment |
+| Workflow step suggestions | Low | COU documented; lightweight assessment |
+
+**Non-negotiable agent rule:** No AI feature ships without its Credibility Assessment record committed to the repo and reviewed by Bobby BIG.
+
+**Reference:** FDA Draft Guidance "Artificial Intelligence in Drug Manufacturing" (Jan 2025)
+
+---
+
+## SUMMARY: SECTIONS 37–43
+
+| Section | Function | Timing |
+|---------|----------|--------|
+| 37 — Regulator-Friendly Design | Regulated behavior alignment, audit-readiness | All regulated tasks (gravity mode) |
+| 38 — Final Prime Directive | Complete agent purpose definition | Foundation for all operations |
+| 39 — Handoff | 3-agent coordination, phase gating | Every phase transition |
+| 40 — Escalation | Blocker routing, rapid decisions | When blocker >30 min |
+| 41 — Versioning | Artifact tracking, rollback capability | Every code/artifact update |
+| 42 — Change Control | Trigger detection, forced decisions | Customer modifies flagged items |
+| 43 — FDA CSA + AI Credibility | CSA-aligned validation + AI credibility assessment per feature | Every validation artifact + every AI feature |
+
+---
+
 ## FRAMEWORK STATUS
 
-**Complete:** Sections 1–42 (Original + Phase 2 + Gravity + Regulator-Friendly + Safeguards)
+**Complete:** Sections 1–43 (Original + Phase 2 + Gravity + Regulator-Friendly + Safeguards + FDA CSA/AI)
 
 **Ready for:** Monday 2026-03-12, 9:00 AM MDT
 

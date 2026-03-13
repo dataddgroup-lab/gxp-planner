@@ -138,6 +138,65 @@ This is the core AGI layer — what makes this an intelligence system, not a Saa
 
 ---
 
+## 🚨 FDA REGULATORY POSITION — MANDATORY AWARENESS (Non-Negotiable)
+_Added: 2026-03-13 — Bobby BIG directive. Cannot be overlooked or forgotten._
+
+### 1. FDA Computer Software Assurance (CSA) — Current Position
+FDA's 2022 final guidance **replaced CSV (Computer Software Validation) with CSA**. This is the law of the land for all GxP software today.
+
+**What changed:**
+- Old (CSV): Document everything. Heavy IQ/OQ/PQ paperwork regardless of risk.
+- New (CSA): **Critical thinking first. Test what matters. Risk-based effort.** Documentation follows risk — not the other way around.
+
+**What this means for GxP Planner:**
+- Every validation protocol, test, and document we generate must reflect CSA principles
+- Risk drives depth: high-risk functions (e.g., batch release, electronic signatures) get full validation; low-risk UI features get lighter treatment
+- "Intended use" and "risk to patient" are the primary drivers of validation scope
+- GxP Planner must help customers apply CSA — not just generate old-style CSV paperwork
+- Our validation lifecycle (URS → IQ → OQ → PQ) must be configurable by risk tier
+
+**Key FDA references:**
+- FDA Guidance: "Computer Software Assurance for Production and Quality System Software" (Sept 2022)
+- 21 CFR 211.68, 21 CFR 820.70(i)
+
+---
+
+### 2. FDA AI Draft Guidance — January 2025: "Credibility Assessment Framework"
+FDA published a formal risk-based framework for assessing AI/ML models used in regulated GxP environments.
+
+**Core concept — Context of Use (COU):**
+Every AI model must have a defined COU: what it does, where it's used, and what decisions it influences. GxP Planner's AI features must each have a documented COU.
+
+**The Credibility Assessment Framework requires:**
+| Element | What We Must Do |
+|---------|----------------|
+| **Risk categorization** | Classify each AI feature by influence on patient safety / regulatory decision |
+| **Context of Use (COU)** | Document exactly what each AI model does and doesn't do |
+| **Model performance evaluation** | Demonstrate the AI performs reliably within its COU |
+| **Uncertainty quantification** | AI outputs must convey confidence levels — no black-box answers |
+| **Bias assessment** | Evaluate for bias in training data and outputs |
+| **Documentation** | Maintain credibility assessment records per model, per release |
+
+**Risk tiers (FDA framework):**
+- **High influence** (AI drives a regulatory decision) → Full credibility assessment required
+- **Moderate influence** (AI informs a human decision) → Targeted assessment
+- **Low influence** (AI assists workflow, human always decides) → Lightweight assessment
+
+**What this means for GxP Planner's AI features:**
+- The Role-Based Tag-Along Assistant → Moderate influence (must have COU + performance eval)
+- AI-generated validation protocols → High influence (full credibility assessment required)
+- AI readiness forecasting → Moderate to high (must quantify uncertainty in predictions)
+- Workflow suggestions → Low influence (lightweight assessment)
+- All AI features must include: "This AI recommendation requires human review before regulatory action"
+
+**Key FDA reference:**
+- FDA Draft Guidance: "Artificial Intelligence in Drug Manufacturing" (Jan 2025)
+- FDA Discussion Paper: "Using Artificial Intelligence and Machine Learning in the Development of Drug and Biological Products"
+
+**Bottom line:** We cannot ship AI features in GxP Planner without a credibility assessment framework baked in. This is not optional. It is the current FDA position and will be enforced.
+
+---
+
 ## PRE-CLIENT-1 RELIABILITY REQUIREMENTS (Non-Negotiable)
 _Added: 2026-03-13 — Bobby BIG directive_
 
