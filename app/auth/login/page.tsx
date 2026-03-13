@@ -1,9 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import NeuralBackground from '@/components/NeuralBackground'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 
 export default function LoginPage() {
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -13,73 +15,50 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     setError('')
-
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    })
-
-    if (res.ok) {
-      window.location.href = '/dashboard'
-    } else {
-      const data = await res.json()
-      setError(data.error ?? 'Login failed')
+    const supabase = createClient()
+    const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
+    if (authError) {
+      setError(authError.message)
       setLoading(false)
+      return
     }
+    router.push('/dashboard')
   }
 
   return (
-    <div className="min-h-screen bg-bg flex items-center justify-center relative overflow-hidden px-4">
-      <NeuralBackground />
-      <div className="relative w-full max-w-md animate-fade-in">
-        <div className="glass rounded-3xl p-8 glow-border">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-5 relative"
-              style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.2))', border: '1px solid rgba(139,92,246,0.3)' }}>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <path d="M16 3L29 10V22L16 29L3 22V10L16 3Z" stroke="url(#grad)" strokeWidth="2" strokeLinejoin="round"/>
-                <path d="M16 3V29M3 10L29 22M29 10L3 22" stroke="url(#grad)" strokeWidth="1.5" strokeOpacity="0.4"/>
-                <defs>
-                  <linearGradient id="grad" x1="3" y1="3" x2="29" y2="29">
-                    <stop stopColor="#8b5cf6"/>
-                    <stop offset="1" stopColor="#06b6d4"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-              <div className="absolute inset-0 rounded-2xl" style={{ boxShadow: '0 0 20px rgba(139,92,246,0.3)' }} />
-            </div>
-            <h1 className="font-display text-2xl font-semibold text-white tracking-tight">GxP Facility Planner</h1>
-            <p className="text-muted text-sm mt-1.5">Operational intelligence for regulated facilities</p>
-          </div>
-
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-sm text-muted mb-2">Email address</label>
-              <input type="email" required value={email} onChange={e => setEmail(e.target.value)}
-                placeholder="you@company.com" className="input-glass w-full px-4 py-3 text-sm" />
-            </div>
-            <div>
-              <label className="block text-sm text-muted mb-2">Password</label>
-              <input type="password" required value={password} onChange={e => setPassword(e.target.value)}
-                placeholder="••••••••" className="input-glass w-full px-4 py-3 text-sm" />
-            </div>
-
-            {error && (
-              <div className="glass rounded-xl px-4 py-3 text-red-400 text-sm border border-red-500/20">{error}</div>
-            )}
-
-            <button type="submit" disabled={loading}
-              className="btn-primary w-full py-3 text-sm mt-2 disabled:opacity-50 disabled:cursor-not-allowed">
-              {loading ? 'Signing in...' : 'Sign in'}
-            </button>
-          </form>
-
-          <div className="mt-6 pt-6 border-t border-white/[0.06] text-center">
-            <a href="/auth/forgot" className="text-sm text-muted hover:text-purple transition-colors">Forgot your password?</a>
-          </div>
+    <div style={{ minHeight: '100vh', background: '#07070f', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ width: '100%', maxWidth: 400, padding: 32, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 24, backdropFilter: 'blur(12px)' }}>
+        <div style={{ textAlign: 'center', marginBottom: 32 }}>
+          <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'radial-gradient(circle at 40% 35%, rgba(220,200,255,0.9), rgba(139,92,246,0.4))', margin: '0 auto 16px', boxShadow: '0 0 30px rgba(139,92,246,0.5)' }} />
+          <h1 style={{ color: '#f1f5f9', fontSize: '1.5rem', fontWeight: 700, margin: 0 }}>GxP Facility Planner</h1>
+          <p style={{ color: '#475569', marginTop: 6, fontSize: '0.875rem' }}>Sign in to your account</p>
         </div>
-        <p className="text-center text-xs text-dim mt-5">GxP Facility Planner · 21 CFR Part 11 Compliant · SOC 2 Ready</p>
+        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 12, padding: '12px 14px', color: '#e2e8f0', fontSize: '0.9rem', outline: 'none' }}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 12, padding: '12px 14px', color: '#e2e8f0', fontSize: '0.9rem', outline: 'none' }}
+          />
+          {error && <p style={{ color: '#f87171', fontSize: '0.825rem', margin: 0 }}>{error}</p>}
+          <button
+            type="submit"
+            disabled={loading}
+            style={{ background: 'linear-gradient(135deg,#8b5cf6,#3b82f6)', border: 'none', borderRadius: 12, padding: '13px', color: '#fff', fontSize: '0.9rem', fontWeight: 600, cursor: loading ? 'wait' : 'pointer', opacity: loading ? 0.7 : 1, marginTop: 4 }}
+          >
+            {loading ? 'Signing in...' : 'Sign In'}
+          </button>
+        </form>
       </div>
     </div>
   )

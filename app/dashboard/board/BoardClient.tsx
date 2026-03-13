@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
 type Priority = 'critical' | 'high' | 'medium' | 'low'
@@ -60,9 +60,12 @@ function groupByCol(cards: Card[]): Columns {
   return cols
 }
 
-export default function BoardClient({ initialItems, tenantId, userId }: Props) {
+export default function BoardClient({ initialItems }: Props) {
   const supabase = createClient()
   const [cols, setCols] = useState<Columns>(() => groupByCol(initialItems))
+  const [tenantId, setTenantId] = useState<string | null>(null)
+  const [userId, setUserId] = useState<string>('')
+  const [authLoading, setAuthLoading] = useState(true)
   const [dragging, setDragging] = useState<{ card: Card; fromCol: ColId } | null>(null)
   const [overCol, setOverCol] = useState<ColId | null>(null)
   const [selected, setSelected] = useState<Card | null>(null)
@@ -72,6 +75,27 @@ export default function BoardClient({ initialItems, tenantId, userId }: Props) {
   const [newPriority, setNewPriority] = useState<Priority>('medium')
   const [saving, setSaving] = useState(false)
   const [insertError, setInsertError] = useState('')
+
+  useEffect(() => {
+    async function loadAuth() {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) { setAuthLoading(false); return }
+      setUserId(user.id)
+      const tid = (user.app_metadata?.tenant_id as string) ?? null
+      setTenantId(tid)
+      if (tid) {
+        const { data: items } = await supabase
+          .from('board_items')
+          .select('*')
+          .eq('tenant_id', tid)
+          .order('position', { ascending: true })
+        if (items) setCols(groupByCol(items as Card[]))
+      }
+      setAuthLoading(false)
+    }
+    loadAuth()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const total = COL_ORDER.reduce((s, c) => s + cols[c].length, 0)
   const doneCount = cols.done.length
@@ -115,6 +139,14 @@ export default function BoardClient({ initialItems, tenantId, userId }: Props) {
     if (error) { setInsertError(error.message); setSaving(false); return }
     if (data) setCols(prev => ({ ...prev, backlog: [data as Card, ...prev.backlog] }))
     setNewTitle(''); setShowAdd(false); setSaving(false)
+  }
+
+  if (authLoading) {
+    return (
+      <div style={{ padding: '28px 32px', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ color: '#475569', fontSize: '0.875rem' }}>Loading board...</div>
+      </div>
+    )
   }
 
   return (
