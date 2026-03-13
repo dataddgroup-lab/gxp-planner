@@ -98,7 +98,7 @@ export default function BoardClient({ initialItems }: Props) {
     async function loadBoard(userId: string) {
       // Try app_metadata first (fastest), fall back to profiles table
       const { data: { user } } = await supabase.auth.getUser()
-      let tid = (user?.app_metadata?.tenant_id as string) ?? null
+      let tid: string | null = (user?.app_metadata?.tenant_id as string) ?? null
 
       if (!tid) {
         const { data: profile } = await supabase
@@ -106,7 +106,7 @@ export default function BoardClient({ initialItems }: Props) {
           .select('tenant_id')
           .eq('id', userId)
           .single()
-        tid = profile?.tenant_id ?? null
+        tid = ((profile as { tenant_id: string | null } | null)?.tenant_id) ?? null
       }
 
       setTenantId(tid)

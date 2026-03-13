@@ -24,7 +24,7 @@ export function useAuth(): AuthState {
       if (!tenantId) {
         const { data: profile } = await supabase
           .from('profiles').select('tenant_id').eq('id', user.id).single()
-        tenantId = profile?.tenant_id ?? null
+        tenantId = ((profile as { tenant_id: string | null } | null)?.tenant_id) ?? null
       }
 
       setState({ userId: user.id, tenantId, ready: true })
