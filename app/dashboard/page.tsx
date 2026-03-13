@@ -27,7 +27,9 @@ export default function DashboardPage() {
     if (!userId) return
     const supabase = createClient()
     supabase.auth.getUser().then(({ data }) => {
-      setEmail(data.user?.email ?? null)
+      const u = data.user
+      const full = u?.user_metadata?.full_name as string | undefined
+      setEmail(full ? full.split(' ')[0] : (u?.email?.split('@')[0] ?? null))
     })
   }, [userId])
 
@@ -41,7 +43,7 @@ export default function DashboardPage() {
     })
   }, [tenantId])
 
-  const name = email?.split('@')[0] ?? '—'
+  const name = email ?? '—'
 
   const stats = [
     { label: 'Active Facilities',  value: String(counts.facilities), change: counts.facilities === 0 ? 'No facilities yet' : `${counts.facilities} registered`,  color: '#8b5cf6' },
