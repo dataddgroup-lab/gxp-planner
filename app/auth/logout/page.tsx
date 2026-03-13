@@ -4,18 +4,10 @@ import { createClient } from '@/lib/supabase/client'
 
 export default function LogoutPage() {
   useEffect(() => {
-    async function doLogout() {
-      const supabase = createClient()
-      await supabase.auth.signOut()
-      // Clear any stale storage keys
-      if (typeof window !== 'undefined') {
-        Object.keys(localStorage).forEach(k => {
-          if (k.startsWith('sb-')) localStorage.removeItem(k)
-        })
-      }
+    const supabase = createClient()
+    supabase.auth.signOut().then(() => {
       window.location.href = '/auth/login'
-    }
-    doLogout()
+    })
   }, [])
 
   return (
