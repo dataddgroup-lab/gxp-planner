@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { useAuth } from '@/hooks/useAuth'
 
 const FACILITY_TYPES = [
   { value: 'drug_manufacturing',   label: 'Drug Manufacturing' },
@@ -74,18 +75,11 @@ export default function FacilitiesPage() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
 
+  const { tenantId: authTenantId, ready: authReady } = useAuth()
+
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (!session?.user) { window.location.href = '/auth/login'; return }
-      const tid = (session.user.app_metadata?.tenant_id as string) ?? null
-      if (tid) { setTenantId(tid); return }
-      // fallback: query profiles
-      supabase.from('profiles').select('tenant_id').eq('id', session.user.id).single()
-        .then(({ data }) => setTenantId(data?.tenant_id ?? null))
-    })
-    return () => subscription.unsubscribe()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    if (authTenantId) setTenantId(authTenantId)
+  }, [authTenantId])
 
   async function load() {
     setLoading(true)

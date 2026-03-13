@@ -11,15 +11,17 @@ export interface AuthState {
 
 /**
  * useAuth — required on every page that reads or writes to Supabase.
- * Provides userId + tenantId via onAuthStateChange (browser client, localStorage).
- * Redirects to /auth/login if no session found.
+ * Uses getSession() (synchronous localStorage read) — no race condition.
+ * Redirects to /auth/login only after confirming no session exists.
  */
 export function useAuth(): AuthState {
   const [state, setState] = useState<AuthState>({ userId: null, tenantId: null, ready: false })
   const supabase = createClient()
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    async function init() {
+      const { data: { session } } = await supabase.auth.getSession()
+
       if (!session?.user) {
         window.location.href = '/auth/login'
         return
@@ -38,9 +40,9 @@ export function useAuth(): AuthState {
       }
 
       setState({ userId: user.id, tenantId, ready: true })
-    })
+    }
 
-    return () => subscription.unsubscribe()
+    init()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
