@@ -4,44 +4,26 @@ import { NextResponse, type NextRequest } from 'next/server'
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
 
+  // Refresh the session cookie — never redirect, pages handle their own auth
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() { return request.cookies.getAll() },
-        setAll(cookiesToSet: { name: string; value: string; options?: Record<string, unknown> }[]) {
+        setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({ request })
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, options as never)
           )
         },
       },
     }
   )
 
-  const { pathname } = request.nextUrl
-
-  // Only protect dashboard routes and handle auth redirects
-  if (pathname.startsWith('/dashboard') || pathname.startsWith('/auth')) {
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-
-    // Only redirect when user is definitively null with no error
-    if (pathname.startsWith('/dashboard') && !user && !authError) {
-      return NextResponse.redirect(new URL('/auth/login', request.url))
-    }
-
-    // Redirect logged-in users away from auth pages
-    if (
-      pathname.startsWith('/auth') &&
-      pathname !== '/auth/logout' &&
-      pathname !== '/auth/callback' &&
-      user
-    ) {
-      return NextResponse.redirect(new URL('/dashboard', request.url))
-    }
-  }
+  // Refresh session only — no redirects
+  await supabase.auth.getUser()
 
   return supabaseResponse
 }
