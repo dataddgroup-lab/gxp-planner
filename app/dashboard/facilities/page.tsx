@@ -64,7 +64,6 @@ const empty: Omit<Facility, 'id'> = {
 }
 
 export default function FacilitiesPage() {
-  const supabase = createClient()
   const [tenantId, setTenantId] = useState<string | null>(null)
   const [facilities, setFacilities] = useState<Facility[]>([])
   const [loading, setLoading] = useState(true)
@@ -90,6 +89,7 @@ export default function FacilitiesPage() {
   )
 
   async function load() {
+    const supabase = createClient()
     setLoading(true)
     const { data } = await supabase
       .from('facilities')
@@ -134,6 +134,7 @@ export default function FacilitiesPage() {
   }
 
   async function save() {
+    const supabase = createClient()
     if (!form.name.trim()) { setError('Facility name is required'); return }
     setSaving(true)
     setError('')
@@ -157,6 +158,7 @@ export default function FacilitiesPage() {
   }
 
   async function confirmDelete() {
+    const supabase = createClient()
     if (!deleteId) return
     await supabase.from('facilities').delete().eq('id', deleteId)
     setDeleteId(null)
