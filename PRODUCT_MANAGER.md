@@ -136,5 +136,31 @@ This is the core AGI layer — what makes this an intelligence system, not a Saa
 
 ---
 
-_Last updated: 2026-03-12_
+---
+
+## PRE-CLIENT-1 RELIABILITY REQUIREMENTS (Non-Negotiable)
+_Added: 2026-03-13 — Bobby BIG directive_
+
+Before any client onboards, the following must be complete. These are not optional.
+
+**Required stack ($90–$110/mo at launch):**
+- Multi-AZ DB (primary + sync replica) + PITR
+- HA Redis (persistent)
+- Secrets vault (no .env in production)
+- Monitoring + alerts (CPU, memory, DB lag, error rate)
+- Logging with 5-year retention path (21 CFR Part 11)
+- Append-only audit log (no UPDATE/DELETE on GxP records)
+
+**Reference documents (all in `/GxP-Planner/`):**
+- `PRE_CLIENT1_RELIABILITY_CHECKLIST.md` — every item to verify
+- `PRE_CLIENT1_ARCHITECTURE_DIAGRAM.md` — stack diagram + failure scenarios
+- `BUDGET_OPTIMIZED_IMPLEMENTATION_PLAN.md` — 3-phase rollout plan
+- `TENANT_COST_CALCULATOR.md` — cost/client, break-even analysis (Client 1 = 92% margin)
+- `CLIENT1_LAUNCH_READINESS.md` — final go/no-go gate, Bobby BIG sign-off required
+
+**Bottom line:** GxP clients operate in regulated environments. Platform failure during a facility buildout = liability. Reliability is a product requirement, not an IT concern.
+
+---
+
+_Last updated: 2026-03-13_
 _Owner: Bobby BIG (CEO) + AI Product Manager_
