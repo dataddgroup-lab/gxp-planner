@@ -33,7 +33,7 @@ export default function ResetPage() {
       const { error } = await supabase.auth.updateUser({ password })
       if (error) throw error
       setDone(true)
-      setTimeout(() => router.push('/dashboard'), 2000)
+      setTimeout(() => { window.location.href = '/dashboard' }, 2000)
     } catch (err: unknown) {
       setError((err as { message?: string })?.message ?? 'Something went wrong')
     } finally {
