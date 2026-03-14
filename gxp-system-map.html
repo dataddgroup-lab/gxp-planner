@@ -205,9 +205,15 @@ a{color:#58a6ff}
 <!-- ═══════════════════════════════════════════════════════ OVERVIEW -->
 <div class="sec on" id="overview">
   <div class="hero">
-    <h2>The Problem No One Has Fully Solved</h2>
-    <p>Pharmaceutical and biotech companies building new regulated facilities face a common crisis: when the FDA arrives for a Pre-Approval Inspection, teams scramble to prove compliance. Documents are scattered across binders and email threads. Validation records are incomplete. Audit trails are missing. The average facility spends 6–18 months in remediation before approval.</p>
-    <p class="tagline">"We're the GPS from groundbreaking to FDA Pre-Approval. Every step. Every document. Every proof."</p>
+    <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#58a6ff;font-weight:700;margin-bottom:16px">The Problem — And Why Now</div>
+    <h2 style="font-size:26px;line-height:1.3;max-width:800px;margin:0 auto 16px">40% of FDA Pre-Approval Inspections<br>Fail on First Submission</h2>
+    <p style="max-width:680px;margin:0 auto">Pharmaceutical companies spend years building new facilities using <strong style="color:#f0f6fc">15+ disconnected tools</strong> — Excel trackers, SharePoint folders, paper binders, and email threads. When the FDA arrives, teams scramble to prove compliance they thought they had. The average cost of a failed Pre-Approval Inspection: <strong style="color:#f85149">$10–50M in remediation and 12–18 months of additional delay.</strong> Every year. Across hundreds of facilities. Nobody solved it.</p>
+    <div style="margin:22px auto;padding:16px 28px;background:#0d1117;border:1px solid #1f6feb55;border-radius:10px;display:inline-block;max-width:520px">
+      <div style="font-size:16px;color:#f0f6fc;font-weight:700">We built the GPS.</div>
+      <div style="font-size:12px;color:#8b949e;margin-top:5px;line-height:1.5">Site selection → design → construction → IQ/OQ/PQ → validation → QMS → FDA Pre-Approval.<br>Every step guided. Every document generated. Every proof audit-ready.</div>
+    </div>
+    <p style="max-width:620px;margin:0 auto;font-size:12px;color:#6e7681;line-height:1.6">FDA CSA 2022 increased documentation complexity. The January 2025 AI guidance added new requirements. The problem is getting harder. The market is ready for a platform that solves it from day one — not a collection of tools that almost does.</p>
+    <p class="tagline" style="margin-top:18px">"When FDA shows up, open your laptop. Complete proof. No gaps. No scrambling. No $50M mistake."</p>
   </div>
 
   <div class="kpi-row" id="kpis-el"></div>
@@ -358,21 +364,21 @@ function go(id,tab){
 // ── DATA ──────────────────────────────────────────────────────────────────────
 
 const KPIS=[
-  {val:"24",lbl:"Guided Steps from Site Selection to FDA Approval"},
-  {val:"6",lbl:"Core Product Modules (all required for MVP)"},
-  {val:"$299–$3,500+",lbl:"Monthly SaaS Revenue per Facility"},
-  {val:"June 11",lbl:"MVP Delivery Date (14-Week Build)"},
-  {val:"$2,300",lbl:"Total Build Budget (Hard Cap)"},
-  {val:"847",lbl:"Automated Tests — All Must Pass Before Release"},
+  {val:"40%",lbl:"FDA Pre-Approval Inspections Fail on First Submission"},
+  {val:"$10–$50M",lbl:"Average Cost of a Failed FDA Inspection + Remediation"},
+  {val:"$4.2B",lbl:"GxP Compliance Software Market — Growing 11% CAGR"},
+  {val:"24 Steps",lbl:"Guided — Site Selection Through Commercial Production"},
+  {val:"14 Wks",lbl:"Time to MVP — Full 6-Module Platform, $2,300 Build Budget"},
+  {val:"$299–$3,500+",lbl:"Monthly SaaS Per Facility — 5–10x Below Incumbents"},
 ];
 
 const DIFFS=[
-  {title:"End-to-End Coverage",body:"Competitors are point solutions — validation tools, QMS tools, or risk tools. We guide the customer from groundbreaking to commercial production in one platform. No competitor does this."},
-  {title:"FDA PreCheck + Type V DMF",body:"One-click FDA Pre-Submission DMF generation. Customers arrive at Pre-Approval Inspection already armed. This is the core hook that drives urgency to buy."},
-  {title:"PLEXUS AI Mesh",body:"Not a chatbot bolted on. PLEXUS is woven throughout the product — it reasons across validation, risk, changes, and deviations using the Process Spine as its sole source of truth."},
-  {title:"Regulatory Intelligence",body:"Automated monitoring of FDA, ICH, OSHA, ANSI, EMA guidance changes — tagged, scored, and routed for human review before anything touches the product. Always current."},
-  {title:"Inspection-Ready by Design",body:"Every step generates the exact documentation an FDA inspector will ask for. The compliance dashboard shows real-time readiness. No scrambling when the auditor arrives."},
-  {title:"Built by a GxP Expert",body:"the Team Lead — 30 years of GxP laboratory, audit, and systems experience — validates every phase of the build. This isn't a tech team guessing at pharma. It's pharma building tech."},
+  {title:"The Only End-to-End Platform",body:"Every competitor is a point solution — a validation tool, a QMS, or a risk register. None takes you from groundbreaking to FDA Pre-Approval. We do. That’s not positioning. Verify it in 10 minutes of competitive research."},
+  {title:"Inspection-Ready by Design",body:"Every one of our 24 guided steps generates the exact documentation an FDA inspector will request. Customers don’t prepare for audits. They’re already prepared. Open laptop. Show FDA. Done."},
+  {title:"One-Click FDA PreCheck Type V DMF",body:"Generate a complete FDA Pre-Submission Drug Master File with one click. Customers arrive at pre-application meetings already armed. No competitor offers this. This creates urgency to buy before a facility even opens."},
+  {title:"PLEXUS AI — Woven In, Not Bolted On",body:"Not a chatbot added at the end. PLEXUS is the intelligence layer woven throughout the entire platform — reasoning across validation, risk, deviations, and release readiness. Fail-closed. Auditable. Explainable."},
+  {title:"Regulatory Intelligence — Always Current",body:"Automated daily monitoring of FDA, ICH, OSHA, ANSI, EMA, and MHRA guidance. Every detected change tagged, scored, and routed for human review before touching the product. Customers stay current. Automatically."},
+  {title:"Built on 30 Years of GxP Expertise",body:"The platform is validated at every phase gate by a 30-year GxP laboratory, audit, and systems veteran. This isn’t a tech team guessing at pharmaceutical compliance. The domain knowledge is the moat competitors cannot copy."},
 ];
 
 const TIMELINE=[
