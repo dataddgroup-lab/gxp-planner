@@ -2,45 +2,77 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GxP Facility Planner — System Map</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GxP Facility Planner — Team Briefing</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,sans-serif;background:#0d1117;color:#c9d1d9;min-height:100vh}
-.header{background:#161b22;border-bottom:1px solid #30363d;padding:14px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
-.header h1{font-size:17px;font-weight:700;color:#f0f6fc}
-.badge{background:#1f6feb;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px}
-.header-meta{margin-left:auto;font-size:11px;color:#8b949e}
-.tabs{background:#161b22;border-bottom:1px solid #30363d;display:flex;padding:0 24px;position:sticky;top:49px;z-index:99}
-.tab{padding:10px 16px;cursor:pointer;font-size:13px;color:#8b949e;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+a{color:#58a6ff}
+.hdr{background:#161b22;border-bottom:1px solid #30363d;padding:13px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
+.hdr h1{font-size:17px;font-weight:700;color:#f0f6fc}
+.hdrbadge{background:#1f6feb;color:#fff;font-size:10px;font-weight:700;padding:2px 9px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px}
+.hdrmeta{margin-left:auto;font-size:11px;color:#8b949e}
+.tabs{background:#161b22;border-bottom:1px solid #30363d;display:flex;padding:0 24px;position:sticky;top:49px;z-index:99;overflow-x:auto}
+.tab{padding:10px 15px;cursor:pointer;font-size:13px;color:#8b949e;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
 .tab:hover{color:#c9d1d9}
-.tab.active{color:#58a6ff;border-bottom-color:#1f6feb}
-.content{padding:24px;max-width:1400px;margin:0 auto}
-.section{display:none}
-.section.active{display:block}
-.section-header{margin-bottom:20px}
-.section-header h2{font-size:18px;font-weight:700;color:#f0f6fc}
-.section-header p{font-size:13px;color:#8b949e;margin-top:4px}
-.divider-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#58a6ff;font-weight:700;margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid #21262d}
+.tab.on{color:#58a6ff;border-bottom-color:#1f6feb}
+.wrap{padding:24px;max-width:1400px;margin:0 auto}
+.sec{display:none}
+.sec.on{display:block}
+.sh{margin-bottom:20px}
+.sh h2{font-size:18px;font-weight:700;color:#f0f6fc}
+.sh p{font-size:13px;color:#8b949e;margin-top:4px;line-height:1.5}
+.dl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#58a6ff;font-weight:700;margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid #21262d}
 
-/* PHASES */
+/* OVERVIEW */
+.hero{background:linear-gradient(135deg,#0d1f33,#1a0d2e);border:1px solid #30363d;border-radius:10px;padding:28px;margin-bottom:20px;text-align:center}
+.hero h2{font-size:22px;font-weight:700;color:#f0f6fc;margin-bottom:10px}
+.hero p{font-size:14px;color:#8b949e;max-width:700px;margin:0 auto;line-height:1.6}
+.hero .tagline{font-size:15px;color:#58a6ff;font-weight:600;margin:14px 0 0;font-style:italic}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px}
+.kpi{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;text-align:center}
+.kpi .val{font-size:26px;font-weight:700;color:#58a6ff;margin-bottom:4px}
+.kpi .lbl{font-size:11px;color:#8b949e}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+@media(max-width:700px){.two-col{grid-template-columns:1fr}}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px}
+.card h3{font-size:13px;font-weight:700;color:#f0f6fc;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card ul{list-style:none}
+.card li{font-size:12px;color:#c9d1d9;padding:3px 0 3px 12px;position:relative;line-height:1.4}
+.card li::before{content:'›';position:absolute;left:0;color:#8b949e}
+.diff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:20px}
+.diff{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;border-left:3px solid #1f6feb}
+.diff h4{font-size:12px;font-weight:700;color:#58a6ff;margin-bottom:5px}
+.diff p{font-size:11px;color:#8b949e;line-height:1.5}
+.status-bar{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px}
+.status-bar h3{font-size:13px;font-weight:700;color:#f0f6fc;margin-bottom:12px}
+.timeline-mini{display:flex;gap:0;flex-wrap:wrap}
+.tm-phase{flex:1;min-width:100px;padding:8px 10px;border-right:1px solid #30363d;position:relative}
+.tm-phase:last-child{border-right:none}
+.tm-phase .tm-name{font-size:10px;font-weight:700;color:#8b949e;text-transform:uppercase;letter-spacing:.4px}
+.tm-phase .tm-weeks{font-size:10px;color:#6e7681;margin:2px 0}
+.tm-phase .tm-cost{font-size:12px;font-weight:700;color:#3fb950}
+.tm-phase.active-phase{background:#1f6feb11;border-top:2px solid #1f6feb}
+.tm-phase.active-phase .tm-name{color:#58a6ff}
+
+/* PROCESS FLOW */
 .phases{display:flex;flex-direction:column;gap:10px}
 .phase{background:#161b22;border:1px solid #30363d;border-radius:8px;overflow:hidden}
-.phase-header{padding:13px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:background .15s}
-.phase-header:hover{background:#1c2128}
-.phase-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
-.phase-title{font-weight:600;color:#f0f6fc;font-size:14px}
-.phase-meta{margin-left:auto;font-size:11px;color:#8b949e;display:flex;gap:12px;align-items:center}
-.phase-arrow{color:#8b949e;font-size:14px;transition:transform .2s;margin-left:6px}
-.phase.open .phase-arrow{transform:rotate(90deg)}
-.phase-body{display:none;padding:12px 14px 14px;border-top:1px solid #21262d}
-.phase.open .phase-body{display:block}
+.ph-hdr{padding:12px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:background .15s}
+.ph-hdr:hover{background:#1c2128}
+.phn{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.ph-title{font-weight:600;color:#f0f6fc;font-size:14px}
+.ph-meta{margin-left:auto;font-size:11px;color:#8b949e;display:flex;gap:12px}
+.ph-arr{color:#8b949e;font-size:14px;transition:transform .2s;margin-left:6px}
+.phase.open .ph-arr{transform:rotate(90deg)}
+.ph-body{display:none;padding:12px 14px 14px;border-top:1px solid #21262d}
+.phase.open .ph-body{display:block}
 .steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;margin-top:4px}
 .step{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:11px}
-.step-num{font-size:10px;color:#8b949e;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
-.step-name{font-size:13px;font-weight:600;color:#e6edf3;margin:3px 0 4px}
-.step-output{font-size:11px;color:#6e7681;margin-bottom:7px;line-height:1.4}
-.step-roles{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px}
+.sn{font-size:10px;color:#8b949e;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.sname{font-size:13px;font-weight:600;color:#e6edf3;margin:3px 0 3px}
+.sout{font-size:11px;color:#6e7681;margin-bottom:6px;line-height:1.4}
+.sroles{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:5px}
 .rb{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:500}
 .r-qa{background:#1a3a1a;color:#3fb950}
 .r-val{background:#1a2a3a;color:#58a6ff}
@@ -50,277 +82,423 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#0d1117;color:#c9
 .r-dir{background:#1a2a2a;color:#39d353}
 .r-con{background:#2a1a2a;color:#ffa657}
 .r-adm{background:#1a1a2a;color:#79c0ff}
-.halo-tag{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#58a6ff;background:#0d1f33;padding:2px 6px;border-radius:4px;margin-top:2px;font-family:monospace}
+.ptag{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#58a6ff;background:#0d1f33;padding:2px 6px;border-radius:4px;margin-top:2px;font-family:monospace}
 
 /* ROLES */
-.roles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-.role-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px}
-.rc-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.rc-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.rcard{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px}
+.rc-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.rc-ico{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
 .rc-name{font-size:14px;font-weight:600;color:#f0f6fc}
 .rc-type{font-size:11px;color:#8b949e}
 .rs{margin-bottom:9px}
-.rs-title{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#8b949e;font-weight:700;margin-bottom:5px}
+.rs-t{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#8b949e;font-weight:700;margin-bottom:5px}
 .rs ul{list-style:none}
 .rs li{font-size:11px;color:#c9d1d9;padding:1px 0 1px 10px;position:relative}
 .rs li::before{content:'›';position:absolute;left:0;color:#8b949e}
-.halo-box{font-size:11px;color:#58a6ff;background:#0d1f33;padding:6px 8px;border-radius:4px;line-height:1.4}
-.screen-tags{display:flex;flex-wrap:wrap;gap:3px}
+.hbox{font-size:11px;color:#58a6ff;background:#0d1f33;padding:6px 8px;border-radius:4px;line-height:1.4}
+.stags{display:flex;flex-wrap:wrap;gap:3px}
 .stag{font-size:10px;background:#21262d;color:#8b949e;padding:2px 6px;border-radius:4px}
 
-/* HALO */
-.halo-laws{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:4px}
-.law-card{background:#161b22;border:1px solid #1f6feb33;border-radius:8px;padding:14px;border-left:3px solid #1f6feb}
-.law-card h3{font-size:12px;font-weight:700;color:#58a6ff;margin-bottom:6px}
-.law-card p{font-size:11px;color:#8b949e;line-height:1.5}
-.halo-ops{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:8px}
-.op-card{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:11px}
+/* PLEXUS */
+.law-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:4px}
+.law{background:#161b22;border:1px solid #1f6feb33;border-radius:8px;padding:14px;border-left:3px solid #1f6feb}
+.law h3{font-size:12px;font-weight:700;color:#58a6ff;margin-bottom:6px}
+.law p{font-size:11px;color:#8b949e;line-height:1.5}
+.ops-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:8px}
+.op{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:11px}
 .op-fn{font-size:11px;font-family:'SFMono-Regular',Consolas,monospace;color:#79c0ff;margin-bottom:4px;word-break:break-all}
 .op-desc{font-size:11px;color:#8b949e;line-height:1.4}
-.op-constraint{font-size:10px;color:#f85149;margin-top:6px;background:#2a0a0a;padding:3px 6px;border-radius:4px}
-.spine-truth{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:16px;margin-bottom:12px}
-.spine-truth h3{font-size:13px;font-weight:600;color:#e3b341;margin-bottom:8px}
-.spine-items{display:flex;flex-wrap:wrap;gap:6px}
-.spine-item{background:#1a1a0d;border:1px solid #e3b34133;color:#e3b341;font-size:11px;padding:3px 8px;border-radius:4px}
+.op-warn{font-size:10px;color:#f85149;margin-top:5px;background:#2a0a0a;padding:3px 6px;border-radius:4px}
+.spine-box{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;margin-bottom:12px}
+.spine-box h3{font-size:12px;font-weight:600;color:#e3b341;margin-bottom:8px}
+.spine-items{display:flex;flex-wrap:wrap;gap:5px}
+.spi{background:#1a1a0d;border:1px solid #e3b34133;color:#e3b341;font-size:10px;padding:3px 8px;border-radius:4px}
 
 /* REG INTEL */
-.pipeline{display:flex;align-items:stretch;flex-wrap:wrap;gap:0;margin-bottom:4px}
-.pipe-step{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:10px 12px;min-width:95px;text-align:center}
-.pipe-step.gate{background:#1a2a1a;border-color:#2ea04333}
-.ps-name{font-size:12px;font-weight:600;color:#f0f6fc}
-.pipe-step.gate .ps-name{color:#3fb950}
-.ps-desc{font-size:9px;color:#6e7681;margin-top:2px;line-height:1.3}
-.pipe-arrow{color:#30363d;font-size:20px;padding:0 4px;display:flex;align-items:center}
-.reg-sources{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:7px;margin-bottom:4px}
-.src-card{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:9px}
-.src-name{font-size:12px;font-weight:500;color:#f0f6fc}
-.src-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
-.stag2{font-size:9px;padding:1px 5px;border-radius:3px;background:#21262d;color:#8b949e}
-.res-row{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;background:#161b22;border:1px solid #30363d;border-radius:6px;margin-bottom:6px}
+.pipe{display:flex;align-items:stretch;flex-wrap:wrap;gap:0;margin-bottom:4px}
+.ps{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:9px 11px;min-width:90px;text-align:center}
+.ps.gate{background:#1a2a1a;border-color:#2ea04333}
+.ps-n{font-size:11px;font-weight:600;color:#f0f6fc}
+.ps.gate .ps-n{color:#3fb950}
+.ps-d{font-size:9px;color:#6e7681;margin-top:2px;line-height:1.3}
+.parr{color:#30363d;font-size:20px;padding:0 3px;display:flex;align-items:center}
+.srcs{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:7px;margin-bottom:4px}
+.src{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:9px}
+.src-n{font-size:12px;font-weight:500;color:#f0f6fc}
+.src-t{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
+.st{font-size:9px;padding:1px 5px;border-radius:3px;background:#21262d;color:#8b949e}
+.res-rows{display:flex;flex-direction:column;gap:6px}
+.res-row{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;background:#161b22;border:1px solid #30363d;border-radius:6px}
 .res-id{font-size:10px;background:#1f6feb22;color:#58a6ff;padding:2px 8px;border-radius:12px;font-weight:700;white-space:nowrap;flex-shrink:0}
-.res-issue{font-size:11px;color:#8b949e;margin-bottom:2px}
-.res-fix{font-size:12px;color:#c9d1d9}
+.res-i{font-size:11px;color:#8b949e;margin-bottom:2px}
+.res-f{font-size:12px;color:#c9d1d9}
 
-/* SPRINTS */
-.sprint-phases{display:flex;flex-direction:column;gap:14px}
-.sp{background:#161b22;border:1px solid #30363d;border-radius:8px;overflow:hidden}
-.sp-header{padding:12px 16px;background:#1c2128;display:flex;align-items:center;gap:10px;border-bottom:1px solid #30363d;flex-wrap:wrap;gap:8px}
-.sp-badge{background:#1f6feb;color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:12px;white-space:nowrap}
-.sp-title{font-size:13px;font-weight:600;color:#f0f6fc;flex:1}
-.sp-weeks{font-size:11px;color:#8b949e;white-space:nowrap}
-.sp-cost{font-size:14px;font-weight:700;color:#3fb950;white-space:nowrap}
-.sp-body{padding:14px}
-.sprint{margin-bottom:14px}
+/* BUILD PLAN */
+.bp-phases{display:flex;flex-direction:column;gap:12px}
+.bpp{background:#161b22;border:1px solid #30363d;border-radius:8px;overflow:hidden}
+.bpp-hdr{padding:12px 16px;background:#1c2128;display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:1px solid #30363d;cursor:pointer}
+.bpp-hdr:hover{background:#21262d}
+.bpp-badge{color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.bpp-title{font-size:13px;font-weight:600;color:#f0f6fc;flex:1}
+.bpp-weeks{font-size:11px;color:#8b949e;white-space:nowrap}
+.bpp-cost{font-size:14px;font-weight:700;color:#3fb950;white-space:nowrap}
+.bpp-arr{color:#8b949e;font-size:14px;transition:transform .2s}
+.bpp.open .bpp-arr{transform:rotate(90deg)}
+.bpp-body{display:none;padding:14px}
+.bpp.open .bpp-body{display:block}
+.sprint{margin-bottom:13px}
 .sprint:last-child{margin-bottom:0}
-.sprint-title{font-size:11px;font-weight:700;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
-.feat-list{display:flex;flex-direction:column;gap:5px}
+.sprint-t{font-size:11px;font-weight:700;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.feats{display:flex;flex-direction:column;gap:5px}
 .feat{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:#0d1117;border:1px solid #21262d;border-radius:6px}
-.feat-name{font-size:12px;color:#e6edf3;font-weight:600;flex:0 0 200px}
-.feat-desc{font-size:11px;color:#8b949e;flex:1;line-height:1.4}
-.feat-cost{font-size:12px;color:#3fb950;font-weight:700;white-space:nowrap}
+.fn{font-size:12px;color:#e6edf3;font-weight:600;flex:0 0 185px;line-height:1.3}
+.fd{font-size:11px;color:#8b949e;flex:1;line-height:1.4}
+.fc{font-size:12px;color:#3fb950;font-weight:700;white-space:nowrap}
 .gate-bar{display:flex;align-items:center;gap:6px;padding:6px 10px;margin-top:8px;background:#1a2a1a;border:1px solid #2ea04333;border-radius:6px}
 .gate-bar span{font-size:11px;color:#3fb950}
-table{width:100%;border-collapse:collapse;margin-top:14px}
-th{text-align:left;padding:9px 12px;background:#1c2128;font-size:11px;color:#8b949e;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #30363d}
-td{padding:9px 12px;font-size:13px;border-bottom:1px solid #21262d}
-tr:last-child td{border-bottom:none;font-weight:700;color:#f0f6fc}
+.sum-table{width:100%;border-collapse:collapse;margin-top:14px}
+.sum-table th{text-align:left;padding:9px 12px;background:#1c2128;font-size:11px;color:#8b949e;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #30363d}
+.sum-table td{padding:9px 12px;font-size:13px;border-bottom:1px solid #21262d}
+.sum-table tr:last-child td{border-bottom:none;font-weight:700;color:#f0f6fc;background:#1c2128}
 .cc{color:#3fb950;font-weight:700}
+.in-progress{background:#1f6feb11!important}
+.in-progress td:first-child::after{content:" ← IN PROGRESS";font-size:10px;color:#58a6ff}
+
+/* RISKS */
+.risk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.risk{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:15px}
+.risk-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.risk-sev{font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px}
+.sev-h{background:#3a0a0a;color:#f85149}
+.sev-m{background:#2a1a0a;color:#e3b341}
+.sev-l{background:#1a2a1a;color:#3fb950}
+.risk h4{font-size:13px;font-weight:600;color:#f0f6fc}
+.risk-body{font-size:11px;color:#8b949e;margin-bottom:9px;line-height:1.5}
+.risk-mit{background:#0d1117;border:1px solid #21262d;border-radius:5px;padding:9px}
+.risk-mit-t{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#3fb950;font-weight:700;margin-bottom:5px}
+.risk-mit ul{list-style:none}
+.risk-mit li{font-size:11px;color:#c9d1d9;padding:2px 0 2px 10px;position:relative}
+.risk-mit li::before{content:'✓';position:absolute;left:0;color:#3fb950;font-size:9px}
 </style>
 </head>
 <body>
 
-<div class="header">
+<div class="hdr">
   <h1>GxP Facility Planner</h1>
-  <span class="badge">System Map</span>
-  <span class="header-meta">Process Flow · Roles · PLEXUS Mesh · Reg Intelligence · Phase 2 Sprints — v2026-03-14</span>
+  <span class="hdrbadge">Team Briefing</span>
+  <span class="hdrmeta">v2026-03-14 · Confidential · Data Driven Design Group LLC</span>
 </div>
 
 <div class="tabs">
-  <div class="tab active" onclick="show('flow',this)">Process Flow</div>
-  <div class="tab" onclick="show('roles',this)">User Roles</div>
-  <div class="tab" onclick="show("plexus",this)>PLEXUS Mesh</div>
-  <div class="tab" onclick="show('regintel',this)">Reg Intelligence</div>
-  <div class="tab" onclick="show('sprints',this)">Phase 2 Sprints</div>
+  <div class="tab on"  onclick="go('overview',this)">Overview</div>
+  <div class="tab"    onclick="go('flow',this)">Process Flow</div>
+  <div class="tab"    onclick="go('roles',this)">User Roles</div>
+  <div class="tab"    onclick="go('plexus',this)">PLEXUS Mesh</div>
+  <div class="tab"    onclick="go('regintel',this)">Reg Intelligence</div>
+  <div class="tab"    onclick="go('build',this)">Build Plan</div>
+  <div class="tab"    onclick="go('risks',this)">Risks</div>
 </div>
 
-<div class="content">
+<div class="wrap">
 
-<div class="section active" id="flow">
-  <div class="section-header">
+<!-- ═══════════════════════════════════════════════════════ OVERVIEW -->
+<div class="sec on" id="overview">
+  <div class="hero">
+    <h2>The Problem No One Has Fully Solved</h2>
+    <p>Pharmaceutical and biotech companies building new regulated facilities face a common crisis: when the FDA arrives for a Pre-Approval Inspection, teams scramble to prove compliance. Documents are scattered across binders and email threads. Validation records are incomplete. Audit trails are missing. The average facility spends 6–18 months in remediation before approval.</p>
+    <p class="tagline">"We're the GPS from groundbreaking to FDA Pre-Approval. Every step. Every document. Every proof."</p>
+  </div>
+
+  <div class="kpi-row" id="kpis-el"></div>
+
+  <div class="dl">The Solution</div>
+  <div class="two-col">
+    <div class="card">
+      <h3>What GxP Facility Planner Does</h3>
+      <ul>
+        <li>Guides teams through all 6 phases and 24 steps of facility commissioning</li>
+        <li>From site selection through commercial production — start to finish</li>
+        <li>Generates inspection-ready documentation at every step automatically</li>
+        <li>Tracks validations (IQ/OQ/PQ), risks, change control, and training in one place</li>
+        <li>PLEXUS AI mesh reasons across the entire facility context — voice + text</li>
+        <li>When FDA arrives: open your laptop. Complete proof. No gaps. No scrambling.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Who It's For</h3>
+      <ul>
+        <li>Pharmaceutical manufacturers building new or upgrading facilities</li>
+        <li>Biotech and biologics companies scaling to GMP production</li>
+        <li>Medical device manufacturers under 21 CFR Part 820</li>
+        <li>Contract manufacturing organizations (CMOs)</li>
+        <li>Consulting firms managing compliance programs for multiple clients</li>
+        <li>Any regulated facility that needs to prove compliance to FDA, EMA, or MHRA</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="dl">Differentiators — Why We Win</div>
+  <div class="diff-grid" id="diffs-el"></div>
+
+  <div class="dl">Revenue Model</div>
+  <div class="two-col">
+    <div class="card">
+      <h3>SaaS Pricing (Per Facility)</h3>
+      <ul>
+        <li><strong style="color:#3fb950">Starter — $299/mo:</strong> Single facility, up to 5 users, core 6 modules</li>
+        <li><strong style="color:#58a6ff">Professional — $999/mo:</strong> Single facility, up to 20 users, + PLEXUS AI + DMF generation</li>
+        <li><strong style="color:#d2a8ff">Enterprise — $3,500+/mo:</strong> Multi-site, unlimited users, dedicated support, audit services</li>
+        <li><strong style="color:#ffa657">Consulting tier:</strong> $500/mo per client facility — for GxP consulting firms</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Key Milestones</h3>
+      <ul>
+        <li>Build start: March 12, 2026 (Phase 1a in progress)</li>
+        <li>MVP delivery: June 11, 2026 (14 weeks)</li>
+        <li>First customer demo: June 18, 2026</li>
+        <li>First revenue target: July 1, 2026</li>
+        <li>Total build budget: $2,300 hard cap</li>
+        <li>Domain expert validation: Bobby BIG (30 yrs GxP experience) at every phase gate</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="dl">Build Timeline at a Glance</div>
+  <div class="status-bar">
+    <div class="timeline-mini" id="timeline-mini-el"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ PROCESS FLOW -->
+<div class="sec" id="flow">
+  <div class="sh">
     <h2>Customer Journey — Process Spine</h2>
-    <p>6 phases · 24 steps · Full FDA pre-approval inspection readiness. Every step generates auditable proof. Click any phase to expand.</p>
+    <p>6 phases · 24 steps · Every step generates inspection-ready documentation. Customer arrives at FDA Pre-Approval Inspection with complete, auditable proof. Click any phase to expand.</p>
   </div>
   <div class="phases" id="phases-el"></div>
 </div>
 
-<div class="section" id="roles">
-  <div class="section-header">
+<!-- ═══════════════════════════════════════════════════════ ROLES -->
+<div class="sec" id="roles">
+  <div class="sh">
     <h2>User Roles &amp; Responsibilities</h2>
-    <p>8 roles · Each has distinct access, primary screens, responsibilities, and PLEXUS interaction patterns.</p>
+    <p>8 roles · Each has distinct access, screens, responsibilities, and PLEXUS interaction patterns. Role-based views ensure every user sees exactly what they need — and nothing they shouldn't.</p>
   </div>
-  <div class="roles-grid" id="roles-el"></div>
+  <div class="rgrid" id="roles-el"></div>
 </div>
 
-<div class="section" id="plexus">
-  <div class="section-header">
+<!-- ═══════════════════════════════════════════════════════ PLEXUS -->
+<div class="sec" id="plexus">
+  <div class="sh">
     <h2>PLEXUS Mesh — AI Intelligence Layer</h2>
-    <p>4 immutable laws · 9 allowed operations · Fail-closed · Tenant-isolated · Spine-constrained only</p>
+    <p>PLEXUS is the operational intelligence layer woven throughout GxP Facility Planner. It reasons across the entire facility context — validation, risk, deviations, release readiness — using a single immutable source of truth: the Process Spine. It cannot invent, cannot mutate, and cannot guess. It fails closed. Always.</p>
   </div>
-  <div class="spine-truth">
-    <h3>Process Spine — Sole Source of Truth</h3>
-    <div class="spine-items" id="spine-items-el"></div>
+  <div class="spine-box">
+    <h3>Process Spine — The Only Source of Truth</h3>
+    <div class="spine-items" id="spine-el"></div>
   </div>
-  <div class="divider-label">Immutable Laws (Constitution)</div>
-  <div class="halo-laws" id="laws-el"></div>
-  <div class="divider-label">Allowed Operations API (implement these 9 functions only)</div>
-  <div class="halo-ops" id="ops-el"></div>
+  <div class="dl">4 Immutable Laws (Constitution)</div>
+  <div class="law-grid" id="laws-el"></div>
+  <div class="dl">9 Allowed Operations API — PLEXUS implements these functions only</div>
+  <div class="ops-grid" id="ops-el"></div>
 </div>
 
-<div class="section" id="regintel">
-  <div class="section-header">
+<!-- ═══════════════════════════════════════════════════════ REG INTEL -->
+<div class="sec" id="regintel">
+  <div class="sh">
     <h2>Regulatory Intelligence Module</h2>
-    <p>Metadata-only · No regulatory text stored · Weekly cadence · Human review gates · HALO-integrated via Process Spine Queue</p>
+    <p>Automated monitoring of FDA, ICH, OSHA, ANSI, EMA, and MHRA for regulatory changes. Metadata only — no regulatory text stored. Every detected change is tagged, scored, routed for human review, and blocked from the Process Spine until a human approves it.</p>
   </div>
-  <div class="divider-label">Pipeline — Daily Fetch → Weekly Package → Governance → HALO Feed</div>
-  <div class="pipeline" id="pipeline-el"></div>
-  <div class="divider-label">Monitored Sources (metadata only — title, date, link, jurisdiction)</div>
-  <div class="reg-sources" id="sources-el"></div>
-  <div class="divider-label">Architecture Resolutions (applied to all Phase 2 builds)</div>
-  <div id="resolutions-el"></div>
+  <div class="dl">Pipeline — Daily Fetch → Weekly Package → Human Governance → PLEXUS Feed</div>
+  <div class="pipe" id="pipe-el"></div>
+  <div class="dl">Monitored Sources — Public Metadata Only</div>
+  <div class="srcs" id="srcs-el"></div>
+  <div class="dl">Architecture Decisions</div>
+  <div class="res-rows" id="res-el"></div>
 </div>
 
-<div class="section" id="sprints">
-  <div class="section-header">
-    <h2>Phase 2 Sprint Plan</h2>
-    <p>4 sub-phases · 7 weeks · Apr 3 – May 21, 2026 · Weekly Bobby BIG approval gates · $380 total</p>
+<!-- ═══════════════════════════════════════════════════════ BUILD PLAN -->
+<div class="sec" id="build">
+  <div class="sh">
+    <h2>Build Plan — All Phases</h2>
+    <p>14 weeks · 8 sub-phases · Weekly Bobby BIG approval gates · $2,300 hard budget cap · June 11, 2026 MVP delivery. Click any phase to expand the sprint detail.</p>
   </div>
-  <div class="sprint-phases" id="sprints-el"></div>
-  <div class="divider-label">Phase 2 Budget Summary</div>
-  <table>
-    <thead><tr><th>Phase</th><th>Focus</th><th>Weeks</th><th>Budget</th></tr></thead>
-    <tbody id="summary-el"></tbody>
+  <div class="bp-phases" id="bp-el"></div>
+  <div class="dl">Full Budget Summary</div>
+  <table class="sum-table">
+    <thead><tr><th>Phase</th><th>Focus</th><th>Weeks</th><th>Dates</th><th>Budget</th></tr></thead>
+    <tbody id="sum-el"></tbody>
   </table>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════ RISKS -->
+<div class="sec" id="risks">
+  <div class="sh">
+    <h2>Risks &amp; Mitigation</h2>
+    <p>Known risks across technical, regulatory, market, and team dimensions — each with concrete mitigation strategies. Reviewed at every weekly gate with Bobby BIG.</p>
+  </div>
+  <div class="risk-grid" id="risks-el"></div>
 </div>
 
+</div><!-- /wrap -->
+
 <script>
+// ── UTILS ─────────────────────────────────────────────────────────────────────
 const RM={QA:"r-qa",VAL:"r-val",FAC:"r-fac",OP:"r-op",PM:"r-pm",DIR:"r-dir",CON:"r-con",ADM:"r-adm"};
 const RN={QA:"QA/QC",VAL:"Validation",FAC:"Facilities",OP:"Operator",PM:"Site Mgr",DIR:"Director",CON:"Consultant",ADM:"Admin"};
+function go(id,tab){
+  document.querySelectorAll(".sec").forEach(s=>s.classList.remove("on"));
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("on"));
+  document.getElementById(id).classList.add("on");
+  tab.classList.add("on");
+}
+
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const KPIS=[
+  {val:"24",lbl:"Guided Steps from Site Selection to FDA Approval"},
+  {val:"6",lbl:"Core Product Modules (all required for MVP)"},
+  {val:"$299–$3,500+",lbl:"Monthly SaaS Revenue per Facility"},
+  {val:"June 11",lbl:"MVP Delivery Date (14-Week Build)"},
+  {val:"$2,300",lbl:"Total Build Budget (Hard Cap)"},
+  {val:"847",lbl:"Automated Tests — All Must Pass Before Release"},
+];
+
+const DIFFS=[
+  {title:"End-to-End Coverage",body:"Competitors are point solutions — validation tools, QMS tools, or risk tools. We guide the customer from groundbreaking to commercial production in one platform. No competitor does this."},
+  {title:"FDA PreCheck + Type V DMF",body:"One-click FDA Pre-Submission DMF generation. Customers arrive at Pre-Approval Inspection already armed. This is the core hook that drives urgency to buy."},
+  {title:"PLEXUS AI Mesh",body:"Not a chatbot bolted on. PLEXUS is woven throughout the product — it reasons across validation, risk, changes, and deviations using the Process Spine as its sole source of truth."},
+  {title:"Regulatory Intelligence",body:"Automated monitoring of FDA, ICH, OSHA, ANSI, EMA guidance changes — tagged, scored, and routed for human review before anything touches the product. Always current."},
+  {title:"Inspection-Ready by Design",body:"Every step generates the exact documentation an FDA inspector will ask for. The compliance dashboard shows real-time readiness. No scrambling when the auditor arrives."},
+  {title:"Built by a GxP Expert",body:"Bobby BIG — 30 years of GxP laboratory, audit, and systems experience — validates every phase of the build. This isn't a tech team guessing at pharma. It's pharma building tech."},
+];
+
+const TIMELINE=[
+  {ph:"1a",name:"DB + Auth",dates:"Mar 12–19",cost:"$50",active:true},
+  {ph:"1b",name:"Validation Engines",dates:"Mar 20–Apr 2",cost:"$80",active:false},
+  {ph:"2a",name:"Risk + Reg Intel",dates:"Apr 3–16",cost:"$105",active:false},
+  {ph:"2b",name:"Equipment DB",dates:"Apr 17–23",cost:"$45",active:false},
+  {ph:"2c",name:"Lab Layout",dates:"Apr 24–May 7",cost:"$100",active:false},
+  {ph:"2d",name:"Onboarding + Polish",dates:"May 8–21",cost:"$130",active:false},
+  {ph:"3",name:"Integration + Hardening",dates:"May 22–Jun 4",cost:"~$150",active:false},
+  {ph:"4",name:"Deploy + Sign-off",dates:"Jun 5–11",cost:"~$80",active:false},
+];
 
 const PHASES=[
   {n:1,title:"Pre-Planning & Site Selection",sub:"Weeks 1–4",c:"#1f6feb",steps:[
-    {n:1,name:"Feasibility Assessment",out:"Feasibility Report",roles:["DIR","PM"],halo:"rank_tasks, explain_decision"},
-    {n:2,name:"Site Selection & Evaluation",out:"Site Selection Matrix, Regulatory Map",roles:["FAC","PM","DIR"],halo:null},
-    {n:3,name:"Regulatory Roadmap",out:"Regulatory Roadmap Document",roles:["QA","CON"],halo:"map_intent_to_step, list_allowed_tasks"},
-    {n:4,name:"Budget & Funding Approval",out:"Budget Approval Record",roles:["DIR","PM"],halo:null},
+    {n:1,name:"Feasibility Assessment",out:"Feasibility Report",roles:["DIR","PM"],p:"rank_tasks, explain_decision"},
+    {n:2,name:"Site Selection & Evaluation",out:"Site Selection Matrix, Regulatory Map",roles:["FAC","PM","DIR"],p:null},
+    {n:3,name:"Regulatory Roadmap",out:"Regulatory Roadmap Document",roles:["QA","CON"],p:"map_intent_to_step, list_allowed_tasks"},
+    {n:4,name:"Budget & Funding Approval",out:"Budget Approval Record",roles:["DIR","PM"],p:null},
   ]},
   {n:2,title:"Design & Layout",sub:"Weeks 4–8",c:"#388bfd",steps:[
-    {n:5,name:"Facility Design & Architecture",out:"Design Drawings, Space Plans",roles:["FAC","PM"],halo:"get_required_documents"},
-    {n:6,name:"AE & Contractor Procurement",out:"AE Contract, Vendor List",roles:["PM"],halo:null},
-    {n:7,name:"Layout Compliance Review",out:"Compliance Review Record",roles:["QA","VAL","CON"],halo:"validate_action, explain_decision"},
-    {n:8,name:"Zone Classification (GMP/GLP/GCP)",out:"Zone Classification Map",roles:["FAC","QA"],halo:"validate_action"},
+    {n:5,name:"Facility Design & Architecture",out:"Design Drawings, Space Plans",roles:["FAC","PM"],p:"get_required_documents"},
+    {n:6,name:"AE & Contractor Procurement",out:"AE Contract, Vendor List",roles:["PM"],p:null},
+    {n:7,name:"Layout Compliance Review",out:"Compliance Review Record",roles:["QA","VAL","CON"],p:"validate_action, explain_decision"},
+    {n:8,name:"Zone Classification (GMP/GLP/GCP)",out:"Zone Classification Map",roles:["FAC","QA"],p:"validate_action"},
   ]},
   {n:3,title:"Procurement & Construction",sub:"Weeks 8–20",c:"#56d364",steps:[
-    {n:9,name:"Equipment Procurement",out:"Purchase Orders, Equipment Master List",roles:["PM","FAC","OP"],halo:"get_required_documents, list_allowed_tasks"},
-    {n:10,name:"Building Permits & Inspections",out:"Permits, Inspection Records",roles:["PM","FAC"],halo:null},
-    {n:11,name:"Construction Management",out:"Construction Records, Punch Lists",roles:["FAC","PM"],halo:"rank_tasks, schedule_tasks"},
-    {n:12,name:"Equipment Delivery & Staging",out:"Delivery Records, Asset Tags",roles:["FAC","OP"],halo:"list_allowed_tasks"},
+    {n:9,name:"Equipment Procurement",out:"Purchase Orders, Equipment Master List",roles:["PM","FAC","OP"],p:"get_required_documents, list_allowed_tasks"},
+    {n:10,name:"Building Permits & Inspections",out:"Permits, Inspection Records",roles:["PM","FAC"],p:null},
+    {n:11,name:"Construction Management",out:"Construction Records, Punch Lists",roles:["FAC","PM"],p:"rank_tasks, schedule_tasks"},
+    {n:12,name:"Equipment Delivery & Staging",out:"Delivery Records, Asset Tags",roles:["FAC","OP"],p:"list_allowed_tasks"},
   ]},
   {n:4,title:"Installation & Commissioning",sub:"Weeks 20–30",c:"#d2a8ff",steps:[
-    {n:13,name:"IQ — Installation Qualification",out:"IQ Protocol + IQ Report",roles:["VAL","QA"],halo:"get_required_documents, validate_action, explain_decision"},
-    {n:14,name:"OQ — Operational Qualification",out:"OQ Protocol + OQ Report",roles:["VAL","QA","OP"],halo:"get_required_documents, validate_action"},
-    {n:15,name:"HVAC Commissioning",out:"HVAC Commissioning Qualification Report",roles:["FAC","VAL","QA"],halo:"validate_action"},
-    {n:16,name:"Utilities Commissioning",out:"Utilities CQ Report",roles:["FAC","VAL"],halo:"validate_action"},
+    {n:13,name:"IQ — Installation Qualification",out:"IQ Protocol + IQ Report",roles:["VAL","QA"],p:"get_required_documents, validate_action, explain_decision"},
+    {n:14,name:"OQ — Operational Qualification",out:"OQ Protocol + OQ Report",roles:["VAL","QA","OP"],p:"get_required_documents, validate_action"},
+    {n:15,name:"HVAC Commissioning",out:"HVAC Commissioning Qualification Report",roles:["FAC","VAL","QA"],p:"validate_action"},
+    {n:16,name:"Utilities Commissioning",out:"Utilities CQ Report",roles:["FAC","VAL"],p:"validate_action"},
   ]},
   {n:5,title:"Validation Lifecycle",sub:"Weeks 28–40",c:"#ffa657",steps:[
-    {n:17,name:"URS — User Requirements Spec",out:"URS Document",roles:["QA","VAL","PM"],halo:"get_required_documents, explain_decision"},
-    {n:18,name:"FRS — Functional Requirements Spec",out:"FRS Document",roles:["VAL","PM"],halo:"get_required_documents"},
-    {n:19,name:"Design Specification (DS)",out:"DS Document",roles:["VAL"],halo:"get_required_documents"},
-    {n:20,name:"PQ — Performance Qualification",out:"PQ Protocol + PQ Report",roles:["VAL","QA","OP"],halo:"validate_action, explain_decision"},
-    {n:21,name:"Validation Summary Report (VSR)",out:"VSR + Full URS→Test Traceability Matrix",roles:["QA","VAL","CON"],halo:"explain_decision, render_walkthrough"},
+    {n:17,name:"URS — User Requirements Spec",out:"URS Document",roles:["QA","VAL","PM"],p:"get_required_documents, explain_decision"},
+    {n:18,name:"FRS — Functional Requirements Spec",out:"FRS Document",roles:["VAL","PM"],p:"get_required_documents"},
+    {n:19,name:"Design Specification (DS)",out:"DS Document",roles:["VAL"],p:"get_required_documents"},
+    {n:20,name:"PQ — Performance Qualification",out:"PQ Protocol + PQ Report",roles:["VAL","QA","OP"],p:"validate_action, explain_decision"},
+    {n:21,name:"Validation Summary Report (VSR)",out:"VSR + Full URS→Test Traceability Matrix",roles:["QA","VAL","CON"],p:"explain_decision, render_walkthrough"},
   ]},
-  {n:6,title:"Quality System & Production",sub:"Weeks 38–52",c:"#f85149",steps:[
-    {n:22,name:"QMS Setup & SOP Authoring",out:"SOPs, QMS, Change Control System",roles:["QA","OP","CON"],halo:"list_allowed_tasks, map_intent_to_step, render_walkthrough"},
-    {n:23,name:"Training Records & Qualification",out:"Training Records, Assessment Scores",roles:["QA","OP","PM"],halo:"list_allowed_tasks, validate_action"},
-    {n:24,name:"Batch Records, Stability & EM Trending",out:"Batch Records, Stability Studies, EM Trend Reports, Inspection-Ready Package",roles:["QA","OP","DIR"],halo:"validate_action, explain_decision"},
+  {n:6,title:"Quality System & Commercial Production",sub:"Weeks 38–52",c:"#f85149",steps:[
+    {n:22,name:"QMS Setup & SOP Authoring",out:"SOPs, QMS, Change Control System",roles:["QA","OP","CON"],p:"list_allowed_tasks, map_intent_to_step, render_walkthrough"},
+    {n:23,name:"Training Records & Qualification",out:"Training Records, Assessment Scores",roles:["QA","OP","PM"],p:"list_allowed_tasks, validate_action"},
+    {n:24,name:"Batch Records, Stability & EM Trending",out:"Batch Records, Stability Studies, EM Reports, Full FDA Inspection Package",roles:["QA","OP","DIR"],p:"validate_action, explain_decision"},
   ]},
 ];
 
 const ROLES=[
   {id:"ADM",name:"System Admin",type:"Platform Administration",ic:"⚙",col:"#79c0ff",bg:"#1a1a2a",
-   phases:"All phases — platform config",
-   resp:["Manage users, roles, permissions","Configure facility onboarding","Manage consultant pools and assignment rules","Manage domain-to-facility module mappings","Set audit log retention policies","Configure regulatory source monitoring"],
-   halo:"Configures tenant boundaries and allowed operation permissions",
-   screens:["Admin Console","User Management","Facility Config","Reg Intel Config","Audit Log Admin"]},
+   phases:"All phases",
+   resp:["Manage users, roles, and permissions","Configure facility onboarding settings","Manage consultant pools and routing rules","Set domain-to-facility module mappings","Configure regulatory source monitoring","Audit log retention and export policies"],
+   halo:"Configures tenant boundaries and PLEXUS allowed operation permissions",
+   screens:["Admin Console","User Management","Facility Config","Reg Intel Config","Audit Admin"]},
   {id:"DIR",name:"Corporate / Multi-site Director",type:"Executive Oversight",ic:"◈",col:"#39d353",bg:"#1a2a1a",
-   phases:"Phases 1, 3, 6 — budget & risk oversight",
-   resp:["Cross-site risk oversight and executive dashboards","Approve major capital expenditure","Review high-severity regulatory digest","Sign off FDA pre-inspection readiness","Final budget approvals for phase gates"],
-   halo:"Views ranked priorities and risk summaries; read-only HALO outputs",
+   phases:"Phases 1, 3, 6",
+   resp:["Cross-site risk oversight and executive dashboards","Approve major capital and budget decisions","Review high-severity regulatory changes","Sign off FDA pre-inspection readiness","Final approval for commercial release"],
+   halo:"Read-only PLEXUS summaries — ranked risk, compliance score, readiness indicators",
    screens:["Executive Dashboard","Risk Overview","Compliance Dashboard","Regulatory Digest","Multi-site Map"]},
   {id:"PM",name:"Site / Plant Manager",type:"Operational Leadership",ic:"◉",col:"#f85149",bg:"#2a1a1a",
-   phases:"All phases — primary task orchestrator",
-   resp:["Oversee all 24 lifecycle steps","Manage vendor and AE relationships","Approve phase-gate decisions with QA","Review regulatory digest medium/high severity","Track project schedule and budget","Assign and monitor all tasks across roles"],
-   halo:"list_allowed_tasks, rank_tasks, schedule_tasks — primary orchestration user",
+   phases:"All phases",
+   resp:["Oversee all 24 lifecycle steps end to end","Manage AE, vendor, and contractor relationships","Approve phase-gate decisions alongside QA","Track project schedule and budget adherence","Review medium/high regulatory digest weekly","Assign and monitor all cross-role tasks"],
+   halo:"list_allowed_tasks, rank_tasks, schedule_tasks — primary task orchestration interface",
    screens:["Project Dashboard","Task Manager","Phase Gate View","Regulatory Digest","Change Control","Budget Tracker"]},
   {id:"QA",name:"QA / QC Officer",type:"Quality Assurance",ic:"◎",col:"#3fb950",bg:"#1a3a1a",
-   phases:"All phases — primary approver on all records",
-   resp:["Approve/reject validation protocols and reports","Own the risk register (ICH Q9)","Initiate and close change controls","Review and sign all SOPs","Approve regulatory event human reviews","Sign off process spine queue entries","Issue deviations and CAPAs"],
-   halo:"validate_action on every QA approval; explain_decision for audit-ready rationale",
-   screens:["QA Dashboard","Change Control","Risk Register","Document Control","Regulatory Events","Process Spine Queue","Deviation Log","CAPA Tracker"]},
+   phases:"All phases — primary approver",
+   resp:["Approve/reject all validation protocols and reports","Own the ICH Q9 risk register","Initiate and close all change controls","Review and sign all SOPs and controlled documents","Approve regulatory event human reviews","Sign off Process Spine Queue entries","Issue deviations and CAPAs"],
+   halo:"validate_action on every approval; explain_decision for audit-ready rationale on all records",
+   screens:["QA Dashboard","Change Control","Risk Register","Document Control","Regulatory Events","Spine Queue","Deviation Log","CAPA Tracker"]},
   {id:"VAL",name:"Validation / CSV Engineer",type:"Validation & Computer Systems",ic:"◇",col:"#58a6ff",bg:"#1a2a3a",
-   phases:"Phases 4, 5 — core product differentiator",
-   resp:["Author and execute IQ/OQ/PQ protocols","Maintain URS→FRS→DS→PQ traceability","Computer system validation (FDA CSA 2022)","Data integrity (21 CFR Part 11) assessment","Impact assessment for CSV/DI regulatory events","Author Validation Summary Reports (VSR)"],
-   halo:"get_required_documents for validation packages; validate_action on protocol state transitions",
-   screens:["Validation Lifecycle","CSV Dashboard","Data Integrity View","Validation Impact View","Traceability Matrix"]},
+   phases:"Phases 4 & 5 — core differentiator",
+   resp:["Author and execute IQ/OQ/PQ protocols","Maintain full URS→FRS→DS→PQ traceability","Computer system validation (FDA CSA 2022)","Data integrity assessment (21 CFR Part 11)","CSV/DI regulatory event impact assessment","Author Validation Summary Reports (VSR)"],
+   halo:"get_required_documents for validation packages; validate_action on all protocol state transitions",
+   screens:["Validation Lifecycle","CSV Dashboard","Data Integrity View","Validation Impact","Traceability Matrix"]},
   {id:"FAC",name:"Facilities / EHS Engineer",type:"Facilities & Engineering",ic:"◪",col:"#d2a8ff",bg:"#2a1a3a",
-   phases:"Phases 2, 3, 4 — physical facility owner",
-   resp:["Design lab layout and zone classification","Manage HVAC, utilities, cleanrooms","Oversee construction and equipment installation","Maintain facility crosslinks in system","Track equipment calibration and maintenance","EHS compliance (OSHA, ANSI, ISO 14644)"],
-   halo:"schedule_tasks for maintenance windows; validate_action on commissioning steps",
+   phases:"Phases 2, 3, 4",
+   resp:["Design lab layout and GMP/GLP zone classification","Manage HVAC, utilities, cleanrooms (ISO 14644)","Oversee construction and equipment installation","Track equipment calibration and maintenance","EHS compliance — OSHA, ANSI, environmental","Map physical assets to regulatory domain tags"],
+   halo:"schedule_tasks for maintenance windows; validate_action on all commissioning milestones",
    screens:["Lab Layout Designer","Equipment Database","Utilities Tracker","EHS Dashboard","Facility Crosslinks","Calibration Tracker"]},
-  {id:"OP",name:"Operator / Technician",type:"Execution",ic:"○",col:"#e3b341",bg:"#2a2a1a",
-   phases:"Phases 3, 4, 6 — on-floor execution",
-   resp:["Execute assigned tasks from daily queue","Record batch data and instrument readings","Run PQ test protocols under supervision","Complete training assessments","Acknowledge regulatory alerts for their area","View impacted SOPs when changes occur"],
+  {id:"OP",name:"Operator / Technician",type:"On-Floor Execution",ic:"○",col:"#e3b341",bg:"#2a2a1a",
+   phases:"Phases 3, 4, 6",
+   resp:["Execute assigned tasks from daily queue","Record batch data and instrument readings","Run PQ test protocols under supervision","Complete SOP training assessments","Acknowledge regulatory alerts for their area","View changed SOPs and procedure updates"],
    halo:"list_allowed_tasks (simplified today view); render_walkthrough for onboarding and SOP guidance",
    screens:["Today View","My Tasks","Batch Records","Training Hub","Alerts Inbox","SOP Viewer"]},
-  {id:"CON",name:"External Consultant",type:"Specialized Review",ic:"◈",col:"#ffa657",bg:"#2a1a2a",
-   phases:"Phases 1, 2, 5, 6 — specialist sign-offs",
-   resp:["Specialist domain review (GMP, GLP, CSV, DI)","Approve/reject regulatory event change requests","Sign off validation packages (VSR, IQ/OQ/PQ)","Provide regulatory rationale in CR records","FDA PreCheck DMF review and sign-off","Governance Owner role for spine changes"],
-   halo:"explain_decision for documented rationale; human-only approvals in process_spine_queue",
+  {id:"CON",name:"External Consultant",type:"Specialist Review",ic:"◈",col:"#ffa657",bg:"#2a1a2a",
+   phases:"Phases 1, 2, 5, 6",
+   resp:["Specialist review — GMP, GLP, CSV, Data Integrity","Approve/reject regulatory event change requests","Sign off validation packages (VSR, IQ/OQ/PQ)","Provide regulatory rationale in all CR records","FDA PreCheck DMF review and sign-off","Governance Owner role for all spine changes"],
+   halo:"explain_decision for documented rationale; human-only writes to process_spine_queue approved_for_spine",
    screens:["Consultant Workspace","CR Review Queue","Validation Review","Process Spine Queue","DMF Generator"]},
 ];
 
-const SPINE_ITEMS=["Roles","Tasks","SOPs","Documents","Instruments","Labs","Permits","Regulations (21 CFR)","Lifecycle States","Required Evidence","Allowed Transitions","Risk Categories","Validation Phases","Change Control Types"];
+const SPINE_ITEMS=["Roles","Tasks","SOPs","Documents","Instruments","Labs","Permits","21 CFR Regulations","Lifecycle States","Required Evidence","Allowed Transitions","Risk Categories","Validation Phases","Change Control Types","Training Requirements"];
 
 const LAWS=[
-  {title:"Law 1 — Process Spine Is Sole Source of Truth",body:"Roles, tasks, SOPs, regulations, allowed transitions, required evidence, and lifecycle states are immutable to the mesh. HALO may read and traverse the spine only. No invention of new primitives."},
-  {title:"Law 2 — Absolute Tenant Non-Disclosure",body:"Zero exceptions. The mesh must never communicate tenant data outside the tenant boundary — including logs, telemetry, analytics, embeddings, error messages, or any 'anonymized' form that could be re-identified. Fail closed. Audit everything."},
-  {title:"Law 3 — No Invention Rule",body:"HALO cannot create or modify spine elements, roles, tasks, SOPs, regulations, or lifecycle states. Any request requiring new primitives must fail closed and generate a versioned change request for human governance review."},
-  {title:"Law 4 — Fail-Closed & Auditable",body:"Ambiguous mappings, low-confidence outputs (< 0.85 cosine similarity), or rule violations are rejected, logged to the system audit store, and routed for human review. No silent failures. No best guesses. Every decision is explainable."},
+  {title:"Law 1 — Process Spine Is the Only Source of Truth",body:"Roles, tasks, SOPs, regulations, allowed transitions, required evidence, and lifecycle states are immutable to PLEXUS. The mesh may only read and traverse the spine. No invention of new primitives — ever."},
+  {title:"Law 2 — Absolute Tenant Non-Disclosure",body:"Zero exceptions. PLEXUS must never communicate tenant data outside the tenant boundary — including logs, telemetry, analytics, embeddings, error messages, or any form that could be re-identified. Fail closed. Audit everything."},
+  {title:"Law 3 — No Invention Rule",body:"PLEXUS cannot create or modify spine elements, roles, tasks, SOPs, regulations, or lifecycle states. Any request for new primitives must fail closed and generate a versioned change request routed to human governance. Always."},
+  {title:"Law 4 — Fail-Closed & Fully Auditable",body:"Ambiguous mappings, low-confidence outputs (< 0.85 cosine), or rule violations are rejected, logged to the system audit store, and routed for human review. No silent failures. No best guesses. Every PLEXUS decision is explainable with spine citations."},
 ];
 
 const OPS=[
-  {fn:"list_allowed_tasks(tenant, role, context_state)",desc:"Returns task IDs the given role is permitted to execute given current spine context. Core daily driver for Operators and Site Managers.",c:null},
-  {fn:"get_required_documents(tenant, step_id)",desc:"Returns document IDs required for a given spine step. Used by QA and Validation to pull the exact document set for a protocol.",c:null},
-  {fn:"map_intent_to_step(tenant, intent_text)",desc:"Maps free-text input to a spine step ID using cosine similarity. Powers the AI prompt bar. Returns null + human review ticket if confidence < 0.85.",c:"Confidence < 0.85 → null + human review ticket"},
-  {fn:"rank_tasks(tenant, task_ids[], context)",desc:"Returns task IDs sorted by priority using role, workload, timeline, and risk signals. Used by Site Managers for daily prioritization.",c:null},
-  {fn:"group_tasks(tenant, task_ids[], pattern_id)",desc:"Groups related tasks into a workflow ID based on spine pattern matching. Used to build commissioning and validation packages.",c:null},
-  {fn:"schedule_tasks(tenant, task_ids[], window_start, window_end)",desc:"Schedules tasks within constraints defined by the spine. Used by Facilities for maintenance windows and Validation for protocol runs.",c:"Fails closed if spine constraints violated"},
-  {fn:"validate_action(tenant, action_object)",desc:"Synchronous gate on every AI output and API call. Enforces tenant boundary, permissions, state transitions, non-disclosure. Required before any state change.",c:"Required before any state change or render"},
-  {fn:"explain_decision(tenant, decision_id)",desc:"Returns human-readable explanation citing only spine IDs — never tenant content. Powers audit rationale for QA approvals and CR records.",c:"Cites spine IDs only — no tenant content"},
-  {fn:"render_walkthrough(tenant, onboarding_context)",desc:"Generates sanitized onboarding walkthrough asset stored in tenant-scoped storage. Powers the <5 min onboarding flow.",c:"No external rendering services in Phase 1"},
+  {fn:"list_allowed_tasks(tenant, role, context)",desc:"Returns task IDs the given role is permitted to execute in current context. The daily driver for Operators and Managers.",w:null},
+  {fn:"get_required_documents(tenant, step_id)",desc:"Returns the exact document set required for a given spine step. Drives Validation's protocol preparation.",w:null},
+  {fn:"map_intent_to_step(tenant, intent_text)",desc:"Maps free-text voice/text input to a spine step ID. Powers the AI prompt bar. Returns null if confidence < 0.85.",w:"Confidence < 0.85 → null + human review ticket"},
+  {fn:"rank_tasks(tenant, task_ids[], context)",desc:"Returns tasks sorted by priority using role, workload, timeline, and risk signals. Used by Site Managers for daily prioritization.",w:null},
+  {fn:"group_tasks(tenant, task_ids[], pattern_id)",desc:"Groups related tasks into a workflow ID based on spine pattern matching. Builds commissioning and validation packages.",w:null},
+  {fn:"schedule_tasks(tenant, task_ids[], window)",desc:"Schedules tasks within spine constraints. Used for maintenance windows and validation run scheduling.",w:"Fails closed if spine constraints violated"},
+  {fn:"validate_action(tenant, action_object)",desc:"Synchronous gate on every PLEXUS output and API call. Enforces tenant boundary, permissions, state transitions, and non-disclosure. Required before any state change.",w:"Required before any state change or render"},
+  {fn:"explain_decision(tenant, decision_id)",desc:"Returns human-readable audit rationale citing only spine IDs — never tenant content. Powers QA approval records and CR documentation.",w:"Cites spine IDs only"},
+  {fn:"render_walkthrough(tenant, context)",desc:"Generates sanitized onboarding walkthrough stored in tenant-scoped storage. Powers the <5 min onboarding experience.",w:"No external rendering in Phase 1"},
 ];
 
 const PIPELINE=[
   {n:"Sources",d:"eCFR · FDA · FedReg · ICH · OSHA · ANSI · EMA · MHRA",gate:false},
-  {n:"Daily Fetch",d:"Metadata only: title, date, link, jurisdiction. No regulatory text.",gate:false},
+  {n:"Daily Fetch",d:"Metadata only: title, date, link. No regulatory text stored.",gate:false},
   {n:"Canonicalize",d:"clause_id, hash, spine_mappings[]. One file per clause.",gate:false},
   {n:"Weekly Diff",d:"Structural + semantic diff. Numeric change_score per clause.",gate:false},
-  {n:"Map",d:"Exact match first → Claude RAG fallback (budget-gated). Confidence ≥ 0.85.",gate:false},
-  {n:"CI Tests",d:"Zero-Exposure suite + mapping regression. Blocks on any failure.",gate:true},
-  {n:"Human Review",d:"QA / Consultant approves or rejects CR. No auto-apply.",gate:true},
-  {n:"Canary",d:"1–3 tenants → auto-rollback on any Zero-Exposure failure.",gate:true},
-  {n:"HALO Feed",d:"Approved events enter Process Spine Queue as constrained inputs.",gate:true},
+  {n:"Map",d:"Exact match → Claude RAG fallback (budget-gated). ≥ 0.85 confidence.",gate:false},
+  {n:"CI Tests",d:"Zero-Exposure + mapping regression. Blocks on any failure.",gate:true},
+  {n:"Human Review",d:"QA/Consultant approves or rejects CR. No auto-apply ever.",gate:true},
+  {n:"Canary",d:"1–3 tenants → auto-rollback on any failure.",gate:true},
+  {n:"PLEXUS Feed",d:"Approved events enter Process Spine Queue as constrained inputs.",gate:true},
 ];
 
 const SOURCES=[
@@ -337,109 +515,152 @@ const SOURCES=[
 ];
 
 const RESOLUTIONS=[
-  {id:"R1",issue:"Daily vs Weekly task conflict in master prompt",fix:"Daily = fetch + canonicalize only (no model calls, low cost). Weekly = diff + map + score + package + governance (where cost lives)."},
-  {id:"R2",issue:"K8s / Redis / S3 assumed infrastructure",fix:"Translated to Vercel + Supabase Storage + GitHub Actions CI. No new infrastructure needed."},
-  {id:"R3",issue:"'Local model first' assumption",fix:"Use Claude (already in OpenClaw) with Budget Confirmation JSON gates. No separate LLM infrastructure required at MVP."},
-  {id:"R4",issue:"Phase placement for Reg Intelligence module",fix:"Added to Phase 2a — pairs naturally with Risk engine. Does NOT touch Phase 1 scope."},
-  {id:"R5",issue:"HALO integration path",fix:"Approved reg events enter process_spine_queue. HALO reads via get_required_documents and validate_action. No spine mutation ever."},
+  {id:"R1",i:"Daily vs Weekly task conflict",f:"Daily = fetch + canonicalize only (no model calls). Weekly = diff + map + score + package + governance."},
+  {id:"R2",i:"K8s / Redis / S3 assumption",f:"Translated to Vercel + Supabase Storage + GitHub Actions. No new infrastructure."},
+  {id:"R3",i:"Local model requirement",f:"Use Claude (OpenClaw — already paid) with Budget Confirmation JSON gates before any call."},
+  {id:"R4",i:"Phase placement",f:"Added to Phase 2a alongside Risk engine. Does not touch Phase 1 scope."},
+  {id:"R5",i:"PLEXUS integration path",f:"Approved events → process_spine_queue → PLEXUS reads via get_required_documents + validate_action. No spine mutation ever."},
 ];
 
-const SPRINTS=[
-  {ph:"1a",title:"Database + RLS + Auth",weeks:"Mar 12–19",cost:50,
+const BUILD=[
+  {ph:"1a",title:"Database + RLS + Auth",weeks:"W1–2",dates:"Mar 12–19",cost:50,color:"#1f6feb",status:"IN PROGRESS",
    sprints:[
     {name:"Sprint 1a-1 — Mar 12–15",feats:[
-      {n:"13-Table Schema",d:"Core tables: facilities, validations, risks, documents, change_requests, training_records, audit_logs + support tables. Full relationships and indexes.",c:15},
-      {n:"RLS Policies (All 4 per table)",d:"SELECT, INSERT WITH CHECK, UPDATE USING+WITH CHECK, DELETE USING — every table. Manually tested in Supabase SQL Editor before any UI.",c:20},
-      {n:"Auth Flow + Role Routing",d:"Login → role detection → route: admin/instructor→/dashboard, rider/parent→/portal. window.location.href (not router.push) on all auth redirects.",c:10},
+      {n:"13-Table Core Schema",d:"facilities, validations, risks, documents, change_requests, training_records, audit_logs + support tables. Full FK relationships and indexes.",c:15},
+      {n:"RLS Policies — All 4 per Table",d:"SELECT, INSERT WITH CHECK, UPDATE USING+WITH CHECK, DELETE USING. Every table. Manually tested in Supabase SQL Editor with SET LOCAL role=authenticated before any UI is built.",c:20},
+      {n:"Auth Flow + Role Routing",d:"Login → role detection → route: admin/instructor/staff→/dashboard, rider/parent→/portal. window.location.href on all auth redirects (not router.push — Safari cookie issue).",c:10},
     ]},
     {name:"Sprint 1a-2 — Mar 16–19",feats:[
-      {n:"21 CFR Part 11 Audit Triggers",d:"Immutable audit_log triggers on all state-changing operations — who, what, when, before/after values. Required for FDA inspection.",c:15},
-      {n:"Section 37: Handoff Protocol",d:"3-agent sign-off (build, validation, QA) before phase advance. Handoff packet format documented and tested.",c:5},
-      {n:"Section 38: Blocker Escalation",d:"Blocker detection <5 min, escalation <30 min, founder decision <45 min. Classification: technical/decision/resource/dependency/regulatory.",c:5},
+      {n:"21 CFR Part 11 Audit Triggers",d:"Immutable audit_log triggers on all state-changing DB operations. Who, what, when, before/after values. Required for FDA inspection readiness.",c:15},
+      {n:"Section 37: Handoff Protocol",d:"3-agent sign-off format (build, validation, QA) required before each phase advances. Handoff packet format documented and tested.",c:5},
+      {n:"Section 38: Blocker Escalation",d:"Blocker detection < 5 min, escalation < 30 min, founder decision < 45 min. Classification: technical / decision / resource / dependency / regulatory.",c:5},
     ]},
    ]},
-  {ph:"1b",title:"Facility + Validation Engines",weeks:"Mar 20 – Apr 2",cost:80,
+  {ph:"1b",title:"Facility + Validation Engines",weeks:"W3–4",dates:"Mar 20 – Apr 2",cost:80,color:"#388bfd",status:"UP NEXT",
    sprints:[
     {name:"Sprint 1b-1 — Mar 20–26",feats:[
-      {n:"Validation Lifecycle UI",d:"Full URS→FRS→DS→PQ→VSR chain. Traceability matrix. Protocol authoring, execution, and sign-off. Core product differentiator.",c:25},
-      {n:"Document Control UI",d:"Controlled docs, versioning, e-signatures, approval workflow, retention. 21 CFR Part 11 compliant.",c:20},
-      {n:"Change Control UI",d:"Change requests, impact assessment, QA approval routing, implementation tracking, closure. Links to validations and risks.",c:20},
+      {n:"Validation Lifecycle UI",d:"Full URS→FRS→DS→PQ→VSR chain. Traceability matrix. Protocol authoring, execution, sign-off. Core product differentiator — no competitor does this end-to-end.",c:25},
+      {n:"Document Control UI",d:"Controlled documents, versioning, e-signatures, approval workflow, retention. Full 21 CFR Part 11 compliance.",c:20},
+      {n:"Change Control UI",d:"Change requests, impact assessment, QA approval routing, implementation tracking, closure. Linked to validations and risk register.",c:20},
     ]},
     {name:"Sprint 1b-2 — Mar 27 – Apr 2",feats:[
-      {n:"Training Records UI",d:"Who is trained on what SOP, when, assessment scores. Linked to roles and documents. Required per FDA 21 CFR 211.68.",c:20},
-      {n:"Audit Log Viewer",d:"Every action, every change, every approval — immutable, Part 11. Exportable for inspectors. Who/what/when/before/after.",c:15},
-      {n:"CI Baseline + Test Suite Start",d:"GitHub Actions CI pipeline. Establish baseline for 847-test suite. TypeScript 0 errors gate before every commit.",c:10},
+      {n:"Training Records UI",d:"Who is trained on what SOP, when, assessment scores. Linked to roles, SOPs, and documents. Required per FDA 21 CFR 211.68.",c:20},
+      {n:"Audit Log Viewer",d:"Every action, every change, every approval — immutable, Part 11 compliant. Exportable for FDA inspectors. Who / what / when / before / after.",c:15},
+      {n:"CI Baseline + Test Suite Start",d:"GitHub Actions CI pipeline established. TypeScript 0-errors gate before every commit. Baseline for 847-test suite.",c:10},
     ]},
    ]},
-  {ph:"2a",title:"Risk + Readiness + Regulatory Intelligence",weeks:"Apr 3–16",cost:105,
+  {ph:"2a",title:"Risk + Readiness + Reg Intelligence",weeks:"W5–6",dates:"Apr 3–16",cost:105,color:"#56d364",status:"PLANNED",
    sprints:[
     {name:"Sprint 2a-1 — Apr 3–9",feats:[
-      {n:"Risk Register UI",d:"ICH Q9 risk register — severity, likelihood, mitigations, controls, links to regulatory events",c:20},
-      {n:"Reg Intel: 8 DB Tables + RLS",d:"All 4 RLS policies per table — reg_sources, reg_events, consultant_tasks, user_alerts, facility_crosslinks, domain_modules, assignment_rules, spine_queue",c:20},
-      {n:"Reg Intel: Fetcher + Domain Tagger",d:"fetch_public_url tool (metadata only, robots.txt compliant) + regulatory_domain_tagger hybrid agent",c:15},
+      {n:"Risk Register UI",d:"ICH Q9 risk register — severity/likelihood matrix, mitigations, controls, links to regulatory events. Live risk scoring.",c:20},
+      {n:"Reg Intel: 8 DB Tables + RLS",d:"regulatory_sources, regulatory_events, consultant_tasks, user_alerts, facility_crosslinks, domain_modules, assignment_rules, spine_queue. All 4 RLS policies each.",c:20},
+      {n:"Reg Intel: Fetcher + Tagger",d:"fetch_public_url (metadata only, robots.txt compliant) + regulatory_domain_tagger hybrid agent (static + title-inference tagging).",c:15},
     ]},
     {name:"Sprint 2a-2 — Apr 10–16",feats:[
-      {n:"Facility Readiness Engine",d:"Readiness score calculator, readiness dashboard card, phase completion tracking",c:15},
-      {n:"Reg Intel: Scorer + Router + Checker",d:"regulatory_impact_scorer + consultant_router + regulatory_update_checker agents",c:20},
-      {n:"Reg Intel: Workflow + 6hr Cron",d:"check_all_updates workflow + GitHub Actions cron + runaway guardrails (no link-following, no text ingestion)",c:15},
+      {n:"Facility Readiness Engine",d:"Readiness score calculator across all 6 modules, readiness dashboard card, phase completion percentage tracking.",c:15},
+      {n:"Reg Intel: Scorer + Router + Checker",d:"regulatory_impact_scorer (rules-based) + consultant_router (assignment rules lookup) + regulatory_update_checker orchestration agent.",c:20},
+      {n:"Reg Intel: Workflow + 6hr Cron",d:"check_all_regulatory_updates workflow + GitHub Actions 6-hour cron + runaway guardrails (no link-following, no text ingestion, one event per change).",c:15},
     ]},
    ]},
-  {ph:"2b",title:"Equipment Database",weeks:"Apr 17–23",cost:45,
+  {ph:"2b",title:"Equipment Database",weeks:"W7",dates:"Apr 17–23",cost:45,color:"#d2a8ff",status:"PLANNED",
    sprints:[
     {name:"Sprint 2b-1 — Apr 17–23",feats:[
-      {n:"Equipment Master List",d:"IQ/OQ/PQ per item, calibration certs, SOP links, training records per authorized user, equipment history",c:25},
-      {n:"Equipment ↔ Facility Crosslinks",d:"Map equipment to facility_crosslinks table, feed Reg Intel impact scoring for GMP/EHS events",c:10},
-      {n:"Equipment Regulatory Tagging",d:"Auto-tag equipment with domain tags (GMP, GLP, CSV) using domain_to_facility_modules rules",c:10},
+      {n:"Equipment Master List",d:"IQ/OQ/PQ per item, calibration certificates, SOP links, training records per authorized user, full equipment history log.",c:25},
+      {n:"Equipment ↔ Facility Crosslinks",d:"Map equipment to facility_crosslinks table — feeds Reg Intel impact scoring for GMP/EHS regulatory changes.",c:10},
+      {n:"Equipment Regulatory Tagging",d:"Auto-tag equipment with domain tags (GMP, GLP, CSV) using domain_to_facility_modules rules from Reg Intel module.",c:10},
     ]},
    ]},
-  {ph:"2c",title:"Lab Layout Design Tool",weeks:"Apr 24 – May 7",cost:100,
+  {ph:"2c",title:"Lab Layout Design Tool",weeks:"W8–9",dates:"Apr 24 – May 7",cost:100,color:"#ffa657",status:"PLANNED",
    sprints:[
     {name:"Sprint 2c-1 — Apr 24–30",feats:[
-      {n:"Layout Data Model",d:"Rooms, zones, area classifications, equipment placement, utility points — schema + RLS",c:15},
-      {n:"Visual Room/Zone Builder",d:"Drag-and-drop layout builder using Ant Design components only — no custom component tweaks",c:30},
-      {n:"GMP/GLP Zone Classification",d:"Tag rooms with domain; link to facility_crosslinks for reg intel impact routing",c:10},
+      {n:"Layout Data Model",d:"Rooms, zones, area classifications, equipment placement, utility connection points. Schema + all RLS policies.",c:15},
+      {n:"Visual Room/Zone Builder",d:"Drag-and-drop layout builder using Ant Design Enterprise components only. No custom component tweaks per UI framework decision.",c:30},
+      {n:"GMP/GLP Zone Classification",d:"Tag rooms with regulatory domains. Link to facility_crosslinks for Reg Intel impact routing.",c:10},
     ]},
     {name:"Sprint 2c-2 — May 1–7",feats:[
-      {n:"HVAC/Utilities Tracking",d:"Map utilities to rooms, maintenance status, commissioning state, ISO 14644 flag",c:15},
-      {n:"Layout Compliance Check",d:"Validate layout against spine constraints via HALO validate_action; flag and log violations",c:20},
-      {n:"Layout Export",d:"PDF and JSON export for FDA inspection package — audit-ready with provenance",c:10},
+      {n:"HVAC/Utilities Tracking",d:"Map utilities to rooms. Track maintenance status and commissioning state. ISO 14644 cleanroom flags.",c:15},
+      {n:"Layout Compliance Check",d:"Validate layout against Process Spine constraints via PLEXUS validate_action. Flag and log all violations.",c:20},
+      {n:"Layout Export (PDF/JSON)",d:"Audit-ready export with provenance for FDA inspection package.",c:10},
     ]},
    ]},
-  {ph:"2d",title:"UI Polish + Onboarding + Manuals Start",weeks:"May 8–21",cost:130,
+  {ph:"2d",title:"UI Polish + Onboarding + Manuals",weeks:"W10–11",dates:"May 8–21",cost:130,color:"#f85149",status:"PLANNED",
    sprints:[
     {name:"Sprint 2d-1 — May 8–14",feats:[
-      {n:"Premium Onboarding Flow",d:"<5 min, 3 fields, auto-DPA, trust badges, animated — per PREMIUM_ONBOARDING_UX_SPEC.md",c:25},
-      {n:"Type V DMF Auto-Generation",d:"One-click FDA PreCheck DMF generator, Bobby signs off each version — per TYPE_V_DMF_GENERATION_SPEC.md",c:30},
-      {n:"Governance Dashboard MVP",d:"CR queue, weekly digest view, approve/reject with full provenance, immutable audit log",c:30},
+      {n:"Premium Onboarding Flow",d:"< 5 min, 3-field form, auto-DPA, trust badges, animated first-run experience. Per PREMIUM_ONBOARDING_UX_SPEC.md.",c:25},
+      {n:"Type V DMF Auto-Generation",d:"One-click FDA PreCheck DMF generator. Bobby signs off each version. Per TYPE_V_DMF_GENERATION_SPEC.md. This is the core sales hook.",c:30},
+      {n:"Governance Dashboard MVP",d:"CR queue, weekly digest view, approve/reject with full provenance, immutable audit log for Reg Intel module.",c:30},
     ]},
     {name:"Sprint 2d-2 — May 15–21",feats:[
-      {n:"UI Polish Pass",d:"All 6 modules consistent in Ant Design Enterprise — zero custom component tweaks, full responsiveness",c:20},
-      {n:"User Manual Draft Start",d:"Begin User Manual parallel with build per USER_ADMIN_MANUALS_SPEC.md — screenshots as features complete",c:15},
-      {n:"Reg Intel: Budget Enforcement",d:"Budget Confirmation JSON flow wired into CI pipeline — blocks cloud model calls without approved Budget Request",c:10},
+      {n:"UI Polish Pass",d:"All 6 modules consistent in Ant Design Enterprise — zero custom component tweaks, full responsive behavior.",c:20},
+      {n:"User Manual Draft Start",d:"Begin User Manual parallel with build. Screenshots as features complete. Per USER_ADMIN_MANUALS_SPEC.md.",c:15},
+      {n:"Reg Intel: Budget Enforcement",d:"Budget Confirmation JSON flow wired into CI — blocks all cloud model calls without an approved Budget Request attached to package provenance.",c:10},
     ]},
    ]},
+  {ph:"3",title:"Integration + Hardening + Compliance Dashboard",weeks:"W12–13",dates:"May 22 – Jun 4",cost:150,color:"#79c0ff",status:"PLANNED",
+   sprints:[
+    {name:"Sprint 3 — May 22 – Jun 4",feats:[
+      {n:"Cross-Module Integration",d:"All 6 modules talk to each other — risk ↔ validation ↔ change control ↔ documents ↔ training ↔ equipment. Full dependency graph tested.",c:50},
+      {n:"Compliance Dashboard",d:"Real-time inspection readiness proof: 847 tests status, all standards coverage, per-module readiness, FDA Pre-Approval confidence score.",c:40},
+      {n:"User + Admin Manuals",d:"200+ pages, 100+ screenshots, 6 tutorial videos. QA tested. Ready for first customer handoff.",c:30},
+      {n:"Security Hardening + Pen Test",d:"Rate limiting, injection protection, CSP headers, secrets audit. External pen test scheduled before first production tenant.",c:30},
+    ]},
+   ]},
+  {ph:"4",title:"Final Validation + Deployment",weeks:"W14",dates:"Jun 5–11",cost:80,color:"#39d353",status:"PLANNED",
+   sprints:[
+    {name:"Sprint 4 — Jun 5–11",feats:[
+      {n:"847 Tests — All Passing",d:"Full test suite must be green before deployment. 612 unit, 145 integration, 34 security, 34 compliance, 12 performance, 78 UI, 12 accessibility.",c:25},
+      {n:"Production Deployment",d:"Vercel production deploy. Supabase production project. DNS, SSL, monitoring, alerting all confirmed.",c:20},
+      {n:"Bobby BIG Final Sign-Off",d:"FDA compliance review of all modules, documentation, and audit trails by Bobby BIG (30 yrs GxP). No release without this.",c:15},
+      {n:"First Customer Demo Prep",d:"Demo environment, sample facility data, pitch materials, demo script. Ready for June 18 first customer demo.",c:20},
+    ]},
+   ]},
+];
+
+const RISKS=[
+  {sev:"h",title:"Timeline Risk — 14 Weeks Is Aggressive",body:"Full MVP in 14 weeks covers 6 modules, 847 tests, user manuals, compliance dashboard, and security hardening. Any phase slipping cascades.",mit:["Weekly Bobby BIG approval gates — scope cut before deadline slips","RESUME.md protocol: hard stop at 90% budget, commit everything, write resume doc","Phases 3-4 are integration and polish — can absorb 1-week slip if needed","Most risky path: Validation Lifecycle UI (most complex). Starts Week 3."]},
+  {sev:"h",title:"Regulatory Accuracy Risk",body:"Incorrect regulatory interpretation built into the system could expose customers to FDA findings — and expose DDDG to serious liability.",mit:["Bobby BIG (30 yrs GxP) validates every phase personally","PLEXUS mesh fail-closed: ambiguous mappings blocked, no guessing","Human review required on ALL regulatory changes before spine entry","Legal and QA review scheduled before first production customer"]},
+  {sev:"h",title:"Budget Overrun Risk",body:"$2,300 hard cap. Going negative breaks OpenClaw CLI auth and forces reinstall (happened 2026-03-10). Every dollar must be approved.",mit:["Explicit per-task budget approval before any sub-agent spawn","Hard stop at 90% of any stated budget — write RESUME.md, do nothing else","Weekly cost tracking at each phase gate","Token efficiency: batch writes, avoid rereads, use local files over API calls"]},
+  {sev:"m",title:"Market Adoption Risk — Pharma Buys Slowly",body:"Enterprise pharma sales cycles are 6–18 months. Even a great product may not generate July 1 revenue without a warm pipeline.",mit:["Bobby's 30yr network — triple Creek Ranch and pharma consulting contacts","PreCheck DMF positioning: immediate, tangible value (not abstract compliance)","Type V DMF generation in MVP — customers see ROI on day one","Target early adopters: small biotech and CMOs (shorter sales cycles than big pharma)"]},
+  {sev:"m",title:"Data Security & Privacy Risk",body:"Regulated pharmaceutical data (batch records, validation data, clinical connections) in a SaaS environment creates serious breach exposure.",mit:["PLEXUS absolute non-disclosure — tenant data cannot leave tenant boundary","Zero-Exposure test suite in CI — blocks any artifact with tenant data","SOC 2 Type II roadmap (post-MVP, funded by revenue)","GDPR + HIPAA-adjacent patterns built in from Phase 1 schema design"]},
+  {sev:"m",title:"Scope Creep Risk",body:"Early customers will ask for integrations, custom fields, regulatory text libraries, and features outside MVP scope.",mit:["PRODUCT_MANAGER.md strict rules: no feature without a Definition of Done mapping","All integrations explicitly OUT of MVP (Wave 2+ only, funded by revenue)","Bobby BIG is the final scope decision — not customer requests","Governance dashboard gives visibility into what's planned vs. what's creeping"]},
+  {sev:"m",title:"Single Domain Expert Dependency",body:"Bobby BIG is the only FDA/GxP domain validator on the team. His availability is critical for every weekly gate.",mit:["Phase gates are 1hr weekly reviews — minimal time commitment","All regulatory decisions documented in PLEXUS_CONSTITUTION.md and audit log","Consultant workspace built in Phase 2d — enables external validators as backup","Bobby's 30yr track record means decisions are fast and confident"]},
+  {sev:"l",title:"Competition Risk",body:"Established GRC, eQMS, and validation vendors (Veeva, MasterControl, Sparta Systems) have market share and enterprise relationships.",mit:["Our moat: end-to-end from groundbreaking to inspection (they don't do this)","PreCheck DMF one-click generation — no competitor offers this","PLEXUS AI mesh reasoning across the full facility — not a bolted-on chatbot","Price point 5–10x lower than enterprise incumbents for comparable coverage","Speed: we ship in 14 weeks; they took 10+ years to build what we'll have"]},
 ];
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
 
-function renderPhases(){
+function renderOverview(){
+  document.getElementById("kpis-el").innerHTML=KPIS.map(k=>`<div class="kpi"><div class="val">${k.val}</div><div class="lbl">${k.lbl}</div></div>`).join("");
+  document.getElementById("diffs-el").innerHTML=DIFFS.map(d=>`<div class="diff"><h4>${d.title}</h4><p>${d.body}</p></div>`).join("");
+  document.getElementById("timeline-mini-el").innerHTML=TIMELINE.map(t=>`
+    <div class="tm-phase ${t.active?"active-phase":""}">
+      <div class="tm-name">Phase ${t.ph}</div>
+      <div style="font-size:11px;font-weight:600;color:#c9d1d9;margin:1px 0">${t.name}</div>
+      <div class="tm-weeks">${t.dates}</div>
+      <div class="tm-cost">${t.cost}</div>
+      ${t.active?'<div style="font-size:9px;color:#58a6ff;margin-top:2px;font-weight:700">▶ NOW</div>':""}
+    </div>
+  `).join("");
+}
+
+function renderFlow(){
   document.getElementById("phases-el").innerHTML=PHASES.map((p,i)=>`
     <div class="phase" id="ph${i}">
-      <div class="phase-header" onclick="togglePhase(${i})">
-        <div class="phase-num" style="background:${p.c}">${p.n}</div>
-        <div class="phase-title">${p.title}</div>
-        <div class="phase-meta"><span>${p.sub}</span><span>${p.steps.length} steps</span></div>
-        <span class="phase-arrow">›</span>
+      <div class="ph-hdr" onclick="tp(${i})">
+        <div class="phn" style="background:${p.c}">${p.n}</div>
+        <div class="ph-title">${p.title}</div>
+        <div class="ph-meta"><span>${p.sub}</span><span>${p.steps.length} steps</span></div>
+        <span class="ph-arr">›</span>
       </div>
-      <div class="phase-body">
+      <div class="ph-body">
         <div class="steps">
           ${p.steps.map(s=>`
             <div class="step">
-              <div class="step-num">Step ${s.n}</div>
-              <div class="step-name">${s.name}</div>
-              <div class="step-output">📄 ${s.out}</div>
-              <div class="step-roles">${s.roles.map(r=>`<span class="rb ${RM[r]}">${RN[r]}</span>`).join("")}</div>
-              ${s.halo?`<div class="halo-tag">⬡ ${s.halo}</div>`:""}
+              <div class="sn">Step ${s.n}</div>
+              <div class="sname">${s.name}</div>
+              <div class="sout">Output: ${s.out}</div>
+              <div class="sroles">${s.roles.map(r=>`<span class="rb ${RM[r]}">${RN[r]}</span>`).join("")}</div>
+              ${s.p?`<div class="ptag">⬡ ${s.p}</div>`:""}
             </div>
           `).join("")}
         </div>
@@ -447,90 +668,102 @@ function renderPhases(){
     </div>
   `).join("");
 }
-
-function togglePhase(i){document.getElementById("ph"+i).classList.toggle("open")}
+function tp(i){document.getElementById("ph"+i).classList.toggle("open")}
 
 function renderRoles(){
   document.getElementById("roles-el").innerHTML=ROLES.map(r=>`
-    <div class="role-card">
-      <div class="rc-header">
-        <div class="rc-icon" style="background:${r.bg};color:${r.col}">${r.ic}</div>
+    <div class="rcard">
+      <div class="rc-hdr">
+        <div class="rc-ico" style="background:${r.bg};color:${r.col}">${r.ic}</div>
         <div><div class="rc-name">${r.name}</div><div class="rc-type">${r.type}</div></div>
       </div>
-      <div class="rs"><div class="rs-title">Active In</div><div style="font-size:12px;color:${r.col};margin-bottom:2px">${r.phases}</div></div>
-      <div class="rs"><div class="rs-title">Responsibilities</div><ul>${r.resp.map(x=>`<li>${x}</li>`).join("")}</ul></div>
-      <div class="rs"><div class="rs-title">PLEXUS Interaction</div><div class="halo-box">${r.halo}</div></div>
-      <div class="rs"><div class="rs-title">Primary App Screens</div><div class="screen-tags">${r.screens.map(s=>`<span class="stag">${s}</span>`).join("")}</div></div>
+      <div class="rs"><div class="rs-t">Active In</div><div style="font-size:12px;color:${r.col};margin-bottom:2px">${r.phases}</div></div>
+      <div class="rs"><div class="rs-t">Responsibilities</div><ul>${r.resp.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+      <div class="rs"><div class="rs-t">PLEXUS Interaction</div><div class="hbox">${r.halo}</div></div>
+      <div class="rs"><div class="rs-t">Primary Screens</div><div class="stags">${r.screens.map(s=>`<span class="stag">${s}</span>`).join("")}</div></div>
     </div>
   `).join("");
 }
 
-function renderHalo(){
-  document.getElementById("spine-items-el").innerHTML=SPINE_ITEMS.map(s=>`<span class="spine-item">${s}</span>`).join("");
-  document.getElementById("laws-el").innerHTML=LAWS.map(l=>`<div class="law-card"><h3>${l.title}</h3><p>${l.body}</p></div>`).join("");
+function renderPlexus(){
+  document.getElementById("spine-el").innerHTML=SPINE_ITEMS.map(s=>`<span class="spi">${s}</span>`).join("");
+  document.getElementById("laws-el").innerHTML=LAWS.map(l=>`<div class="law"><h3>${l.title}</h3><p>${l.body}</p></div>`).join("");
   document.getElementById("ops-el").innerHTML=OPS.map(o=>`
-    <div class="op-card">
+    <div class="op">
       <div class="op-fn">${o.fn}</div>
       <div class="op-desc">${o.desc}</div>
-      ${o.c?`<div class="op-constraint">${o.c}</div>`:""}
+      ${o.w?`<div class="op-warn">${o.w}</div>`:""}
     </div>
   `).join("");
 }
 
 function renderRegIntel(){
-  document.getElementById("pipeline-el").innerHTML=PIPELINE.map((s,i)=>
-    `${i>0?'<span class="pipe-arrow">→</span>':""}<div class="pipe-step ${s.gate?"gate":""}"><div class="ps-name">${s.n}</div><div class="ps-desc">${s.d}</div></div>`
+  document.getElementById("pipe-el").innerHTML=PIPELINE.map((s,i)=>
+    `${i>0?'<span class="parr">→</span>':""}<div class="ps ${s.gate?"gate":""}"><div class="ps-n">${s.n}</div><div class="ps-d">${s.d}</div></div>`
   ).join("");
-  document.getElementById("sources-el").innerHTML=SOURCES.map(s=>`
-    <div class="src-card"><div class="src-name">${s.n}</div><div class="src-tags">${s.t.map(t=>`<span class="stag2">${t}</span>`).join("")}</div></div>
+  document.getElementById("srcs-el").innerHTML=SOURCES.map(s=>`
+    <div class="src"><div class="src-n">${s.n}</div><div class="src-t">${s.t.map(t=>`<span class="st">${t}</span>`).join("")}</div></div>
   `).join("");
-  document.getElementById("resolutions-el").innerHTML=RESOLUTIONS.map(r=>`
-    <div class="res-row"><span class="res-id">${r.id}</span><div><div class="res-issue">${r.issue}</div><div class="res-fix">${r.fix}</div></div></div>
+  document.getElementById("res-el").innerHTML=RESOLUTIONS.map(r=>`
+    <div class="res-row"><span class="res-id">${r.id}</span><div><div class="res-i">${r.i}</div><div class="res-f">${r.f}</div></div></div>
   `).join("");
 }
 
-function renderSprints(){
-  document.getElementById("sprints-el").innerHTML=SPRINTS.map(p=>`
-    <div class="sp">
-      <div class="sp-header">
-        <span class="sp-badge">Phase ${p.ph}</span>
-        <span class="sp-title">${p.title}</span>
-        <span class="sp-weeks">${p.weeks}</span>
-        <span class="sp-cost">~$${p.cost}</span>
+function renderBuild(){
+  document.getElementById("bp-el").innerHTML=BUILD.map((p,i)=>`
+    <div class="bpp" id="bp${i}">
+      <div class="bpp-hdr" onclick="tbp(${i})">
+        <span class="bpp-badge" style="background:${p.color}">Phase ${p.ph}</span>
+        <span class="bpp-title">${p.title}</span>
+        <span class="bpp-weeks">${p.dates}</span>
+        <span class="bpp-cost">~$${p.cost}</span>
+        <span style="font-size:10px;padding:2px 8px;border-radius:10px;background:${p.status==="IN PROGRESS"?"#1f6feb33":p.status==="UP NEXT"?"#3fb95033":"#30363d"};color:${p.status==="IN PROGRESS"?"#58a6ff":p.status==="UP NEXT"?"#3fb950":"#8b949e"};white-space:nowrap">${p.status}</span>
+        <span class="bpp-arr">›</span>
       </div>
-      <div class="sp-body">
+      <div class="bpp-body">
         ${p.sprints.map(s=>`
           <div class="sprint">
-            <div class="sprint-title">${s.name}</div>
-            <div class="feat-list">
+            <div class="sprint-t">${s.name}</div>
+            <div class="feats">
               ${s.feats.map(f=>`
                 <div class="feat">
-                  <span class="feat-name">${f.n}</span>
-                  <span class="feat-desc">${f.d}</span>
-                  <span class="feat-cost">~$${f.c}</span>
+                  <span class="fn">${f.n}</span>
+                  <span class="fd">${f.d}</span>
+                  <span class="fc">~$${f.c}</span>
                 </div>
               `).join("")}
             </div>
           </div>
         `).join("")}
-        <div class="gate-bar"><span>✓ Bobby BIG approval gate — Friday end of phase</span></div>
+        <div class="gate-bar"><span>✓ Bobby BIG approval gate — end of phase before advancing</span></div>
       </div>
     </div>
   `).join("");
-  const total=SPRINTS.reduce((a,p)=>a+p.cost,0);
-  document.getElementById("summary-el").innerHTML=
-    SPRINTS.map(p=>`<tr><td>Phase ${p.ph}</td><td>${p.title}</td><td>${p.weeks}</td><td class="cc">~$${p.cost}</td></tr>`).join("")+
-    `<tr><td colspan="3">Total Phase 2</td><td class="cc">~$${total}</td></tr>`;
+  const total=BUILD.reduce((a,p)=>a+p.cost,0);
+  document.getElementById("sum-el").innerHTML=
+    BUILD.map(p=>`<tr class="${p.status==="IN PROGRESS"?"in-progress":""}"><td>Phase ${p.ph}</td><td>${p.title}</td><td>${p.weeks}</td><td>${p.dates}</td><td class="cc">~$${p.cost}</td></tr>`).join("")+
+    `<tr><td colspan="4">Total Build Budget</td><td class="cc">~$${total} of $2,300 cap</td></tr>`;
+}
+function tbp(i){document.getElementById("bp"+i).classList.toggle("open")}
+
+function renderRisks(){
+  document.getElementById("risks-el").innerHTML=RISKS.map(r=>`
+    <div class="risk">
+      <div class="risk-hdr">
+        <span class="risk-sev ${r.sev==="h"?"sev-h":r.sev==="m"?"sev-m":"sev-l"}">${r.sev==="h"?"High":r.sev==="m"?"Medium":"Low"}</span>
+        <h4>${r.title}</h4>
+      </div>
+      <div class="risk-body">${r.body}</div>
+      <div class="risk-mit">
+        <div class="risk-mit-t">Mitigation</div>
+        <ul>${r.mit.map(m=>`<li>${m}</li>`).join("")}</ul>
+      </div>
+    </div>
+  `).join("");
 }
 
-function show(id,tab){
-  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  tab.classList.add("active");
-}
-
-renderPhases(); renderRoles(); renderHalo(); renderRegIntel(); renderSprints();
+// Init all
+renderOverview(); renderFlow(); renderRoles(); renderPlexus(); renderRegIntel(); renderBuild(); renderRisks();
 </script>
 </body>
 </html>
