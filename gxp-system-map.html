@@ -180,6 +180,31 @@ a{color:#58a6ff}
 .risk-mit ul{list-style:none}
 .risk-mit li{font-size:11px;color:#c9d1d9;padding:2px 0 2px 10px;position:relative}
 .risk-mit li::before{content:'✓';position:absolute;left:0;color:#3fb950;font-size:9px}
+.comp-table{width:100%;border-collapse:collapse;margin-bottom:20px}
+.comp-table th{padding:9px 12px;background:#1c2128;font-size:11px;color:#8b949e;font-weight:700;text-align:left;border-bottom:1px solid #30363d;border-right:1px solid #21262d}
+.comp-table td{padding:9px 12px;font-size:12px;border-bottom:1px solid #21262d;border-right:1px solid #21262d;vertical-align:middle}
+.comp-table tr:hover td{background:#161b22}
+.comp-table .us{background:#0d1f0d;font-weight:700;color:#3fb950}
+.comp-table .win{color:#3fb950;font-weight:700;font-size:14px}
+.comp-table .lose{color:#f85149;font-size:14px}
+.ask-box{background:linear-gradient(135deg,#0d1f0d,#0d1a2a);border:1px solid #3fb95044;border-radius:10px;padding:24px;text-align:center;margin-top:20px}
+.ask-box h3{font-size:18px;font-weight:700;color:#f0f6fc;margin-bottom:8px}
+.ask-box p{font-size:13px;color:#8b949e;margin-bottom:16px;line-height:1.5}
+.ask-metrics{display:flex;justify-content:center;flex-wrap:wrap;gap:20px;margin-bottom:16px}
+.ask-m{text-align:center}.ask-m .av{font-size:20px;font-weight:700;color:#3fb950}
+.ask-m .al{font-size:10px;color:#8b949e;margin-top:2px}
+.scope-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.scrd{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:15px}
+.scrd-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.scrd-ico{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.scrd-name{font-size:13px;font-weight:600;color:#f0f6fc}
+.scrd-reg{font-size:10px;color:#8b949e}
+.scrd-section{margin-bottom:8px}
+.scrd-st{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#8b949e;font-weight:700;margin-bottom:4px}
+.scrd ul{list-style:none}
+.scrd li{font-size:11px;color:#c9d1d9;padding:1px 0 1px 10px;position:relative}
+.scrd li::before{content:'›';position:absolute;left:0;color:#8b949e}
+.scrd-out{font-size:11px;color:#3fb950;margin-top:6px;padding:5px 8px;background:#0d1f0d;border-radius:4px}
 </style>
 </head>
 <body>
@@ -198,6 +223,7 @@ a{color:#58a6ff}
   <div class="tab"    onclick="go('regintel',this)">Reg Intelligence</div>
   <div class="tab"    onclick="go('build',this)">Build Plan</div>
   <div class="tab"    onclick="go('risks',this)">Risks</div>
+  <div class="tab"    onclick="go('scope',this)">Facility Scope</div>
 </div>
 
 <div class="wrap">
@@ -269,6 +295,35 @@ a{color:#58a6ff}
         <li>Domain expert validation: the Team Lead (30 yrs GxP experience) at every phase gate</li>
       </ul>
     </div>
+  </div>
+
+  <div class="dl">Competitive Landscape — Why We Win</div>
+  <div style="overflow-x:auto;margin-bottom:4px">
+  <table class="comp-table">
+    <thead><tr><th>Capability</th><th>Veeva Vault</th><th>MasterControl</th><th>Sparta Systems</th><th>Excel / SharePoint</th><th class="us">GxP Facility Planner</th></tr></thead>
+    <tbody>
+      <tr><td>End-to-end facility guidance (all 24 steps)</td><td class="lose">✗</td><td class="lose">✗</td><td class="lose">✗</td><td class="lose">✗</td><td class="us win">✓</td></tr>
+      <tr><td>One-click FDA PreCheck Type V DMF</td><td class="lose">✗</td><td class="lose">✗</td><td class="lose">✗</td><td class="lose">✗</td><td class="us win">✓</td></tr>
+      <tr><td>AI mesh — domain-aware, spine-constrained</td><td class="lose">✗</td><td class="lose">✗</td><td class="lose">✗</td><td class="lose">✗</td><td class="us win">✓</td></tr>
+      <tr><td>Visual lab layout + compliance validation</td><td class="lose">✗</td><td class="lose">✗</td><td class="lose">✗</td><td class="lose">✗</td><td class="us win">✓</td></tr>
+      <tr><td>Automated regulatory change monitoring</td><td class="lose">✗</td><td class="lose">✗</td><td class="lose">✗</td><td class="lose">✗</td><td class="us win">✓</td></tr>
+      <tr><td>All facility area types + validation per area</td><td class="lose">✗</td><td class="lose">✗</td><td class="lose">✗</td><td class="lose">✗</td><td class="us win">✓</td></tr>
+      <tr><td>Time to onboard</td><td>6–12 months</td><td>3–6 months</td><td>6–12 months</td><td>Weeks (manual)</td><td class="us">&lt; 5 minutes</td></tr>
+      <tr><td>Starting price (annual)</td><td>$50,000+</td><td>$30,000+</td><td>$40,000+</td><td>~$0 (you pay in failures)</td><td class="us">$3,600/yr</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="ask-box">
+    <h3>The Opportunity</h3>
+    <p>A $4.2B market with no end-to-end solution. A 40% first-submission failure rate costing companies $10–50M each time. A 14-week build to MVP at $2,300 total cost. This is the window.</p>
+    <div class="ask-metrics">
+      <div class="ask-m"><div class="av">Jun 11</div><div class="al">MVP Delivery</div></div>
+      <div class="ask-m"><div class="av">Jun 18</div><div class="al">First Customer Demo</div></div>
+      <div class="ask-m"><div class="av">Jul 1</div><div class="al">First Revenue Target</div></div>
+      <div class="ask-m"><div class="av">$2,300</div><div class="al">Total Build Cost</div></div>
+      <div class="ask-m"><div class="av">$0</div><div class="al">External Funding Needed to MVP</div></div>
+    </div>
+    <p style="font-size:12px;color:#3fb950;font-weight:600">Built by the domain expert. Validated at every phase gate. No guessing. No $500K enterprise implementation. Just the product the market has been waiting for.</p>
   </div>
 
   <div class="dl">Build Timeline at a Glance</div>
@@ -346,6 +401,16 @@ a{color:#58a6ff}
     <p>Known risks across technical, regulatory, market, and team dimensions — each with concrete mitigation strategies. Reviewed at every weekly gate with the Team Lead.</p>
   </div>
   <div class="risk-grid" id="risks-el"></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ FACILITY SCOPE -->
+<div class="sec" id="scope">
+  <div class="sh">
+    <h2>Full Facility Scope — Every Area, Every Validation</h2>
+    <p>GxP Facility Planner covers every physical area of a regulated pharmaceutical facility. Each area type has specific regulatory requirements, validation obligations, and evidence packages — all guided by the system. This is the domain depth that separates us from every competitor.</p>
+  </div>
+  <div class="scope-grid" id="scope-el"></div>
 </div>
 
 </div><!-- /wrap -->
@@ -768,8 +833,61 @@ function renderRisks(){
   `).join("");
 }
 
+
+const FACILITY=[
+  {name:"Sterile Fill/Finish (Aseptic)",reg:"21 CFR 211.113 · ISO 5/6/7",ico:"◈",col:"#f85149",bg:"#3a0a0a",
+   validations:["Aseptic process simulation (media fills)","HEPA filter integrity testing (DOP/PAO)","Environmental monitoring program (EM)","Pressure differential mapping","Personnel monitoring and qualification"],
+   evidence:"Aseptic Process Validation Report, Media Fill Records, EM Program, HEPA Certification"},
+  {name:"Non-Sterile Manufacturing",reg:"21 CFR 211 · ICH Q7",ico:"◉",col:"#ffa657",bg:"#2a1a0a",
+   validations:["Equipment IQ/OQ/PQ (all process equipment)","Cleaning validation per product contact surface","Process validation (3 consecutive batches)","In-process controls validation","Utilities qualification (compressed air, nitrogen)"],
+   evidence:"Equipment Validation Packages, Cleaning Validation Report, Process Validation Protocol + Report"},
+  {name:"QC / Analytical Laboratory",reg:"21 CFR 211.160 · ICH Q2",ico:"◇",col:"#58a6ff",bg:"#1a2a3a",
+   validations:["Analytical method validation (accuracy, precision, specificity)","Instrument qualification (HPLC, GC, UV, balances)","OOS investigation procedure validation","Reference standard qualification","Laboratory environmental controls"],
+   evidence:"Method Validation Reports, Instrument Qualification Packages, OOS Procedure, Analyst Training Records"},
+  {name:"Microbiology Laboratory",reg:"21 CFR 211.160 · USP <1117>",ico:"◎",col:"#3fb950",bg:"#1a3a1a",
+   validations:["Biological safety cabinet (BSC) certification","Autoclave/sterilizer validation (heat penetration)","Incubator and refrigerator temperature mapping","Growth promotion testing for media","Personnel aseptic technique qualification"],
+   evidence:"BSC Certification, Autoclave Validation Report, Temperature Mapping, Growth Promotion Records"},
+  {name:"Purified Water / WFI Systems",reg:"USP <1231> · 21 CFR 211.48",ico:"◪",col:"#d2a8ff",bg:"#2a1a3a",
+   validations:["Water system IQ/OQ/PQ (3-phase qualification)","TOC and conductivity monitoring validation","Bioburden and endotoxin testing program","Sanitization/passivation procedure validation","Distribution loop flow and temperature mapping"],
+   evidence:"Water System Validation Package, Monitoring Program, Sanitization Records, Phase 1/2/3 Qualification Reports"},
+  {name:"HVAC / Clean Air Systems",reg:"ISO 14644 · ASHRAE 170 · 21 CFR 211.46",ico:"⬡",col:"#79c0ff",bg:"#1a1a2a",
+   validations:["Air handling unit (AHU) IQ/OQ qualification","Room air change rate verification (ACH)","Pressure cascade and differential pressure mapping","HEPA filter installation integrity testing","Temperature and humidity uniformity mapping"],
+   evidence:"HVAC Qualification Report, Pressure Differential Logs, HEPA Test Records, Room Classification Certificate"},
+  {name:"Cleanrooms (ISO 5–8)",reg:"ISO 14644-1/-2 · 21 CFR 211.42",ico:"○",col:"#e3b341",bg:"#2a2a1a",
+   validations:["ISO classification particle count testing","At-rest and in-operation airborne particle counts","Viable and non-viable environmental monitoring","Airflow visualization (smoke studies for ISO 5)","Recovery time testing (contamination clearance)"],
+   evidence:"ISO Classification Certificate, Particle Count Reports, EM Data, Smoke Study Records, Recovery Test"},
+  {name:"Gowning Rooms / Airlocks",reg:"21 CFR 211.42 · EU GMP Annex 1",ico:"◈",col:"#39d353",bg:"#1a2a1a",
+   validations:["Personnel flow and gowning procedure validation","Airlock pressure differential qualification","Gowning qualification for each personnel class","Air shower (if applicable) performance testing","Surface monitoring program validation"],
+   evidence:"Gowning Procedure Validation, Airlock PQ, Personnel Qualification Records, Surface Monitoring Data"},
+  {name:"Cold Storage / Controlled Temp",reg:"USP <1079> · 21 CFR 211.68",ico:"◇",col:"#58a6ff",bg:"#0d1a2a",
+   validations:["Temperature mapping (loaded and unloaded)","Alarm system validation (high/low temp alerts)","Door opening excursion study","Backup power/failover validation","Excursion investigation procedure"],
+   evidence:"Temperature Mapping Report, Alarm Validation, Excursion Study, Maintenance SOP, Monitoring Records"},
+  {name:"Warehousing / Receiving / Quarantine",reg:"21 CFR 211.80 · 211.84",ico:"◉",col:"#ffa657",bg:"#2a1a0a",
+   validations:["Receiving area qualification (temp/humidity)","Quarantine system validation (physical or electronic)","Pest control program validation","Material sampling procedure validation","FIFO / inventory management system validation"],
+   evidence:"Area Qualification, Quarantine SOP, Receiving Procedure, Pest Control Records, Sampling SOP"},
+  {name:"Pilot Plant / Tech Transfer",reg:"ICH Q8/Q10 · 21 CFR 211",ico:"◈",col:"#d2a8ff",bg:"#2a1a3a",
+   validations:["Scale-up validation (lab to pilot to commercial)","Technology transfer protocol and report","Comparability study (process and analytical)","Equipment fit-for-purpose qualification","Risk assessment per ICH Q9 for scale changes"],
+   evidence:"Tech Transfer Protocol + Report, Comparability Study, Scale-up Validation, Risk Assessment"},
+  {name:"Utilities (Compressed Air, N₂, Steam)",reg:"21 CFR 211.48 · ISPE Baseline",ico:"○",col:"#e3b341",bg:"#1a1a0a",
+   validations:["Compressed air purity testing (ISO 8573)","Clean steam quality testing (WFI-equivalent)","Nitrogen purity and delivery pressure qualification","Point-of-use testing at each connection","Utility distribution system mapping and documentation"],
+   evidence:"Utility Qualification Reports, Purity Test Records, Distribution Map, Point-of-Use Test Data"},
+];
+
+function renderScope(){
+  document.getElementById("scope-el").innerHTML=FACILITY.map(a=>`
+    <div class="scrd">
+      <div class="scrd-hdr">
+        <div class="scrd-ico" style="background:${a.bg};color:${a.col}">${a.ico}</div>
+        <div><div class="scrd-name">${a.name}</div><div class="scrd-reg">${a.reg}</div></div>
+      </div>
+      <div class="scrd-section"><div class="scrd-st">Validations Required</div><ul>${a.validations.map(v=>`<li>${v}</li>`).join("")}</ul></div>
+      <div class="scrd-out">GxP Planner generates: ${a.evidence}</div>
+    </div>
+  `).join("");
+}
+
 // Init all
-renderOverview(); renderFlow(); renderRoles(); renderPlexus(); renderRegIntel(); renderBuild(); renderRisks();
+renderOverview(); renderFlow(); renderRoles(); renderPlexus(); renderRegIntel(); renderBuild(); renderRisks(); renderScope();
 </script>
 </body>
 </html>
