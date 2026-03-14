@@ -221,5 +221,128 @@ Before any client onboards, the following must be complete. These are not option
 
 ---
 
-_Last updated: 2026-03-13_
+---
+
+## 🧠 HALO — THE HYPER MESH INTELLIGENCE LAYER
+_Added: 2026-03-13 — Architecture locked by Bobby BIG. This IS the product._
+
+### What HALO Is
+**HALO** (internal codename) is the intelligence core of GxP Facility Planner. It is not a chatbot. It is not a dashboard. It is a **living regulatory execution mesh** — a dependency graph of every step, role, action, document, equipment item, permit, and regulation across the entire facility lifecycle, with AI reasoning running on top of it.
+
+Named after HAL from 2001: A Space Odyssey — same omniscience, zero homicidal tendencies. Way less creepy.
+
+**The moat:** Bobby BIG's 30 years of GxP knowledge encoded as dependency edges in the mesh. Competitors can clone the UI. They cannot clone the knowledge.
+
+---
+
+### The 7 Intelligence Layers
+
+| Layer | What It Does | Technology |
+|-------|-------------|------------|
+| 1. Typed Property Graph | Nodes + weighted edges with temporal properties | PostgreSQL recursive CTEs |
+| 2. Vector Embeddings | Semantic similarity — discovers implicit connections | pgvector + OpenAI embeddings |
+| 3. Critical Path Engine | Every change recalculates timeline impact instantly | TypeScript + Edge Functions |
+| 4. LLM Causal Reasoning | WHY things depend on each other, second-order effects | Claude API (Sonnet) |
+| 5. Predictive Risk Engine | Flags risks before they materialize | Rule-based → ML over time |
+| 6. Regulatory Intelligence Feed | Auto-flags when regulations change + impacts mapped | Scheduled Edge Functions |
+| 7. Cross-Facility Learning | Network effect — more facilities = smarter mesh | Anonymized aggregate patterns |
+
+**All built on Supabase. No Neo4j. No separate vector DB. One codebase.**
+
+---
+
+### The Graph Schema (foundation — build this FIRST)
+
+```
+process_nodes     — every step, document, equipment, permit, action
+node_edges        — typed connections (blocks | triggers | requires | invalidates)
+                    with weight, strength, propagation type
+node_status       — per-facility state (pending | in_progress | complete | blocked | failed)
+role_actions      — specific actions per role per node
+action_completions — who completed what, when, signed
+facility_context  — current phase, readiness score, open blockers
+llm_usage_log     — token tracking per facility per model (cost control)
+```
+
+**This schema IS the product. Build flat forms first = rework everything later. Build mesh first = all 6 phases build cleanly on top.**
+
+---
+
+### The Dependency Mesh (every change propagates)
+
+A design change in Phase 2 → system automatically:
+1. Creates change control record
+2. Invalidates downstream IQ records (equipment in changed area)
+3. Re-triggers validation queue for affected equipment
+4. Recalculates critical path (new Phase 3 gate date)
+5. Identifies personnel requiring re-training (SOP changed)
+6. Flags FDA submission timeline risk
+7. Notifies exact roles whose queues are now affected
+
+**One change. System traces the full chain. No consultant needed.**
+
+---
+
+### Role-Based AI Assistants (one per role)
+
+Each user sees only their queue. Each assistant knows their full regulatory scope:
+
+| Role | Assistant Knows |
+|------|----------------|
+| Project Manager | All open actions across ALL roles, critical path, blockers, timeline risk |
+| QA Lead | GMP requirements per step, validation queue, open CAPAs, document review |
+| Regulatory Specialist | Which regs apply now, permit status, FDA RFI deadlines, regulatory change alerts |
+| EHS Specialist | OSHA compliance, hazard assessments, permit renewals, safety inspections |
+| Validation Team | IQ/OQ/PQ status per equipment, calibration schedules, deviation log |
+| Documentation Team | Documents required per step, SOP version control, training record gaps |
+
+**User experience:** Clean, calm, ambient. Nothing like Clippy. A softly glowing presence that surfaces the right thing at the right time without being asked.
+
+---
+
+### Cost Control (LLM stays < 0.5% of revenue)
+
+| Strategy | Impact |
+|---------|--------|
+| Mesh-first: 80-90% of questions answered without LLM | Biggest lever |
+| Model tiering: Haiku ($0.001) → Sonnet ($0.01) → Opus ($0.05) | 80% cost reduction |
+| Semantic response cache (40-60% hit rate) | 40% cost reduction |
+| Batched background processing (nightly risk scan, weekly reg check) | 60% fewer real-time calls |
+| Tight prompt engineering + output constraints | 5x token efficiency |
+
+**Hard budget per plan:** $15/mo (Starter), $50/mo (Professional), $150/mo (Enterprise). Track in `llm_usage_log`. Throttle at 100%.
+
+---
+
+### Monday Build Sequence
+
+| Session | What | Cost |
+|---------|------|------|
+| 1 | Graph schema + pgvector migrations | ~$80 |
+| 2 | Propagation engine + critical path algorithm | ~$100 |
+| 3 | Role-aware action queue UI | ~$80 |
+| 4 | Claude API integration (role assistants) | ~$120 |
+| 5–14 | All 6 phases built ON TOP of the mesh | ~$1,500 |
+
+---
+
+### The Master Process Reference
+
+The full end-to-end customer journey is documented in:
+- `PROCESS_REFERENCE_V2.md` — 16 roles, 30+ equipment items, 6 phases, dependency mesh map, AI assistant scopes
+- `END_TO_END_BUILD_PLAN.md` — scenario-driven build approach (reference facility: biotech startup, sterile fill-finish, Colorado)
+
+**Every feature must map to at least one node in PROCESS_REFERENCE_V2.md. If it doesn't — it doesn't get built.**
+
+---
+
+### The Mission (never lose sight of this)
+
+> *"Every facility that gets built right, every validation that doesn't get skipped, every change control that gets caught before it becomes a deviation — that's a patient who gets a safe drug."*
+
+This is not a project management app. It is a patient safety platform disguised as a facility planning tool. That is the north star for every product decision.
+
+---
+
+_Last updated: 2026-03-13 18:20 MDT_
 _Owner: Bobby BIG (CEO) + AI Product Manager_
