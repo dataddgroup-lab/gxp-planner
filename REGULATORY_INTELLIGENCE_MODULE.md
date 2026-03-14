@@ -1,6 +1,6 @@
 # REGULATORY_INTELLIGENCE_MODULE.md
 _Status: SCOPED | Owner: Bobby BIG (Marcus) | Added: 2026-03-14_
-_Phase: 2a (Apr 3–16) | Integration: HALO Mesh via Process Spine Queue_
+_Phase: 2a (Apr 3–16) | Integration: PLEXUS Mesh via Process Spine Queue_
 
 ---
 
@@ -20,7 +20,7 @@ A metadata-only regulatory monitoring pipeline that detects changes to FDA, ICH,
 | R2 | K8s / Redis / S3 | Translated to Vercel + Supabase Storage + GitHub Actions CI |
 | R3 | Local model assumption | Use Claude (OpenClaw) with Budget Confirmation JSON gates |
 | R4 | Phase placement | Phase 2a — pairs with Risk engine |
-| R5 | HALO integration | Approved events → process_spine_queue → HALO reads via get_required_documents + validate_action |
+| R5 | PLEXUS integration | Approved events → process_spine_queue → PLEXUS reads via get_required_documents + validate_action |
 
 ---
 

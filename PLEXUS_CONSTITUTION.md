@@ -1,6 +1,6 @@
-# HALO_CONSTITUTION.md — Phase 1 Engineering Brief
+# PLEXUS_CONSTITUTION.md — Phase 1 Engineering Brief
 _Status: LOCKED | Owner: Bobby BIG | Date: 2026-03-13_
-_This is the single source of truth for HALO mesh engineering execution._
+_This is the single source of truth for PLEXUS mesh engineering execution._
 
 ---
 
@@ -219,9 +219,9 @@ Run Zero Exposure tests. Demonstrate rollback. If this works, the constitutional
 
 ---
 
-## Relationship to HALO Architecture
+## Relationship to PLEXUS Architecture
 
-| HALO (intelligence layers) | HALO Constitution (constraints) |
+| PLEXUS (intelligence layers) | PLEXUS Constitution (constraints) |
 |---------------------------|--------------------------------|
 | What the mesh CAN do | What the mesh MUST NOT do |
 | 7 intelligence layers | 4 immutable system laws |
@@ -229,7 +229,7 @@ Run Zero Exposure tests. Demonstrate rollback. If this works, the constitutional
 | Role assistant capabilities | Allowed Operations API (9 functions only) |
 | LLM cost model | Runtime Boundary Validator |
 
-**Together: HALO is the engine. The Constitution is the cage that makes the engine safe for regulated pharma environments.**
+**Together: PLEXUS is the engine. The Constitution is the cage that makes the engine safe for regulated pharma environments.**
 
 ---
 
@@ -241,7 +241,7 @@ _Last updated: 2026-03-13_
 
 ## REGULATORY INTELLIGENCE INTEGRATION (Added 2026-03-14)
 
-### How Reg Events Enter the HALO Mesh
+### How Reg Events Enter the PLEXUS Mesh
 
 Regulatory Intelligence is the ONLY approved external data feed into the Process Spine.
 The integration path is strictly controlled:
@@ -251,7 +251,7 @@ The integration path is strictly controlled:
 3. CI gates pass (Zero-Exposure + mapping regression)
 4. Human review: QA/Consultant approves CR → human_review_status = "approved"
 5. process_spine_queue.status set to "approved_for_spine" by human action only
-6. HALO reads via get_required_documents(step_id) and validate_action(action)
+6. PLEXUS reads via get_required_documents(step_id) and validate_action(action)
 7. No spine element is ever mutated — events are read-only reference inputs
 
 ### Law 3 Enforcement for Reg Intel
@@ -262,7 +262,7 @@ The regulatory_update_checker agent and check_all_regulatory_updates workflow ar
 
 Any attempted violation must fail closed and write to system audit log.
 
-### Allowed HALO Operations Used by Reg Intel Module
+### Allowed PLEXUS Operations Used by Reg Intel Module
 - map_intent_to_step: Maps detected clause to spine step ID (confidence ≥ 0.85 required)
 - validate_action: Gate on every reg event before creating crosslinks or alerts
 - explain_decision: Provides human-readable audit rationale for all CR decisions

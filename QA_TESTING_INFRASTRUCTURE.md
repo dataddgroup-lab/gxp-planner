@@ -514,8 +514,8 @@ That's the moat.
 
 ---
 
-## HALO CONSTITUTION — QA REQUIREMENTS (Added 2026-03-13)
-_Source: HALO_CONSTITUTION.md — these tests are mandatory before Client 1._
+## PLEXUS CONSTITUTION — QA REQUIREMENTS (Added 2026-03-13)
+_Source: PLEXUS_CONSTITUTION.md — these tests are mandatory before Client 1._
 
 ### Zero Exposure Tests (run on every PR and deployment)
 - Assert no tenant data appears in system logs

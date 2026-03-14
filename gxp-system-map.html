@@ -132,13 +132,13 @@ tr:last-child td{border-bottom:none;font-weight:700;color:#f0f6fc}
 <div class="header">
   <h1>GxP Facility Planner</h1>
   <span class="badge">System Map</span>
-  <span class="header-meta">Process Flow · Roles · HALO Mesh · Reg Intelligence · Phase 2 Sprints — v2026-03-14</span>
+  <span class="header-meta">Process Flow · Roles · PLEXUS Mesh · Reg Intelligence · Phase 2 Sprints — v2026-03-14</span>
 </div>
 
 <div class="tabs">
   <div class="tab active" onclick="show('flow',this)">Process Flow</div>
   <div class="tab" onclick="show('roles',this)">User Roles</div>
-  <div class="tab" onclick="show('halo',this)">HALO Mesh</div>
+  <div class="tab" onclick="show("plexus",this)>PLEXUS Mesh</div>
   <div class="tab" onclick="show('regintel',this)">Reg Intelligence</div>
   <div class="tab" onclick="show('sprints',this)">Phase 2 Sprints</div>
 </div>
@@ -156,14 +156,14 @@ tr:last-child td{border-bottom:none;font-weight:700;color:#f0f6fc}
 <div class="section" id="roles">
   <div class="section-header">
     <h2>User Roles &amp; Responsibilities</h2>
-    <p>8 roles · Each has distinct access, primary screens, responsibilities, and HALO interaction patterns.</p>
+    <p>8 roles · Each has distinct access, primary screens, responsibilities, and PLEXUS interaction patterns.</p>
   </div>
   <div class="roles-grid" id="roles-el"></div>
 </div>
 
-<div class="section" id="halo">
+<div class="section" id="plexus">
   <div class="section-header">
-    <h2>HALO Mesh — AI Intelligence Layer</h2>
+    <h2>PLEXUS Mesh — AI Intelligence Layer</h2>
     <p>4 immutable laws · 9 allowed operations · Fail-closed · Tenant-isolated · Spine-constrained only</p>
   </div>
   <div class="spine-truth">
@@ -345,6 +345,32 @@ const RESOLUTIONS=[
 ];
 
 const SPRINTS=[
+  {ph:"1a",title:"Database + RLS + Auth",weeks:"Mar 12–19",cost:50,
+   sprints:[
+    {name:"Sprint 1a-1 — Mar 12–15",feats:[
+      {n:"13-Table Schema",d:"Core tables: facilities, validations, risks, documents, change_requests, training_records, audit_logs + support tables. Full relationships and indexes.",c:15},
+      {n:"RLS Policies (All 4 per table)",d:"SELECT, INSERT WITH CHECK, UPDATE USING+WITH CHECK, DELETE USING — every table. Manually tested in Supabase SQL Editor before any UI.",c:20},
+      {n:"Auth Flow + Role Routing",d:"Login → role detection → route: admin/instructor→/dashboard, rider/parent→/portal. window.location.href (not router.push) on all auth redirects.",c:10},
+    ]},
+    {name:"Sprint 1a-2 — Mar 16–19",feats:[
+      {n:"21 CFR Part 11 Audit Triggers",d:"Immutable audit_log triggers on all state-changing operations — who, what, when, before/after values. Required for FDA inspection.",c:15},
+      {n:"Section 37: Handoff Protocol",d:"3-agent sign-off (build, validation, QA) before phase advance. Handoff packet format documented and tested.",c:5},
+      {n:"Section 38: Blocker Escalation",d:"Blocker detection <5 min, escalation <30 min, founder decision <45 min. Classification: technical/decision/resource/dependency/regulatory.",c:5},
+    ]},
+   ]},
+  {ph:"1b",title:"Facility + Validation Engines",weeks:"Mar 20 – Apr 2",cost:80,
+   sprints:[
+    {name:"Sprint 1b-1 — Mar 20–26",feats:[
+      {n:"Validation Lifecycle UI",d:"Full URS→FRS→DS→PQ→VSR chain. Traceability matrix. Protocol authoring, execution, and sign-off. Core product differentiator.",c:25},
+      {n:"Document Control UI",d:"Controlled docs, versioning, e-signatures, approval workflow, retention. 21 CFR Part 11 compliant.",c:20},
+      {n:"Change Control UI",d:"Change requests, impact assessment, QA approval routing, implementation tracking, closure. Links to validations and risks.",c:20},
+    ]},
+    {name:"Sprint 1b-2 — Mar 27 – Apr 2",feats:[
+      {n:"Training Records UI",d:"Who is trained on what SOP, when, assessment scores. Linked to roles and documents. Required per FDA 21 CFR 211.68.",c:20},
+      {n:"Audit Log Viewer",d:"Every action, every change, every approval — immutable, Part 11. Exportable for inspectors. Who/what/when/before/after.",c:15},
+      {n:"CI Baseline + Test Suite Start",d:"GitHub Actions CI pipeline. Establish baseline for 847-test suite. TypeScript 0 errors gate before every commit.",c:10},
+    ]},
+   ]},
   {ph:"2a",title:"Risk + Readiness + Regulatory Intelligence",weeks:"Apr 3–16",cost:105,
    sprints:[
     {name:"Sprint 2a-1 — Apr 3–9",feats:[
@@ -433,7 +459,7 @@ function renderRoles(){
       </div>
       <div class="rs"><div class="rs-title">Active In</div><div style="font-size:12px;color:${r.col};margin-bottom:2px">${r.phases}</div></div>
       <div class="rs"><div class="rs-title">Responsibilities</div><ul>${r.resp.map(x=>`<li>${x}</li>`).join("")}</ul></div>
-      <div class="rs"><div class="rs-title">HALO Interaction</div><div class="halo-box">${r.halo}</div></div>
+      <div class="rs"><div class="rs-title">PLEXUS Interaction</div><div class="halo-box">${r.halo}</div></div>
       <div class="rs"><div class="rs-title">Primary App Screens</div><div class="screen-tags">${r.screens.map(s=>`<span class="stag">${s}</span>`).join("")}</div></div>
     </div>
   `).join("");

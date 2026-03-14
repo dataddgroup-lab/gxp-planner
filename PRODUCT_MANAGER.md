@@ -223,10 +223,10 @@ Before any client onboards, the following must be complete. These are not option
 
 ---
 
-## 🧠 HALO — THE HYPER MESH INTELLIGENCE LAYER
+## 🧠 PLEXUS — THE HYPER MESH INTELLIGENCE LAYER
 _Added: 2026-03-13 — Architecture locked by Bobby BIG. This IS the product._
 
-### What HALO Is
+### What PLEXUS Is
 **HALO** (internal codename) is the intelligence core of GxP Facility Planner. It is not a chatbot. It is not a dashboard. It is a **living regulatory execution mesh** — a dependency graph of every step, role, action, document, equipment item, permit, and regulation across the entire facility lifecycle, with AI reasoning running on top of it.
 
 Named after HAL from 2001: A Space Odyssey — same omniscience, zero homicidal tendencies. Way less creepy.
@@ -346,8 +346,8 @@ This is not a project management app. It is a patient safety platform disguised 
 
 ---
 
-## 🏛️ HALO CONSTITUTION — PHASE 1 ENGINEERING LAWS
-_Added: 2026-03-13. Full spec in `HALO_CONSTITUTION.md`. These are non-negotiable._
+## 🏛️ PLEXUS CONSTITUTION — PHASE 1 ENGINEERING LAWS
+_Added: 2026-03-13. Full spec in `PLEXUS_CONSTITUTION.md`. These are non-negotiable._
 
 **Law 1 — Process Spine Is Immutable**
 The mesh reads and traverses the spine only. It cannot create or modify roles, tasks, SOPs, regulations, or lifecycle states. New primitives → versioned change request → Bobby BIG approval.
@@ -367,7 +367,7 @@ Ambiguous outputs → reject → log → human review. No silent failures.
 **Acceptance criteria before Client 1:**
 All 9 API functions implemented · Boundary Validator live · Zero Exposure Tests passing · Restore drill completed · Walkthrough human-approved · Bobby BIG sign-off.
 
-→ Full spec: `HALO_CONSTITUTION.md`
+→ Full spec: `PLEXUS_CONSTITUTION.md`
 
 ---
 
@@ -384,7 +384,7 @@ _Source: GxP System Map — gxp-system-map.html_
 - R2: All infra is Vercel + Supabase + GitHub Actions. No K8s, Redis, or S3.
 - R3: Claude (OpenClaw) used for semantic mapping with Budget Confirmation JSON gates.
 - R4: Regulatory Intelligence added to Phase 2a alongside Risk engine.
-- R5: Approved reg events feed HALO via process_spine_queue. No spine mutation ever.
+- R5: Approved reg events feed PLEXUS via process_spine_queue. No spine mutation ever.
 
 ### Phase 2a — Risk + Readiness + Regulatory Intelligence (Apr 3–16, ~$105)
 Sprint 2a-1 (Apr 3–9):
@@ -413,7 +413,7 @@ Sprint 2c-1 (Apr 24–30):
 
 Sprint 2c-2 (May 1–7):
 - HVAC/Utilities Tracking — maintenance status, commissioning state (~$15)
-- Layout Compliance Check — HALO validate_action, violations logged (~$20)
+- Layout Compliance Check — PLEXUS validate_action, violations logged (~$20)
 - Layout Export — PDF/JSON for FDA inspection package (~$10)
 → Gate: Bobby BIG approval May 3
 
@@ -431,3 +431,37 @@ Sprint 2d-2 (May 15–21):
 
 ### Phase 2 Total: ~$380
 ### Ref: GxP-Planner/REGULATORY_INTELLIGENCE_MODULE.md, gxp-system-map.html
+
+---
+
+## PHASE 1 SPRINT PLAN (Added 2026-03-14)
+_Status: IN PROGRESS — Phase 1a started Mar 12, gate Mar 15_
+
+### Phase 1a — Database + RLS + Auth (Mar 12–19, ~$50)
+Sprint 1a-1 (Mar 12–15):
+- 13-table schema — facilities, validations, risks, documents, change_requests, training_records, audit_logs + support tables (~$15)
+- RLS policies — all 4 per table (SELECT, INSERT WITH CHECK, UPDATE, DELETE). Manual test in SQL Editor required before any UI (~$20)
+- Auth flow + role-based routing — window.location.href on all redirects (NOT router.push) (~$10)
+→ Mid-gate: Bobby BIG Mar 15
+
+Sprint 1a-2 (Mar 16–19):
+- 21 CFR Part 11 audit triggers — immutable audit_log on all state-changing ops, who/what/when/before/after (~$15)
+- Section 37: 3-agent handoff packet format (~$5)
+- Section 38: Blocker escalation path (<5 min detect, <45 min resolution) (~$5)
+→ Gate: Bobby BIG Mar 19
+
+### Phase 1b — Facility + Validation Engines (Mar 20 – Apr 2, ~$80)
+Sprint 1b-1 (Mar 20–26):
+- Validation Lifecycle UI — URS→FRS→DS→PQ→VSR chain, traceability matrix, protocol sign-off (~$25)
+- Document Control UI — controlled docs, versioning, e-signatures, approval workflow (~$20)
+- Change Control UI — requests, impact assessment, QA approval routing, closure (~$20)
+→ Gate: Bobby BIG Mar 22
+
+Sprint 1b-2 (Mar 27 – Apr 2):
+- Training Records UI — SOP training assignments, assessments, completion tracking (~$20)
+- Audit Log Viewer — immutable, exportable, Part 11, who/what/when/before/after (~$15)
+- CI Baseline + Test Suite Start — GitHub Actions, TypeScript 0-errors gate (~$10)
+→ Gate: Bobby BIG Mar 29
+
+### Phase 1 Total: ~$130
+### Ref: gxp-system-map.html (Phase 1a/1b tabs in Phase 2 Sprints section)

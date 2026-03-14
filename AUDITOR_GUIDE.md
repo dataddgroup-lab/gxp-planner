@@ -199,7 +199,7 @@ Any change to the Process Spine follows this workflow:
 
 | Document | Purpose |
 |----------|---------|
-| `HALO_CONSTITUTION.md` | Full Phase 1 engineering spec |
+| `PLEXUS_CONSTITUTION.md` | Full Phase 1 engineering spec |
 | `PROCESS_REFERENCE_V2.md` | Master process reference (all roles, steps, regulations) |
 | `PRODUCT_MANAGER.md` | Product vision + build sequence |
 | `QA_TESTING_INFRASTRUCTURE.md` | Full test plan including Zero Exposure + chaos tests |
