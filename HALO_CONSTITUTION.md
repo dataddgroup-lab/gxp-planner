@@ -236,3 +236,33 @@ Run Zero Exposure tests. Demonstrate rollback. If this works, the constitutional
 _This document is the single source of truth for Phase 1 engineering execution._
 _Any deviation from the 4 System Laws requires Bobby BIG approval and a versioned change request._
 _Last updated: 2026-03-13_
+
+---
+
+## REGULATORY INTELLIGENCE INTEGRATION (Added 2026-03-14)
+
+### How Reg Events Enter the HALO Mesh
+
+Regulatory Intelligence is the ONLY approved external data feed into the Process Spine.
+The integration path is strictly controlled:
+
+1. Regulatory update detected by monitoring pipeline (metadata only)
+2. Domain-tagged, impact-scored, mapped to spine node IDs
+3. CI gates pass (Zero-Exposure + mapping regression)
+4. Human review: QA/Consultant approves CR → human_review_status = "approved"
+5. process_spine_queue.status set to "approved_for_spine" by human action only
+6. HALO reads via get_required_documents(step_id) and validate_action(action)
+7. No spine element is ever mutated — events are read-only reference inputs
+
+### Law 3 Enforcement for Reg Intel
+The regulatory_update_checker agent and check_all_regulatory_updates workflow are FORBIDDEN from:
+- Writing to process_spine_queue with status "approved_for_spine" (human-only)
+- Modifying any spine node, role, task, SOP, or lifecycle state
+- Publishing or transmitting tenant data in any artifact
+
+Any attempted violation must fail closed and write to system audit log.
+
+### Allowed HALO Operations Used by Reg Intel Module
+- map_intent_to_step: Maps detected clause to spine step ID (confidence ≥ 0.85 required)
+- validate_action: Gate on every reg event before creating crosslinks or alerts
+- explain_decision: Provides human-readable audit rationale for all CR decisions

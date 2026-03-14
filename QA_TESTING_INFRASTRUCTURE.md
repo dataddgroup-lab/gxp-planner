@@ -574,3 +574,53 @@ Implement `map_intent_to_step` end-to-end and verify:
 4. `explain_decision` returns sanitized explanation citing spine IDs only
 5. Zero Exposure test passes on this flow
 6. Rollback demonstrated successfully
+
+---
+
+## REGULATORY INTELLIGENCE TEST SUITES (Added 2026-03-14)
+_Required for Phase 2a. CI gates — block on any failure._
+
+### Zero-Exposure Suite
+Purpose: Assert no tenant PII in any artifact, log, or notification that leaves tenant scope.
+Tests:
+- Assert regulatory_events contains no tenant document content
+- Assert canonical_clause JSON contains no tenant operational data
+- Assert weekly_digest contains no user IDs, facility names, or batch data
+- Assert all logs pass PII hashing/redaction before writing
+- Assert no cross-tenant data in any response
+Gate: 100% pass required before any package is promoted to governance review.
+
+### Mapping Regression Suite
+Purpose: Assert mapping stability for known clause-to-spine-node pairs.
+Tests:
+- For each entry in mapping_fixtures.json: assert map_intent_to_step returns expected spine_id
+- Assert confidence >= 0.85 for all fixture mappings
+- Assert ambiguous mappings return null + create human_review_ticket
+- Assert no fixture mapping changed between runs without an approved CR
+Gate: 100% pass required. Any regression blocks promotion.
+
+### Compliance Unit Tests
+Purpose: Assert regulatory event workflow behaves correctly.
+Tests:
+- Assert human_review_status can only be set to "approved" via human action (not automation)
+- Assert process_spine_queue status "approved_for_spine" requires approver_id + approved_at
+- Assert change_request is created when change_score >= 0.5 or mapping confidence < 0.85
+- Assert facility_crosslinks are created for every new regulatory_event
+- Assert consultant_review_task is created with correct routing per assignment_rules
+
+### Restore Drill
+Purpose: Validate rollback procedure before any production canary.
+Steps:
+- Run restore_spine_snapshot against last known good bundle version
+- Run validator suite against restored state
+- Assert zero failures in Zero-Exposure suite post-restore
+- Record time-to-rollback (target: ≤ 30 minutes)
+- Log drill result to audit store
+Cadence: Before first production canary, then monthly.
+
+### CI Gate Order (GitHub Actions)
+1. zero_exposure_suite — fail = block immediately
+2. mapping_regression_suite — fail = block
+3. compliance_unit_tests — fail = block
+4. governance stage — manual trigger, requires human approval
+5. canary — manual trigger, auto-rollback on Zero-Exposure failure

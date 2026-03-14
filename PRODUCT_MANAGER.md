@@ -373,3 +373,61 @@ All 9 API functions implemented · Boundary Validator live · Zero Exposure Test
 
 _Last updated: 2026-03-13 21:00 MDT_
 _Owner: Bobby BIG (CEO) + AI Product Manager_
+
+---
+
+## PHASE 2 SPRINT PLAN (Added 2026-03-14)
+_Source: GxP System Map — gxp-system-map.html_
+
+### Architecture Resolutions Applied to All Phase 2 Builds
+- R1: Daily reg fetch = metadata + canonicalize only. Weekly = diff + map + package + governance.
+- R2: All infra is Vercel + Supabase + GitHub Actions. No K8s, Redis, or S3.
+- R3: Claude (OpenClaw) used for semantic mapping with Budget Confirmation JSON gates.
+- R4: Regulatory Intelligence added to Phase 2a alongside Risk engine.
+- R5: Approved reg events feed HALO via process_spine_queue. No spine mutation ever.
+
+### Phase 2a — Risk + Readiness + Regulatory Intelligence (Apr 3–16, ~$105)
+Sprint 2a-1 (Apr 3–9):
+- Risk Register UI — ICH Q9, severity/likelihood, mitigations, links to reg events (~$20)
+- Reg Intel: 8 DB tables + all RLS policies (~$20)
+- Reg Intel: fetch_public_url + regulatory_domain_tagger (~$15)
+
+Sprint 2a-2 (Apr 10–16):
+- Facility Readiness Engine — score calculator, dashboard card (~$15)
+- Reg Intel: impact_scorer + consultant_router + update_checker agents (~$20)
+- Reg Intel: check_all_updates workflow + 6hr cron + guardrails (~$15)
+→ Gate: Bobby BIG approval Apr 16
+
+### Phase 2b — Equipment Database (Apr 17–23, ~$45)
+Sprint 2b-1 (Apr 17–23):
+- Equipment Master List — IQ/OQ/PQ, calibration, SOP links, training records (~$25)
+- Equipment ↔ Facility Crosslinks — feeds Reg Intel (~$10)
+- Equipment Regulatory Tagging — auto domain tags (~$10)
+→ Gate: Bobby BIG approval Apr 19
+
+### Phase 2c — Lab Layout Design Tool (Apr 24 – May 7, ~$100)
+Sprint 2c-1 (Apr 24–30):
+- Layout Data Model — rooms, zones, equipment placement (~$15)
+- Visual Room/Zone Builder — Ant Design, no custom components (~$30)
+- GMP/GLP Zone Classification — links to facility_crosslinks (~$10)
+
+Sprint 2c-2 (May 1–7):
+- HVAC/Utilities Tracking — maintenance status, commissioning state (~$15)
+- Layout Compliance Check — HALO validate_action, violations logged (~$20)
+- Layout Export — PDF/JSON for FDA inspection package (~$10)
+→ Gate: Bobby BIG approval May 3
+
+### Phase 2d — UI Polish + Onboarding + Manuals Start (May 8–21, ~$130)
+Sprint 2d-1 (May 8–14):
+- Premium Onboarding Flow — <5 min, 3 fields, auto-DPA (~$25)
+- Type V DMF Auto-Generation — per TYPE_V_DMF_GENERATION_SPEC.md (~$30)
+- Governance Dashboard MVP — CR queue, approve/reject, audit log (~$30)
+
+Sprint 2d-2 (May 15–21):
+- UI Polish Pass — all 6 modules, Ant Design only (~$20)
+- User Manual Draft Start — per USER_ADMIN_MANUALS_SPEC.md (~$15)
+- Reg Intel: Budget Enforcement — Budget Confirmation JSON in CI (~$10)
+→ Gate: Bobby BIG approval May 17
+
+### Phase 2 Total: ~$380
+### Ref: GxP-Planner/REGULATORY_INTELLIGENCE_MODULE.md, gxp-system-map.html
