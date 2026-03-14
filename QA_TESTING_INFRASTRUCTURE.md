@@ -511,3 +511,66 @@ Full test report attached.
 **Not faster, not cheaper — PROVEN COMPLIANT. Every week. Every release.**
 
 That's the moat.
+
+---
+
+## HALO CONSTITUTION — QA REQUIREMENTS (Added 2026-03-13)
+_Source: HALO_CONSTITUTION.md — these tests are mandatory before Client 1._
+
+### Zero Exposure Tests (run on every PR and deployment)
+- Assert no tenant data appears in system logs
+- Assert no tenant data appears in telemetry
+- Assert no tenant data appears in external outputs
+- Assert no tenant data appears in walkthrough assets
+- Assert no cross-tenant data access is possible
+
+### Mapping Ambiguity Tests
+- Assert that any roster entry with confidence < 0.85 produces a human review ticket
+- Assert that `map_intent_to_step` returns null (not a guess) for ambiguous input
+- Assert null return triggers audit log entry + human review ticket
+
+### Tenant Boundary Validator Tests (synchronous — every API call)
+- Tenant Ownership: assert all IDs belong to requesting tenant
+- Destination Check: assert external channels are blocked
+- Permission Check: assert role permissions enforced per spine
+- State Transition Check: assert only allowed transitions pass
+- Data Exposure Check: assert no tenant content in outputs beyond sanitized IDs
+- Fail-Closed: assert any failed check rejects + logs + creates review ticket
+
+### Restore Drills
+- Scheduled PITR restore drill with checksum verification
+- Snapshot restore drill with checksum verification
+- Must complete successfully before Client 1
+
+### Chaos Tests
+- DB failover: validator and rollback paths exercised
+- AZ failover: validator and rollback paths exercised
+- Cache partition: fail-closed behavior verified
+- Network partition: fail-closed behavior verified
+
+### Canary Deployment Criteria
+- Feature flags in place for all Phase 1 features
+- Auto-rollback thresholds defined and tested
+
+### SLO Acceptance Gates (must pass before Client 1)
+| SLO | Target | Status |
+|-----|--------|--------|
+| Write Durability | 99.99% | Pending |
+| Replication Lag | 99% within threshold | Pending |
+| Backup Success Rate | 100% | Pending |
+| Zero External Exposure | 100% | Pending |
+
+### Audit Log QA
+- Assert every mesh action produces an audit log entry
+- Assert each entry contains: model version, function called, input IDs, validator result, timestamp, operator ID, spine references
+- Assert audit log is append-only (no UPDATE or DELETE)
+- Assert rollback paths are deterministic and tested
+
+### First Integration Test (midstream engineer gate)
+Implement `map_intent_to_step` end-to-end and verify:
+1. Intent text → embedding → cosine similarity vs spine nodes
+2. `validate_action` called before any state change
+3. Audit log entry written with full provenance metadata
+4. `explain_decision` returns sanitized explanation citing spine IDs only
+5. Zero Exposure test passes on this flow
+6. Rollback demonstrated successfully

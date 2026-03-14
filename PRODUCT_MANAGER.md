@@ -344,5 +344,32 @@ This is not a project management app. It is a patient safety platform disguised 
 
 ---
 
-_Last updated: 2026-03-13 18:20 MDT_
+---
+
+## 🏛️ HALO CONSTITUTION — PHASE 1 ENGINEERING LAWS
+_Added: 2026-03-13. Full spec in `HALO_CONSTITUTION.md`. These are non-negotiable._
+
+**Law 1 — Process Spine Is Immutable**
+The mesh reads and traverses the spine only. It cannot create or modify roles, tasks, SOPs, regulations, or lifecycle states. New primitives → versioned change request → Bobby BIG approval.
+
+**Law 2 — Absolute Tenant Non-Disclosure**
+Zero exceptions. No tenant data leaves tenant scope. Not in logs, not in embeddings, not in telemetry, not in "anonymized" form. Fail closed. Audit everything.
+
+**Law 3 — No Invention Rule**
+The mesh cannot invent regulatory logic. If it can't map to a spine ID, it returns null and creates a human review ticket. Never a best guess in a GxP context.
+
+**Law 4 — Fail-Closed and Auditable**
+Ambiguous outputs → reject → log → human review. No silent failures.
+
+**The 9 Allowed Operations (implement only these):**
+`list_allowed_tasks` · `get_required_documents` · `map_intent_to_step` · `rank_tasks` · `group_tasks` · `schedule_tasks` · `validate_action` · `explain_decision` · `render_walkthrough`
+
+**Acceptance criteria before Client 1:**
+All 9 API functions implemented · Boundary Validator live · Zero Exposure Tests passing · Restore drill completed · Walkthrough human-approved · Bobby BIG sign-off.
+
+→ Full spec: `HALO_CONSTITUTION.md`
+
+---
+
+_Last updated: 2026-03-13 21:00 MDT_
 _Owner: Bobby BIG (CEO) + AI Product Manager_
