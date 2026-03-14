@@ -139,7 +139,7 @@ This is the core AGI layer — what makes this an intelligence system, not a Saa
 ---
 
 ## 🚨 FDA REGULATORY POSITION — MANDATORY AWARENESS (Non-Negotiable)
-_Added: 2026-03-13 — Bobby BIG directive. Cannot be overlooked or forgotten._
+_Added: 2026-03-13 — the Team Lead directive. Cannot be overlooked or forgotten._
 
 ### 1. FDA Computer Software Assurance (CSA) — Current Position
 FDA's 2022 final guidance **replaced CSV (Computer Software Validation) with CSA**. This is the law of the land for all GxP software today.
@@ -198,7 +198,7 @@ Every AI model must have a defined COU: what it does, where it's used, and what 
 ---
 
 ## PRE-CLIENT-1 RELIABILITY REQUIREMENTS (Non-Negotiable)
-_Added: 2026-03-13 — Bobby BIG directive_
+_Added: 2026-03-13 — the Team Lead directive_
 
 Before any client onboards, the following must be complete. These are not optional.
 
@@ -215,7 +215,7 @@ Before any client onboards, the following must be complete. These are not option
 - `PRE_CLIENT1_ARCHITECTURE_DIAGRAM.md` — stack diagram + failure scenarios
 - `BUDGET_OPTIMIZED_IMPLEMENTATION_PLAN.md` — 3-phase rollout plan
 - `TENANT_COST_CALCULATOR.md` — cost/client, break-even analysis (Client 1 = 92% margin)
-- `CLIENT1_LAUNCH_READINESS.md` — final go/no-go gate, Bobby BIG sign-off required
+- `CLIENT1_LAUNCH_READINESS.md` — final go/no-go gate, the Team Lead sign-off required
 
 **Bottom line:** GxP clients operate in regulated environments. Platform failure during a facility buildout = liability. Reliability is a product requirement, not an IT concern.
 
@@ -224,14 +224,14 @@ Before any client onboards, the following must be complete. These are not option
 ---
 
 ## 🧠 PLEXUS — THE HYPER MESH INTELLIGENCE LAYER
-_Added: 2026-03-13 — Architecture locked by Bobby BIG. This IS the product._
+_Added: 2026-03-13 — Architecture locked by the Team Lead. This IS the product._
 
 ### What PLEXUS Is
 **HALO** (internal codename) is the intelligence core of GxP Facility Planner. It is not a chatbot. It is not a dashboard. It is a **living regulatory execution mesh** — a dependency graph of every step, role, action, document, equipment item, permit, and regulation across the entire facility lifecycle, with AI reasoning running on top of it.
 
 Named after HAL from 2001: A Space Odyssey — same omniscience, zero homicidal tendencies. Way less creepy.
 
-**The moat:** Bobby BIG's 30 years of GxP knowledge encoded as dependency edges in the mesh. Competitors can clone the UI. They cannot clone the knowledge.
+**The moat:** the Team Lead's 30 years of GxP knowledge encoded as dependency edges in the mesh. Competitors can clone the UI. They cannot clone the knowledge.
 
 ---
 
@@ -350,7 +350,7 @@ This is not a project management app. It is a patient safety platform disguised 
 _Added: 2026-03-13. Full spec in `PLEXUS_CONSTITUTION.md`. These are non-negotiable._
 
 **Law 1 — Process Spine Is Immutable**
-The mesh reads and traverses the spine only. It cannot create or modify roles, tasks, SOPs, regulations, or lifecycle states. New primitives → versioned change request → Bobby BIG approval.
+The mesh reads and traverses the spine only. It cannot create or modify roles, tasks, SOPs, regulations, or lifecycle states. New primitives → versioned change request → the Team Lead approval.
 
 **Law 2 — Absolute Tenant Non-Disclosure**
 Zero exceptions. No tenant data leaves tenant scope. Not in logs, not in embeddings, not in telemetry, not in "anonymized" form. Fail closed. Audit everything.
@@ -365,14 +365,14 @@ Ambiguous outputs → reject → log → human review. No silent failures.
 `list_allowed_tasks` · `get_required_documents` · `map_intent_to_step` · `rank_tasks` · `group_tasks` · `schedule_tasks` · `validate_action` · `explain_decision` · `render_walkthrough`
 
 **Acceptance criteria before Client 1:**
-All 9 API functions implemented · Boundary Validator live · Zero Exposure Tests passing · Restore drill completed · Walkthrough human-approved · Bobby BIG sign-off.
+All 9 API functions implemented · Boundary Validator live · Zero Exposure Tests passing · Restore drill completed · Walkthrough human-approved · the Team Lead sign-off.
 
 → Full spec: `PLEXUS_CONSTITUTION.md`
 
 ---
 
 _Last updated: 2026-03-13 21:00 MDT_
-_Owner: Bobby BIG (CEO) + AI Product Manager_
+_Owner: the Team Lead (CEO) + AI Product Manager_
 
 ---
 
@@ -396,14 +396,14 @@ Sprint 2a-2 (Apr 10–16):
 - Facility Readiness Engine — score calculator, dashboard card (~$15)
 - Reg Intel: impact_scorer + consultant_router + update_checker agents (~$20)
 - Reg Intel: check_all_updates workflow + 6hr cron + guardrails (~$15)
-→ Gate: Bobby BIG approval Apr 16
+→ Gate: the Team Lead approval Apr 16
 
 ### Phase 2b — Equipment Database (Apr 17–23, ~$45)
 Sprint 2b-1 (Apr 17–23):
 - Equipment Master List — IQ/OQ/PQ, calibration, SOP links, training records (~$25)
 - Equipment ↔ Facility Crosslinks — feeds Reg Intel (~$10)
 - Equipment Regulatory Tagging — auto domain tags (~$10)
-→ Gate: Bobby BIG approval Apr 19
+→ Gate: the Team Lead approval Apr 19
 
 ### Phase 2c — Lab Layout Design Tool (Apr 24 – May 7, ~$100)
 Sprint 2c-1 (Apr 24–30):
@@ -415,7 +415,7 @@ Sprint 2c-2 (May 1–7):
 - HVAC/Utilities Tracking — maintenance status, commissioning state (~$15)
 - Layout Compliance Check — PLEXUS validate_action, violations logged (~$20)
 - Layout Export — PDF/JSON for FDA inspection package (~$10)
-→ Gate: Bobby BIG approval May 3
+→ Gate: the Team Lead approval May 3
 
 ### Phase 2d — UI Polish + Onboarding + Manuals Start (May 8–21, ~$130)
 Sprint 2d-1 (May 8–14):
@@ -427,7 +427,7 @@ Sprint 2d-2 (May 15–21):
 - UI Polish Pass — all 6 modules, Ant Design only (~$20)
 - User Manual Draft Start — per USER_ADMIN_MANUALS_SPEC.md (~$15)
 - Reg Intel: Budget Enforcement — Budget Confirmation JSON in CI (~$10)
-→ Gate: Bobby BIG approval May 17
+→ Gate: the Team Lead approval May 17
 
 ### Phase 2 Total: ~$380
 ### Ref: GxP-Planner/REGULATORY_INTELLIGENCE_MODULE.md, gxp-system-map.html
@@ -442,26 +442,26 @@ Sprint 1a-1 (Mar 12–15):
 - 13-table schema — facilities, validations, risks, documents, change_requests, training_records, audit_logs + support tables (~$15)
 - RLS policies — all 4 per table (SELECT, INSERT WITH CHECK, UPDATE, DELETE). Manual test in SQL Editor required before any UI (~$20)
 - Auth flow + role-based routing — window.location.href on all redirects (NOT router.push) (~$10)
-→ Mid-gate: Bobby BIG Mar 15
+→ Mid-gate: the Team Lead Mar 15
 
 Sprint 1a-2 (Mar 16–19):
 - 21 CFR Part 11 audit triggers — immutable audit_log on all state-changing ops, who/what/when/before/after (~$15)
 - Section 37: 3-agent handoff packet format (~$5)
 - Section 38: Blocker escalation path (<5 min detect, <45 min resolution) (~$5)
-→ Gate: Bobby BIG Mar 19
+→ Gate: the Team Lead Mar 19
 
 ### Phase 1b — Facility + Validation Engines (Mar 20 – Apr 2, ~$80)
 Sprint 1b-1 (Mar 20–26):
 - Validation Lifecycle UI — URS→FRS→DS→PQ→VSR chain, traceability matrix, protocol sign-off (~$25)
 - Document Control UI — controlled docs, versioning, e-signatures, approval workflow (~$20)
 - Change Control UI — requests, impact assessment, QA approval routing, closure (~$20)
-→ Gate: Bobby BIG Mar 22
+→ Gate: the Team Lead Mar 22
 
 Sprint 1b-2 (Mar 27 – Apr 2):
 - Training Records UI — SOP training assignments, assessments, completion tracking (~$20)
 - Audit Log Viewer — immutable, exportable, Part 11, who/what/when/before/after (~$15)
 - CI Baseline + Test Suite Start — GitHub Actions, TypeScript 0-errors gate (~$10)
-→ Gate: Bobby BIG Mar 29
+→ Gate: the Team Lead Mar 29
 
 ### Phase 1 Total: ~$130
 ### Ref: gxp-system-map.html (Phase 1a/1b tabs in Phase 2 Sprints section)

@@ -642,7 +642,7 @@ Read through, ask questions, make sure we're aligned on what we're building.
 
 ## CONTACT
 
-**Product Questions:** [Bobby BIG] (berggma1@gmail.com)  
+**Product Questions:** [the Team Lead] (berggma1@gmail.com)  
 **GitHub:** https://github.com/dataddgroup-lab/gxp-planner  
 **Documentation:** All files committed and locked  
 

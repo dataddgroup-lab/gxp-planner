@@ -7,7 +7,7 @@
 
 ## CRITICAL DECISIONS (LOCKED TODAY)
 
-### 1. Compliance Expert: Bobby BIG
+### 1. Compliance Expert: the Team Lead
 - 30 years GxP lab + audit + system experience
 - Validates every phase (URS/FRS/equipment/layout/risk/Type V DMF)
 - Built-in from Week 1
@@ -25,7 +25,7 @@
 - Supabase project URL
 - Supabase anon key
 - Supabase service role key
-- QA reviewer: Bobby BIG
+- QA reviewer: the Team Lead
 
 ### 4. PreCheck Positioning (LOCKED)
 - Target: New U.S. facilities in FDA PreCheck Pilot Program

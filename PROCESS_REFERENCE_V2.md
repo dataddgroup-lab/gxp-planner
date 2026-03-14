@@ -1,5 +1,5 @@
 # GxP Facility Planner — Master Process Reference V2
-_Source: Bobby BIG | Updated: 2026-03-13_
+_Source: the Team Lead | Updated: 2026-03-13_
 _Supersedes: PROCESS_REFERENCE.md (V1 becomes Phase 1 subset of this document)_
 
 ---

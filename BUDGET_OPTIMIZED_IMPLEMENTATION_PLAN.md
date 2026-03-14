@@ -92,7 +92,7 @@ Week -1 (7 days before launch):
 Launch Day:
   13. Verify all Phase 2 items active
   14. Run full reliability checklist
-  15. Bobby BIG GxP sign-off
+  15. the Team Lead GxP sign-off
 ```
 
 ---

@@ -238,7 +238,7 @@ You're building **Universal GxP Facility Planner** — a self-validating SaaS fo
 - **Validation Lead:** Questions on URS/FRS? Ask them.
 - **QA Lead:** Questions on tests/coverage? Ask them.
 - **Documentation Lead:** Questions on manuals/screenshots? Ask them.
-- **Bobby BIG:** Final decisions on blockers/budget/scope/timeline. Escalate to them.
+- **the Team Lead:** Final decisions on blockers/budget/scope/timeline. Escalate to them.
 
 ---
 

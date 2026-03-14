@@ -4,7 +4,7 @@
 **Date:** March 11, 2026  
 **Time:** 9:31 AM MDT  
 **Decision:** FULL STACK BUILD (Build + Validation + QA Infrastructure)  
-**Owner:** Bobby BIG  
+**Owner:** the Team Lead  
 **Status:** ✅ LOCKED — READY FOR EXECUTION MONDAY
 
 ---
@@ -110,7 +110,7 @@
 **Prerequisites (due Friday, March 10 EOD):**
 
 ```
-Bobby BIG sends:
+the Team Lead sends:
 ✅ Supabase project URL
 ✅ Supabase anon key
 ✅ Supabase service role key
@@ -234,7 +234,7 @@ That's the moat.
 
 ## Final Approval Checklist
 
-- ✅ Budget $2,300 locked in (Bobby BIG, 9:31 AM MDT)
+- ✅ Budget $2,300 locked in (the Team Lead, 9:31 AM MDT)
 - ✅ Scope defined (design + validation + full test suite)
 - ✅ Team assembled (15 agents with specific roles)
 - ✅ Timeline confirmed (12–14 weeks, parallel execution)
@@ -295,4 +295,4 @@ That's your advantage.
 
 **Decision locked. Ready to launch Monday. Let's build something legendary.**
 
-**Bobby BIG, March 11, 2026, 9:31 AM MDT — APPROVED ✅**
+**the Team Lead, March 11, 2026, 9:31 AM MDT — APPROVED ✅**

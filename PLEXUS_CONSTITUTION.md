@@ -1,5 +1,5 @@
 # PLEXUS_CONSTITUTION.md — Phase 1 Engineering Brief
-_Status: LOCKED | Owner: Bobby BIG | Date: 2026-03-13_
+_Status: LOCKED | Owner: the Team Lead | Date: 2026-03-13_
 _This is the single source of truth for PLEXUS mesh engineering execution._
 
 ---
@@ -170,7 +170,7 @@ Every AI output and API call must pass ALL checks:
 - [ ] One successful restore drill completed and verified
 - [ ] Walkthrough renders professional assets and passes human UX review
 - [ ] Human approval flow for onboarding validated
-- [ ] Bobby BIG sign-off on all acceptance criteria
+- [ ] the Team Lead sign-off on all acceptance criteria
 
 ---
 
@@ -234,7 +234,7 @@ Run Zero Exposure tests. Demonstrate rollback. If this works, the constitutional
 ---
 
 _This document is the single source of truth for Phase 1 engineering execution._
-_Any deviation from the 4 System Laws requires Bobby BIG approval and a versioned change request._
+_Any deviation from the 4 System Laws requires the Team Lead approval and a versioned change request._
 _Last updated: 2026-03-13_
 
 ---

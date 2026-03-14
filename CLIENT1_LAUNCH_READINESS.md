@@ -4,7 +4,7 @@ _GxP Facility Planner — Go/No-Go Checklist Before First Paying Customer_
 ---
 
 ## Purpose
-Final gate before Client 1 onboards. Every item must be checked and signed off by Bobby BIG. No exceptions. GxP clients can walk away — and sue — if the platform fails during a regulated facility buildout.
+Final gate before Client 1 onboards. Every item must be checked and signed off by the Team Lead. No exceptions. GxP clients can walk away — and sue — if the platform fails during a regulated facility buildout.
 
 ---
 
@@ -16,7 +16,7 @@ Final gate before Client 1 onboards. Every item must be checked and signed off b
 - [ ] Redis HA running with persistence
 - [ ] Secrets in Doppler (zero .env in production)
 - [ ] Monitoring live (CPU, memory, DB lag, error rate)
-- [ ] Alerts wired to Bobby BIG (SMS or email)
+- [ ] Alerts wired to the Team Lead (SMS or email)
 - [ ] Logging enabled (access + error + auth logs, 5-year retention path)
 - [ ] Rollback procedure tested end-to-end
 - [ ] Disaster recovery drill completed (simulated DB failure + restore)
@@ -33,7 +33,7 @@ Final gate before Client 1 onboards. Every item must be checked and signed off b
 - [ ] ALCOA+ data integrity principles verified (Attributable, Legible, Contemporaneous, Original, Accurate, Complete, Consistent, Enduring, Available)
 - [ ] Tenant data isolation confirmed (no cross-tenant data access possible)
 - [ ] Document version control working (every document revision tracked)
-- [ ] Bobby BIG GxP validation sign-off completed on all 6 modules
+- [ ] the Team Lead GxP validation sign-off completed on all 6 modules
 
 **Sign-off:** _____________ Date: _____________
 
@@ -127,7 +127,7 @@ Final gate before Client 1 onboards. Every item must be checked and signed off b
 ☐ **GO — Client 1 onboards**
 ☐ **NO-GO — Reason:** _________________________________
 
-**Bobby BIG signature:** _________________________ Date: _____________
+**the Team Lead signature:** _________________________ Date: _____________
 
 ---
 _This document is the permanent record that GxP Facility Planner launched on a safe, validated, production-ready system suitable for regulated industry clients._

@@ -3,7 +3,7 @@
 
 **Status:** LOCKED IN  
 **Decision Date:** March 11, 2026, 9:39 AM MDT  
-**Owner:** Bobby BIG  
+**Owner:** the Team Lead  
 **Critical Difference from RanchOS:** All documentation created IN PARALLEL with build, not after.
 
 ---
@@ -240,7 +240,7 @@ SIGN-OFF
 Validation Lead: [Name]
 QA Lead: [Name]
 Date: [Date]
-Approved by: Bobby BIG
+Approved by: the Team Lead
 
 Recommendation: [Proceed / Request changes / Hold]
 

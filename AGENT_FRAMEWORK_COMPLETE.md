@@ -278,7 +278,7 @@ phase: Phase 1a
 created: 2026-03-12 09:15 MDT
 updated: 2026-03-13 14:30 MDT
 author: Validation Lead
-approver: Bobby BIG
+approver: the Team Lead
 status: APPROVED
 linked_commit: a1b2c3d
 linked_tests: TEST-SUITE-v1.0
@@ -476,7 +476,7 @@ Rationale: [if provided]
 ---
 
 ## SECTION 43 — FDA CSA + AI CREDIBILITY FRAMEWORK (Mandatory)
-_Added: 2026-03-13. Bobby BIG directive. Cannot be overlooked or forgotten._
+_Added: 2026-03-13. the Team Lead directive. Cannot be overlooked or forgotten._
 
 ### 43A. Computer Software Assurance (CSA) — Current FDA Position
 
@@ -507,21 +507,21 @@ _Added: 2026-03-13. Bobby BIG directive. Cannot be overlooked or forgotten._
 | Human review gate | All High/Moderate AI outputs require: "This requires human review before regulatory action" |
 
 **Risk tiers and required effort:**
-- **High** (AI drives a regulatory decision, e.g., auto-generated validation protocol, batch release logic) → Full credibility assessment. Do not ship without Bobby BIG review.
+- **High** (AI drives a regulatory decision, e.g., auto-generated validation protocol, batch release logic) → Full credibility assessment. Do not ship without the Team Lead review.
 - **Moderate** (AI informs human decision, e.g., readiness forecast, deviation analysis) → Targeted assessment. Uncertainty must be quantified.
 - **Low** (AI assists workflow, human always decides, e.g., smart form suggestions) → Lightweight assessment. COU documentation minimum.
 
 **GxP Planner AI features — pre-classified:**
 | Feature | Risk Tier | Requirement |
 |---------|-----------|-------------|
-| AI-generated validation protocols | High | Full credibility assessment + Bobby BIG sign-off |
+| AI-generated validation protocols | High | Full credibility assessment + the Team Lead sign-off |
 | Readiness forecasting engine | High | Confidence intervals required on all predictions |
 | Role-Based Tag-Along Assistant | Moderate | COU documented, performance evaluated per role |
 | Deviation root cause suggestions | Moderate | Must display uncertainty; human must confirm |
 | Smart form auto-complete | Low | COU documented; lightweight assessment |
 | Workflow step suggestions | Low | COU documented; lightweight assessment |
 
-**Non-negotiable agent rule:** No AI feature ships without its Credibility Assessment record committed to the repo and reviewed by Bobby BIG.
+**Non-negotiable agent rule:** No AI feature ships without its Credibility Assessment record committed to the repo and reviewed by the Team Lead.
 
 **Reference:** FDA Draft Guidance "Artificial Intelligence in Drug Manufacturing" (Jan 2025)
 

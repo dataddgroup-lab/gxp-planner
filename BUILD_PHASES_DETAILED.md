@@ -5,7 +5,7 @@
 **Budget:** $2,300  
 **Team:** 15 agents (parallel execution)  
 **Timeline:** March 12 — April 23, 2026  
-**Owner:** Bobby BIG  
+**Owner:** the Team Lead  
 
 ---
 

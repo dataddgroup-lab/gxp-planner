@@ -1,6 +1,6 @@
 # AUDITOR_GUIDE.md — GxP Facility Planner
 _For: Internal auditors, QA leads, compliance reviewers, FDA inspection preparation_
-_Last updated: 2026-03-13 | Owner: Bobby BIG_
+_Last updated: 2026-03-13 | Owner: the Team Lead_
 
 ---
 
@@ -18,7 +18,7 @@ Every audit starts here. These laws are immutable and enforced synchronously at 
 The Process Spine (roles, tasks, SOPs, documents, instruments, labs, permits, regulations, allowed transitions, required evidence, lifecycle states) is the sole source of regulatory truth. The mesh reads it; it cannot modify it. Any modification to the Spine requires:
 - A versioned Change Request
 - Human governance review
-- Bobby BIG sign-off
+- the Team Lead sign-off
 - Audit log entry with full provenance
 
 **Audit check:** Pull the Spine version history. Every change must have a corresponding change request with approval record.
@@ -134,7 +134,7 @@ Run on every API call and AI output. All 9 must pass or the action is rejected:
 
 ## Pre-Client-1 Audit Gates
 
-Before any client onboards, the following must be verified and signed off by Bobby BIG:
+Before any client onboards, the following must be verified and signed off by the Team Lead:
 
 | Gate | Verification Method | Status |
 |------|---------------------|--------|
@@ -147,7 +147,7 @@ Before any client onboards, the following must be verified and signed off by Bob
 | Restore drill completed + verified | Drill report with checksum | Pending |
 | Walkthrough human-approved | UX review sign-off | Pending |
 | Human approval flow for onboarding validated | End-to-end test | Pending |
-| Bobby BIG final sign-off | Explicit approval in writing | Pending |
+| the Team Lead final sign-off | Explicit approval in writing | Pending |
 
 ---
 
@@ -159,7 +159,7 @@ Any change to the Process Spine follows this workflow:
 2. Impact assessment: which tenants, which steps, which regulations affected
 3. QA Lead review and sign-off
 4. Regulatory Specialist review and sign-off
-5. Bobby BIG final approval
+5. the Team Lead final approval
 6. Spine version incremented
 7. All affected tenants notified (in-app)
 8. Change logged to audit store with full provenance
@@ -211,5 +211,5 @@ Any change to the Process Spine follows this workflow:
 ---
 
 _This document is the auditor's starting point. Every claim in this document is backed by a referenced artifact._
-_Questions or gaps → Bobby BIG (dataddgroup@gmail.com)_
+_Questions or gaps → the Team Lead (dataddgroup@gmail.com)_
 _Last updated: 2026-03-13_

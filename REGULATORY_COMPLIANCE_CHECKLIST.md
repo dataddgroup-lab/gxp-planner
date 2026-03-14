@@ -4,7 +4,7 @@
 **Document Created:** March 11, 2026  
 **Standard:** ALL phases will be validated against current regulations  
 **Methodology:** Expert team will CONSULT regulations during development (not post-hoc)  
-**Owner:** Bobby BIG (final approval on regulatory alignment)
+**Owner:** the Team Lead (final approval on regulatory alignment)
 
 ---
 

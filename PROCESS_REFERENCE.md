@@ -1,5 +1,5 @@
 # GxP Facility Planner — Master Process Reference
-_Source: Bobby BIG (30 years GxP lab, audit, systems) | Stored: 2026-03-13_
+_Source: the Team Lead (30 years GxP lab, audit, systems) | Stored: 2026-03-13_
 _This document is LAW for the build. Every feature, every screen, every field must serve this process._
 
 ---

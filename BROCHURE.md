@@ -279,7 +279,7 @@ Building a GxP-compliant facility is a nightmare:
 ## GO-TO-MARKET STRATEGY
 
 ### Phase 1: Bootstrap (Months 1–3)
-- **Bobby BIG's network** (your current consulting firm + contacts)
+- **the Team Lead's network** (your current consulting firm + contacts)
 - Target: 2–3 pilot customers (facilities actively in buildout)
 - Model: Heavily discounted ($30K–$50K total) + testimonials
 - Goal: Proof of concept + case studies

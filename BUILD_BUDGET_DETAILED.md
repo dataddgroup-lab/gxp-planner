@@ -4,7 +4,7 @@
 **Date Created:** March 11, 2026  
 **Budget:** $300 (HARD CAP)  
 **Target:** Polished MVP in 7–8 weeks  
-**Owner:** Bobby BIG (approval required at each gate)
+**Owner:** the Team Lead (approval required at each gate)
 
 ---
 

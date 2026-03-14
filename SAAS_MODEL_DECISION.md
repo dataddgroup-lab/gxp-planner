@@ -3,7 +3,7 @@
 
 **Date:** March 11, 2026  
 **Decision:** PURE SaaS (no on-prem, no hybrid)  
-**Owner:** Bobby BIG  
+**Owner:** the Team Lead  
 **Implementation:** This guides ALL build phases and architecture decisions
 
 ---
@@ -402,7 +402,7 @@
 
 ## Approval
 
-**Bobby BIG approves SaaS model:** ✅ YES (confirmed March 11, 2026, 8:14 AM MDT)
+**the Team Lead approves SaaS model:** ✅ YES (confirmed March 11, 2026, 8:14 AM MDT)
 
 **This decision is locked for all build phases.**
 

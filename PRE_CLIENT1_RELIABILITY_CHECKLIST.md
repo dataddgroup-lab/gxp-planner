@@ -48,7 +48,7 @@ _GxP Facility Planner — Must be complete before first paying customer_
 - [ ] Latency alert: p99 >2s
 - [ ] Replication lag alert: >10s
 - [ ] Backup failure alert: any missed backup
-- [ ] All alerts routed to Bobby BIG (SMS or email)
+- [ ] All alerts routed to the Team Lead (SMS or email)
 
 ## Logging (GxP-Critical)
 - [ ] Access logs enabled — minimum 5-year retention (21 CFR Part 11)
@@ -69,11 +69,11 @@ _GxP Facility Planner — Must be complete before first paying customer_
 - [ ] Audit trail covers all GxP records (who, what, when, why)
 - [ ] Data integrity controls validated (ALCOA+: Attributable, Legible, Contemporaneous, Original, Accurate)
 - [ ] Tenant data isolation confirmed via RLS policies
-- [ ] Bobby BIG GxP validation sign-off completed
+- [ ] the Team Lead GxP validation sign-off completed
 
 ## Verification
 - [ ] Full disaster recovery drill completed (simulate DB failure → restore)
-- [ ] All checklist items signed off by Bobby BIG
+- [ ] All checklist items signed off by the Team Lead
 - [ ] Sign-off date recorded: _______________
 
 ---

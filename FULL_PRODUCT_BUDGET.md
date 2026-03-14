@@ -3,7 +3,7 @@
 
 **Date:** March 11, 2026  
 **Scope:** Everything (all 11 engines + integrations + mobile + analytics + white-label)  
-**Owner:** Bobby BIG (final approval)
+**Owner:** the Team Lead (final approval)
 
 ---
 

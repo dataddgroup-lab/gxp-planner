@@ -260,7 +260,7 @@ a{color:#58a6ff}
         <li>First customer demo: June 18, 2026</li>
         <li>First revenue target: July 1, 2026</li>
         <li>Total build budget: $2,300 hard cap</li>
-        <li>Domain expert validation: Bobby BIG (30 yrs GxP experience) at every phase gate</li>
+        <li>Domain expert validation: the Team Lead (30 yrs GxP experience) at every phase gate</li>
       </ul>
     </div>
   </div>
@@ -323,7 +323,7 @@ a{color:#58a6ff}
 <div class="sec" id="build">
   <div class="sh">
     <h2>Build Plan — All Phases</h2>
-    <p>14 weeks · 8 sub-phases · Weekly Bobby BIG approval gates · $2,300 hard budget cap · June 11, 2026 MVP delivery. Click any phase to expand the sprint detail.</p>
+    <p>14 weeks · 8 sub-phases · Weekly the Team Lead approval gates · $2,300 hard budget cap · June 11, 2026 MVP delivery. Click any phase to expand the sprint detail.</p>
   </div>
   <div class="bp-phases" id="bp-el"></div>
   <div class="dl">Full Budget Summary</div>
@@ -337,7 +337,7 @@ a{color:#58a6ff}
 <div class="sec" id="risks">
   <div class="sh">
     <h2>Risks &amp; Mitigation</h2>
-    <p>Known risks across technical, regulatory, market, and team dimensions — each with concrete mitigation strategies. Reviewed at every weekly gate with Bobby BIG.</p>
+    <p>Known risks across technical, regulatory, market, and team dimensions — each with concrete mitigation strategies. Reviewed at every weekly gate with the Team Lead.</p>
   </div>
   <div class="risk-grid" id="risks-el"></div>
 </div>
@@ -372,7 +372,7 @@ const DIFFS=[
   {title:"PLEXUS AI Mesh",body:"Not a chatbot bolted on. PLEXUS is woven throughout the product — it reasons across validation, risk, changes, and deviations using the Process Spine as its sole source of truth."},
   {title:"Regulatory Intelligence",body:"Automated monitoring of FDA, ICH, OSHA, ANSI, EMA guidance changes — tagged, scored, and routed for human review before anything touches the product. Always current."},
   {title:"Inspection-Ready by Design",body:"Every step generates the exact documentation an FDA inspector will ask for. The compliance dashboard shows real-time readiness. No scrambling when the auditor arrives."},
-  {title:"Built by a GxP Expert",body:"Bobby BIG — 30 years of GxP laboratory, audit, and systems experience — validates every phase of the build. This isn't a tech team guessing at pharma. It's pharma building tech."},
+  {title:"Built by a GxP Expert",body:"the Team Lead — 30 years of GxP laboratory, audit, and systems experience — validates every phase of the build. This isn't a tech team guessing at pharma. It's pharma building tech."},
 ];
 
 const TIMELINE=[
@@ -610,20 +610,20 @@ const BUILD=[
     {name:"Sprint 4 — Jun 5–11",feats:[
       {n:"847 Tests — All Passing",d:"Full test suite must be green before deployment. 612 unit, 145 integration, 34 security, 34 compliance, 12 performance, 78 UI, 12 accessibility.",c:25},
       {n:"Production Deployment",d:"Vercel production deploy. Supabase production project. DNS, SSL, monitoring, alerting all confirmed.",c:20},
-      {n:"Bobby BIG Final Sign-Off",d:"FDA compliance review of all modules, documentation, and audit trails by Bobby BIG (30 yrs GxP). No release without this.",c:15},
+      {n:"the Team Lead Final Sign-Off",d:"FDA compliance review of all modules, documentation, and audit trails by the Team Lead (30 yrs GxP). No release without this.",c:15},
       {n:"First Customer Demo Prep",d:"Demo environment, sample facility data, pitch materials, demo script. Ready for June 18 first customer demo.",c:20},
     ]},
    ]},
 ];
 
 const RISKS=[
-  {sev:"h",title:"Timeline Risk — 14 Weeks Is Aggressive",body:"Full MVP in 14 weeks covers 6 modules, 847 tests, user manuals, compliance dashboard, and security hardening. Any phase slipping cascades.",mit:["Weekly Bobby BIG approval gates — scope cut before deadline slips","RESUME.md protocol: hard stop at 90% budget, commit everything, write resume doc","Phases 3-4 are integration and polish — can absorb 1-week slip if needed","Most risky path: Validation Lifecycle UI (most complex). Starts Week 3."]},
-  {sev:"h",title:"Regulatory Accuracy Risk",body:"Incorrect regulatory interpretation built into the system could expose customers to FDA findings — and expose DDDG to serious liability.",mit:["Bobby BIG (30 yrs GxP) validates every phase personally","PLEXUS mesh fail-closed: ambiguous mappings blocked, no guessing","Human review required on ALL regulatory changes before spine entry","Legal and QA review scheduled before first production customer"]},
+  {sev:"h",title:"Timeline Risk — 14 Weeks Is Aggressive",body:"Full MVP in 14 weeks covers 6 modules, 847 tests, user manuals, compliance dashboard, and security hardening. Any phase slipping cascades.",mit:["Weekly the Team Lead approval gates — scope cut before deadline slips","RESUME.md protocol: hard stop at 90% budget, commit everything, write resume doc","Phases 3-4 are integration and polish — can absorb 1-week slip if needed","Most risky path: Validation Lifecycle UI (most complex). Starts Week 3."]},
+  {sev:"h",title:"Regulatory Accuracy Risk",body:"Incorrect regulatory interpretation built into the system could expose customers to FDA findings — and expose DDDG to serious liability.",mit:["the Team Lead (30 yrs GxP) validates every phase personally","PLEXUS mesh fail-closed: ambiguous mappings blocked, no guessing","Human review required on ALL regulatory changes before spine entry","Legal and QA review scheduled before first production customer"]},
   {sev:"h",title:"Budget Overrun Risk",body:"$2,300 hard cap. Going negative breaks OpenClaw CLI auth and forces reinstall (happened 2026-03-10). Every dollar must be approved.",mit:["Explicit per-task budget approval before any sub-agent spawn","Hard stop at 90% of any stated budget — write RESUME.md, do nothing else","Weekly cost tracking at each phase gate","Token efficiency: batch writes, avoid rereads, use local files over API calls"]},
   {sev:"m",title:"Market Adoption Risk — Pharma Buys Slowly",body:"Enterprise pharma sales cycles are 6–18 months. Even a great product may not generate July 1 revenue without a warm pipeline.",mit:["Bobby's 30yr network — triple Creek Ranch and pharma consulting contacts","PreCheck DMF positioning: immediate, tangible value (not abstract compliance)","Type V DMF generation in MVP — customers see ROI on day one","Target early adopters: small biotech and CMOs (shorter sales cycles than big pharma)"]},
   {sev:"m",title:"Data Security & Privacy Risk",body:"Regulated pharmaceutical data (batch records, validation data, clinical connections) in a SaaS environment creates serious breach exposure.",mit:["PLEXUS absolute non-disclosure — tenant data cannot leave tenant boundary","Zero-Exposure test suite in CI — blocks any artifact with tenant data","SOC 2 Type II roadmap (post-MVP, funded by revenue)","GDPR + HIPAA-adjacent patterns built in from Phase 1 schema design"]},
-  {sev:"m",title:"Scope Creep Risk",body:"Early customers will ask for integrations, custom fields, regulatory text libraries, and features outside MVP scope.",mit:["PRODUCT_MANAGER.md strict rules: no feature without a Definition of Done mapping","All integrations explicitly OUT of MVP (Wave 2+ only, funded by revenue)","Bobby BIG is the final scope decision — not customer requests","Governance dashboard gives visibility into what's planned vs. what's creeping"]},
-  {sev:"m",title:"Single Domain Expert Dependency",body:"Bobby BIG is the only FDA/GxP domain validator on the team. His availability is critical for every weekly gate.",mit:["Phase gates are 1hr weekly reviews — minimal time commitment","All regulatory decisions documented in PLEXUS_CONSTITUTION.md and audit log","Consultant workspace built in Phase 2d — enables external validators as backup","Bobby's 30yr track record means decisions are fast and confident"]},
+  {sev:"m",title:"Scope Creep Risk",body:"Early customers will ask for integrations, custom fields, regulatory text libraries, and features outside MVP scope.",mit:["PRODUCT_MANAGER.md strict rules: no feature without a Definition of Done mapping","All integrations explicitly OUT of MVP (Wave 2+ only, funded by revenue)","the Team Lead is the final scope decision — not customer requests","Governance dashboard gives visibility into what's planned vs. what's creeping"]},
+  {sev:"m",title:"Single Domain Expert Dependency",body:"the Team Lead is the only FDA/GxP domain validator on the team. His availability is critical for every weekly gate.",mit:["Phase gates are 1hr weekly reviews — minimal time commitment","All regulatory decisions documented in PLEXUS_CONSTITUTION.md and audit log","Consultant workspace built in Phase 2d — enables external validators as backup","Bobby's 30yr track record means decisions are fast and confident"]},
   {sev:"l",title:"Competition Risk",body:"Established GRC, eQMS, and validation vendors (Veeva, MasterControl, Sparta Systems) have market share and enterprise relationships.",mit:["Our moat: end-to-end from groundbreaking to inspection (they don't do this)","PreCheck DMF one-click generation — no competitor offers this","PLEXUS AI mesh reasoning across the full facility — not a bolted-on chatbot","Price point 5–10x lower than enterprise incumbents for comparable coverage","Speed: we ship in 14 weeks; they took 10+ years to build what we'll have"]},
 ];
 
@@ -735,7 +735,7 @@ function renderBuild(){
             </div>
           </div>
         `).join("")}
-        <div class="gate-bar"><span>✓ Bobby BIG approval gate — end of phase before advancing</span></div>
+        <div class="gate-bar"><span>✓ the Team Lead approval gate — end of phase before advancing</span></div>
       </div>
     </div>
   `).join("");

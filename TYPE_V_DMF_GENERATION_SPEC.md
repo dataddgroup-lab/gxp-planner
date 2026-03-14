@@ -2,7 +2,7 @@
 **FDA Drug Master File (DMF) Type V: Facility Information**
 
 **Status:** MVP Feature (Phase 2d, Weeks 10–11)  
-**Owner:** Build Team (with Bobby BIG validation)  
+**Owner:** Build Team (with the Team Lead validation)  
 **Deliverable:** Phase 2d Friday Gate (Week 11)
 
 ---
@@ -275,7 +275,7 @@ VII.1 Significant Changes to Facility or Equipment
    - Date: [2026-02-15]
    - Reason: [Improved sensitivity, vendor support extended]
    - Impact Assessment: [Requires IQ/OQ validation]
-   - Approval: [Bobby BIG, Regulatory]
+   - Approval: [the Team Lead, Regulatory]
    - Status: [Approved, IQ/OQ in progress]
    
 VII.2 Change Control Process

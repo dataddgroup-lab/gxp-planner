@@ -397,7 +397,7 @@ Test plan executed:
   - Total: 50 tests, all passing
   
 Approvals:
-  - Bobby BIG (founder/compliance expert): Approved 2026-03-12 16:00 UTC
+  - the Team Lead (founder/compliance expert): Approved 2026-03-12 16:00 UTC
   - QA Lead: Approved 2026-03-12 15:45 UTC
   - Product Lead: Approved 2026-03-12 15:50 UTC
 

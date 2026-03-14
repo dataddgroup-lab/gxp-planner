@@ -1,5 +1,5 @@
 # GxP Facility Planner — End-to-End Build Plan
-_Created: 2026-03-13 | Approved by Bobby BIG_
+_Created: 2026-03-13 | Approved by the Team Lead_
 
 ---
 
@@ -147,13 +147,13 @@ Well within the $2,300 budget. Buffer: $410–860 for polish, bug fixes, and Bob
 
 This is the right way to build this product.
 
-The alternative (module-by-module) produces technically complete software that nobody knows how to use. End-to-end simulation produces software that **feels inevitable** — like it was designed by someone who has actually done this 100 times. Bobby BIG has. That's the unfair advantage.
+The alternative (module-by-module) produces technically complete software that nobody knows how to use. End-to-end simulation produces software that **feels inevitable** — like it was designed by someone who has actually done this 100 times. the Team Lead has. That's the unfair advantage.
 
 The risk is scope creep at each phase gate. Bobby's 30 years of experience will surface "we also need X" at every step. The discipline is: **does a customer need X before they can proceed to the next phase?** If yes, build it. If no, log it for a later phase.
 
 One addition I'd recommend: **a real reference facility.** Name it, give it a product type, a regulatory pathway, a timeline. Every feature we build gets validated against that reference. "Would this work for BioAlpha's sterile fill-finish facility?" is a better question than "is this technically correct?"
 
-Ready to start whenever Bobby BIG gives the go.
+Ready to start whenever the Team Lead gives the go.
 
 ---
 

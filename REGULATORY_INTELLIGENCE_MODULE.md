@@ -1,5 +1,5 @@
 # REGULATORY_INTELLIGENCE_MODULE.md
-_Status: SCOPED | Owner: Bobby BIG (Marcus) | Added: 2026-03-14_
+_Status: SCOPED | Owner: the Team Lead (Marcus) | Added: 2026-03-14_
 _Phase: 2a (Apr 3–16) | Integration: PLEXUS Mesh via Process Spine Queue_
 
 ---
@@ -118,7 +118,7 @@ test stage gates (block on failure):
 
 | Role | Responsibility |
 |---|---|
-| Regulatory Owner (Bobby BIG) | Clause interpretation, severity review |
+| Regulatory Owner (the Team Lead) | Clause interpretation, severity review |
 | Governance Owner | Final CR approval, spine queue sign-off |
 | Release Manager | Packaging, canary, rollback execution |
 | QA Owner | Zero-Exposure tests, mapping regression |
@@ -131,4 +131,4 @@ test stage gates (block on failure):
 |---|---|---|
 | 2a-1 | Apr 3–9 | 8 DB tables + RLS, fetch_public_url, regulatory_domain_tagger |
 | 2a-2 | Apr 10–16 | impact_scorer, consultant_router, update_checker, check_all_updates workflow, 6hr cron |
-| Gate | Apr 16 | Bobby BIG sign-off before Phase 2b |
+| Gate | Apr 16 | the Team Lead sign-off before Phase 2b |

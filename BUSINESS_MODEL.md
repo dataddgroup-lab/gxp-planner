@@ -105,7 +105,7 @@ CAC (if hired via commission sales): $0 for this customer
 
 ### Assumptions
 - MVP build cost: $200 (via this framework using Ollama + Haiku + Sonnet)
-- Team: 1 founder (Bobby BIG) + 1 part-time engineer (contractor)
+- Team: 1 founder (the Team Lead) + 1 part-time engineer (contractor)
 - Go-to-market: Self + existing network (consulting firm + contacts)
 - Sales model: Direct + referral commission (no dedicated sales hire yet)
 - Customer acquisition: 2–3 in months 1–2 (bootstrap), 5–7 in months 6–12 (referral channel)
@@ -142,7 +142,7 @@ By December 31, Year 1:
 - Hosting (Supabase, Vercel): $500/month = $6,000
 - Third-party APIs (Stripe future, email, etc.): $500/month = $6,000
 - Part-time engineer (contractor): $2,000/month = $24,000
-- Bobby BIG salary (modest): $60,000/year (or equity-only)
+- the Team Lead salary (modest): $60,000/year (or equity-only)
 
 **Total OpEx: ~$96,000**
 
@@ -166,7 +166,7 @@ By December 31, Year 1:
 - CAC: $70,000
 - **Net Profit: ~$334,000 (51% margin)**
 
-**Note:** This assumes Bobby BIG takes minimal salary (or equity). If he takes $120K salary, profit is $214K. Still very healthy.
+**Note:** This assumes the Team Lead takes minimal salary (or equity). If he takes $120K salary, profit is $214K. Still very healthy.
 
 ---
 
@@ -176,7 +176,7 @@ By December 31, Year 1:
 **Goal:** 2–3 pilot customers + proof of concept
 
 **Activities:**
-- Bobby BIG + consulting firm that knows him deploy to 1 customer
+- the Team Lead + consulting firm that knows him deploy to 1 customer
 - Heavily discounted ($20K–$30K vs. $65K full price)
 - Get testimonial + case study
 - Refine product based on feedback
@@ -192,7 +192,7 @@ By December 31, Year 1:
 **Goal:** 5–10 consulting firms on white-label program
 
 **Activities:**
-- Bobby BIG recruits consulting firms (GxP/pharma/biotech focus)
+- the Team Lead recruits consulting firms (GxP/pharma/biotech focus)
 - Each firm commits to 2–3 customer launches
 - Commission structure: 20–30% of first-year SaaS (no referral fee)
 - Joint go-to-market (webinars, case studies, sales collateral)
@@ -434,7 +434,7 @@ By December 31, Year 1:
 
 ---
 
-## Next Steps (If Bobby BIG Approves)
+## Next Steps (If the Team Lead Approves)
 
 1. **Week 1:** Greenlight $200 MVP build budget + assemble expert team
 2. **Week 2–4:** Build MVP (Phase 1: Core Engines)

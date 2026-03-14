@@ -292,7 +292,7 @@ One integrated platform for design + validation. Equipment specs → Layout desi
 - Validation: Starts week 4
 
 **CONTACT**
-[Bobby BIG contact info]
+[the Team Lead contact info]
 
 ---
 
